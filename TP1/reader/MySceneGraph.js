@@ -185,10 +185,16 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 	if (views == null  || views.length==0){
 		return "views element is missing.";
 	}
+
+	
 	
 	var view = views[0];
 	this.default = this.reader.getString(view, 'default');
 
+	//TESTE____________________________________________
+	var view_teste = new Views();
+	view_teste.default = this.default;
+	//TESTE............................................
 
 	var nnodes = views[0].children.length;
 	for(var i = 0; i <nnodes ; i++)
@@ -205,6 +211,8 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 		console.log(this.id + "  " + this.near+ "  " + this.far + "  " + this.angle + "\n");
 
 
+
+
 		from = perspective.children[0];
 		this.xF = this.reader.getFloat(from, 'x');
 		this.yF = this.reader.getFloat(from, 'y');
@@ -217,6 +225,29 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 
 		console.log("From: "+this.xF + "  " + this.yF+ "  " + this.zF + "\nTo: " + this.xT + "  " + this.yT + "  " + this.zT + "  ");
 
+		
+		//TESTE____________________________________________
+		console.log("\n\n\n ..........Teste.........");
+
+		view_teste.addPerspective_Info(this.id, this.near, this.far, this.angle);
+		view_teste.addPerspective_From(this.xF,this.yF,this.zF);
+		view_teste.addPerspective_To(this.xT,this.yT,this.zT)
+
+		console.log(view_teste.perspectives_list[0]);
+		console.log(view_teste.perspectives_list[1]);
+		console.log(view_teste.perspectives_list[2]);
+		console.log(view_teste.perspectives_list[3]);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[4]);
+		console.log(view_teste.perspectives_list[5]);
+		console.log(view_teste.perspectives_list[6]);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[7]);
+		console.log(view_teste.perspectives_list[8]);
+		console.log(view_teste.perspectives_list[9]);
+		
+		console.log("\n\n----fim fim fim---\n\n\n\n");
+		//TESTE............................................
 
 	}
 };
