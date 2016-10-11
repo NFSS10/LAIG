@@ -233,8 +233,21 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 		view_teste.addPerspective_From(this.xF,this.yF,this.zF);
 		view_teste.addPerspective_To(this.xT,this.yT,this.zT)
 
-		console.log(view_teste.perspectives_list[0]);
-		console.log(view_teste.perspectives_list[1]);
+		console.log(view_teste.perspectives_list[0].id);
+		console.log(view_teste.perspectives_list[0].near);
+		console.log(view_teste.perspectives_list[0].far);
+		console.log(view_teste.perspectives_list[0].angle);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[0].from.x);
+		console.log(view_teste.perspectives_list[0].from.y);
+		console.log(view_teste.perspectives_list[0].from.z);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[0].to.x);
+		console.log(view_teste.perspectives_list[0].to.y);
+		console.log(view_teste.perspectives_list[0].to.z);
+
+
+		/*console.log(view_teste.perspectives_list[1]);
 		console.log(view_teste.perspectives_list[2]);
 		console.log(view_teste.perspectives_list[3]);
 		console.log("\n");
@@ -245,7 +258,7 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 		console.log(view_teste.perspectives_list[7]);
 		console.log(view_teste.perspectives_list[8]);
 		console.log(view_teste.perspectives_list[9]);
-		
+		*/
 		console.log("\n\n----fim fim fim---\n\n\n\n");
 		//TESTE............................................
 
