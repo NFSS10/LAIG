@@ -40,6 +40,37 @@ Primitives.prototype.addTriangle = function(x1, y1, z1, x2, y2, z2, x3, y3, z3)
 	triangle.z2 = z2;
 	triangle.z3 = z3;
 
+	
+
+};
+
+Primitives.prototype.addCylinder = function(x1, y1, x2, y2)
+{
+	cylinder.x1 = x1;
+	rectangle.x2 = x2;
+	rectangle.y1 = y1;
+	rectangle.y2 = y2;
 
 
 };
+
+Primitives.prototype.addSphere = function(x1, y1, x2, y2)
+{
+	rectangle.x1 = x1;
+	rectangle.x2 = x2;
+	rectangle.y1 = y1;
+	rectangle.y2 = y2;
+
+
+};
+
+Primitives.prototype.addTorus = function(x1, y1, x2, y2)
+{
+	rectangle.x1 = x1;
+	rectangle.x2 = x2;
+	rectangle.y1 = y1;
+	rectangle.y2 = y2;
+
+
+};
+
