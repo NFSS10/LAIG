@@ -167,21 +167,19 @@
     
     <components>
         
-        <component id="tampo">
+       <component id="root">
         
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
             
                 <!-- deve conter uma referencia a uma das "transformation" -->
                 <!-- declaradas anteriormente -->
-                <transformationref id="ss" />
+                <!--transformationref id="ss" />
                 <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
                 <!-- usando zero ou mais das instrucoes seguintes, sem -->
                 <!-- limite nem ordem -->
                 <!-- ex: bloco transformation pode ficar sem conteudo -->
                 <translate x="0" y="2" z="0" />
-                <rotate axis="x" angle="90" />
-                <scale x="2" y="2" z="1" />
             </transformation>
        
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -191,7 +189,7 @@
             <!-- o material muda para o proximo material da lista; do --> 
             <!-- ultimo material da lista volta ao primeiro -->
             <materials>
-                <material id="material1" />
+                <material id="materialParede" />
             </materials>
                          
             <!-- declaracao obrigatoria de texture -->
@@ -207,12 +205,429 @@
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
-                <componentref id="componenteee" />
-                <primitiveref id="rectangle" />
-         
-                
+                <componentref id="chao" />
+				<componentref id="parede1" />
+				<componentref id="parede2" />
+                <componentref id="bola" />
+                <componentref id="cesto" />
+				<componentref id="carro" />
             </children>
             
+        </component>
+		
+		        <component id="chao">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+              <translate x="10" y="0" z="10" />
+			 <scale x="10" y="1" z="10" />
+              <rotate axis="y" angle="90" />
+			  <rotate axis="x" angle="-90" />
+             
+            </transformation>
+
+            <materials>
+                <material id="materialChao"  />
+            </materials>
+
+
+            <texture id="ChaoTex" />
+
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+		 <component id="parede1">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			  <translate x="0" y="0" z="10" />
+              <scale x="10" y="10" z="10" />
+              <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="materialChao"  />
+            </materials>
+
+
+            <texture id="ParedeTex" />
+
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+		 <component id="parede2">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			  <translate x="0" y="0" z="0" />
+              <scale x="10" y="10" z="10" />
+            </transformation>
+
+            <materials>
+                <material id="materialParedeRocket"/>
+            </materials>
+
+
+            <texture id="RocketLeagueTex" />
+
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+		
+        <component id="cesto">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+
+                <translate x="1" y="5" z="5" />
+
+            </transformation>
+
+            <materials>
+                <material id="materialCesto"  />
+            </materials>
+
+
+            <texture id="ParedeTex" />
+
+
+            <children>
+                <componentref id="cestoTabela" />
+                <componentref id="cestoAro" />
+            </children>
+
+        </component>
+
+        <component id="cestoTabela">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+              <scale x="2" y="2" z="2" />
+               <translate x="-0.49" y="0" z="0.5" />
+              <rotate axis="y" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="inherit"  />
+            </materials>
+
+
+            <texture id="TabelaTex" />
+
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+
+        </component>
+
+        <component id="cestoAro">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+
+
+                <rotate axis="x" angle="90" />
+            </transformation>
+
+            <materials>
+                <material id="materialAro"  />
+            </materials>
+
+
+            <texture id="AroTex" />
+
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+
+        <component id="bola">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+                <translate x="4" y="5" z="5" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+
+            <materials>
+                <material id="materialBola" />
+            </materials>
+
+
+            <texture id="BolaTex" />
+
+
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+
+        </component>
+
+
+		<component id="carro">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+             <translate x="5" y="4.25" z="4.75" />
+			 <rotate axis="z" angle="-45" />
+            </transformation>
+
+            <materials>
+                <material id="materialCesto" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+                <componentref id="carropt1" />
+				<componentref id="carropt2" />
+				<componentref id="rodas" />
+				<componentref id="boost" />
+            </children>
+
+        </component>
+		
+		
+		<component id="carropt1">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+             <scale x="1" y="0.2" z="0.5" />
+            </transformation>
+			
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+
+            <texture id="Carro1Tex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+		
+		<component id="carropt2">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			<translate x="0.1" y="0.02" z="0.005" />
+             <scale x="0.5" y="0.25" z="0.49" />
+            </transformation>
+			
+
+            <materials>
+                <material id="materialCarropt2" />
+            </materials>
+
+
+            <texture id="Carro2Tex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+
+		
+		
+		<component id="rodas">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+             <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialChao" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+				<componentref id="roda1" />
+				<componentref id="roda2" />
+				<componentref id="roda3" />
+				<componentref id="roda4" />
+            </children>
+
+        </component>
+		
+		
+		<component id="roda1">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			 <translate x="-0.25" y="-0.1" z="0.42" />
+             <scale x="0.22" y="0.22" z="0.15" />
+			  <rotate axis="z" angle="-125" />
+            </transformation>
+			
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+		
+		<component id="roda2">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			 <translate x="-0.25" y="-0.1" z="-0.11" />
+             <scale x="0.22" y="0.22" z="0.15" />
+			  <rotate axis="z" angle="-125" />
+            </transformation>
+			
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+		
+		<component id="roda3">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			 <translate x="0.25" y="-0.1" z="0.42" />
+             <scale x="0.22" y="0.22" z="0.15" />
+			  <rotate axis="z" angle="-125" />
+            </transformation>
+			
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+		
+		<component id="roda4">
+
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+			 <translate x="0.25" y="-0.1" z="-0.11" />
+             <scale x="0.22" y="0.22" z="0.15" />
+			  <rotate axis="z" angle="-125" />
+            </transformation>
+			
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+
+            <texture id="RodaTex" />
+
+
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+
+        </component>
+		
+		<component id="boost">
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+				<translate x="1.95" y="0" z="0.25" />
+				<scale x="2" y="0.1" z="0.05" />
+            </transformation>
+
+            <materials>
+                <material id="materialBoost" />
+            </materials>
+
+            <texture id="BoostTex" />
+
+            <children>
+				<componentref id="boost1" />
+				<componentref id="boost2" />
+            </children>
+
+        </component>
+		
+		<component id="boost1">
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+				<translate x="0" y="0" z="3.75" />
+				<rotate axis="y" angle="-90" />
+            </transformation>
+			
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cone" />
+            </children>
+
+        </component>
+		
+		<component id="boost2">
+            <!-- bloco "transformation" obrigatorio -->
+            <transformation>
+				<translate x="0" y="0" z="-3.75" />
+				<rotate axis="y" angle="-90" />
+            </transformation>
+			
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+                <primitiveref id="cone" />
+            </children>
+			
         </component>
         
     </components>

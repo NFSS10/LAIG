@@ -700,7 +700,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 	}
 	
 	var  component = components[0];
-	console.log("components .........");	
+	console.log("\n \n components .........");	
 	var nnodes = component.children.length;
 	
 	for(var i = 0; i <nnodes ; i++)
@@ -717,8 +717,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			
 			if(child.nodeName=="transformation") //tranformaçao
 			{
-				console.log("...Transformation...\n");
+				console.log("...Transformation..............\n");
 				var Ntranf = child.children.length;
+				
+				console.log(Ntranf);
 				for(var t = 0; t <Ntranf; t++)
 				{
 					
