@@ -40,8 +40,14 @@ function Transformation_Components()
 //Para transformation usar transformations
 Transformation_Components.prototype.add_transformation(transformation)
 {
-	this.transformations_list.push(transformation)
+	this.transformations_list.push(transformation);
 }
+Transformation_Components.prototype.set_id(id)
+{
+	this.id = id;
+	this.transformations_list = null;
+}
+
 //----------------------------
 
 

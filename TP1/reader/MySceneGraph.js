@@ -703,13 +703,17 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 	var  component = components[0];
 	console.log("\n \n components .........");	
 	var nnodes = component.children.length;
-	console.log(nnodes);
+
+	
+	components_obj = new Components();
+	
 	for(var i = 0; i <nnodes ; i++)
 	{
 		comp = component.children[i];
 		this.id = this.reader.getString(comp,'id');
-		console.log(this.id + "\n");
-		//aqui;
+		//console.log(this.id + "\n");
+		component_obj = new Component();
+		component_obj.add_id(this.id);
 		
 		
 		var Nchild = comp.children.length;
@@ -724,7 +728,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				console.log("...Transformation..............\n");
 				var Ntranf = child.children.length;
 				
-				console.log(Ntranf);
+				transformation_obj = new Transformation_Components();
+				
 				for(var t = 0; t <Ntranf; t++)
 				{
 					
@@ -734,8 +739,12 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 					{	
 						transformationref = transf
 						this.idT = this.reader.getString(transformationref, 'id');
-						console.log(this.idT);
+						//console.log(this.idT);
+						transformation_obj.set_id(this.id);
+						
 					}
+					//TODO faz apartir de aqui, ja que fizeste os transformations
+					//Usas o ... add_transformation(); para fazer push para a lista de transformacoes
 					if(transf.nodeName=="translate")
 					{
 						translate = transf
@@ -759,6 +768,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						this.zS = this.reader.getFloat(scale, 'z');
 						console.log("scale: " +this.xS + "  " + this.yS + "  " + this.zS +"\n");
 					}
+					//TODO ATE AQUI
 				}
 			}
 			if(child.nodeName=="materials") //materiais
