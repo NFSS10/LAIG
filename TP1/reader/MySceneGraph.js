@@ -713,7 +713,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 		this.id = this.reader.getString(comp,'id');
 		//console.log(this.id + "\n");
 		component_obj = new Component();
-		component_obj.add_id(this.id);
+		component_obj.id = this.id;
 		
 		
 		var Nchild = comp.children.length;
@@ -774,57 +774,83 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			if(child.nodeName=="materials") //materiais
 			{
 				console.log("...Materials...\n");
+				materials_obj = new Materials_Components();
+				
 				var Nmat = child.children.length;
 				for(var t = 0; t <Nmat; t++)
 				{
 					material = child.children[t]
 					this.idM= this.reader.getString(material, 'id');
-					console.log(this.idM + "\n");
+					//console.log(this.idM + "\n");
+					material_obj = new Material_Components();
+					material_obj.id =this.idM;
+					
+					materials_obj.materials_list.push(material_obj);
 				}
-				
+				component_obj.materials = materials_obj;
 			}
 			if(child.nodeName=="texture") //texturas
 			{
 				console.log("...Texture...\n");
+				textures_obj = new Materials_Components();
+				
 				texture= child;
 				this.idT= this.reader.getString(texture, 'id');
-				console.log(this.idT + "\n");
+				//console.log(this.idT + "\n");
+				textures_obj.id = this.idT;
+				
+				component_obj.texture = textures_obj;
 			}
 			if(child.nodeName=="children")  //filhos
 			{
 				console.log("...Children...\n");
+				childrens_obj = new Children();
+				
 				var Nchildren = child.children.length;
 				for(var c = 0; c <Nchildren; c++)
 				{
+					childsref = new ChildrenRef();
+					
 						children=child.children[c];
 						if(children.nodeName=="componentref")
 						{
 							
 							this.idC= this.reader.getString(children, 'id');
-							console.log("Component: "+this.idC+"\n");
+							//console.log("Component: "+this.idC+"\n");
 							
+							childsref.id = this.idC;
 						}
 						if(children.nodeName=="primitiveref")
 						{
 							
 							this.idP= this.reader.getString(children, 'id');
-							console.log("Primitive: "+this.idP+"\n");
+							//console.log("Primitive: "+this.idP+"\n");
 							
+							childsref.id = this.idP;
 						}
-						
+					childrens_obj.children_list.push(childsref);
 				}
+				
 			}
+			
+			//chegou aqui, ja passou por todos os childrens de component
+			
+			//Depois de carregar todos os components, adicionar junto aos outros na lista
+			
 		}
 		
-		
+		components_obj.components_list.push(component_obj);
 	}
 	
 	
 
 	
-	
-	
-	
+	//teste
+	console.log("\n\n\n\n\n teste-------------");
+	for(var g = 0; g <components_obj.components_list.length ; g++)
+	{
+		console.log(components_obj.components_list[g].id);
+	}
 }
 	
 	

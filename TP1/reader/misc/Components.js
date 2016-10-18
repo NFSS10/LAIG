@@ -14,11 +14,6 @@ function Component()
 	this.children = null;
 }
 
-Component.prototype.add_id = function(id)
-{
-	this.id = id;
-}
-
 Component.prototype.add_components = function(transf, mat, tex, chil)
 {
 	this.transformation = transf;
@@ -38,11 +33,12 @@ function Transformation_Components()
 	this.transformations_list = [];
 }
 //Para transformation usar transformations
-Transformation_Components.prototype.add_transformation(transformation)
+Transformation_Components.prototype.add_transformation = function(transformation)
 {
 	this.transformations_list.push(transformation);
 }
-Transformation_Components.prototype.set_id(id)
+
+Transformation_Components.prototype.set_id = function(id)
 {
 	this.id = id;
 	this.transformations_list = null;
@@ -50,7 +46,7 @@ Transformation_Components.prototype.set_id(id)
 
 //----------------------------
 
-
+//ºººººººººººººººººººººººººº
 function Materials_Components()
 {
 	this.materials_list = [];
@@ -62,7 +58,7 @@ function Material_Components()
 {
 	this.id = null;
 }
-
+//ººººººººººººººººººººººººººº
 
 //texture
 function Texture_Components()
