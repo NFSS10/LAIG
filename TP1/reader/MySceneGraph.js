@@ -562,13 +562,17 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 	
 	var  primitive = primitives[0];
 	console.log("Primitives .........");
+	//:::::::::::::::
+	var primitives_obj = new Primitives();
+	
 	
 	var nnodes = primitive.children.length;
 	for(var i = 0; i <nnodes ; i++)
 	{
 		prim = primitive.children[i];
 		this.id = this.reader.getString(prim,'id');
-		console.log(this.id);
+		//console.log(this.id);
+		primitives_obj.add_Primitive(this.id);
 		
 		
 		var n_childrens = prim.children.length;
@@ -583,7 +587,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.y1 = this.reader.getFloat(rectangle, 'y1');
 		this.x2 = this.reader.getFloat(rectangle, 'x2');
 		this.y2 = this.reader.getFloat(rectangle, 'y2');
-		console.log("rectangle: " +this.x1 + "  " + this.y1 + "  " + this.x2+ "  " + this.y2 +"\n");
+		//console.log("rectangle: " +this.x1 + "  " + this.y1 + "  " + this.x2+ "  " + this.y2 +"\n");
+		primitives_obj.primitives_list[i].add_Rectangle(this.x1, this.y1, this.x2, this.y2);
+		
 		}
 		else if(child.nodeName == "triangle")
 		{
@@ -597,23 +603,25 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.x3 = this.reader.getFloat(triangle, 'x3');
 		this.y3 = this.reader.getFloat(triangle, 'y3');
 		this.z3 = this.reader.getFloat(triangle, 'z3');
-		console.log("triangle: \n" 
-		+"p1: "+ this.x1 + "  " + this.y1 + "  " + this.z1 + "\n" 
-		+"p2: "+ this.x2 + "  " + this.y2 + "  " + this.z2+"\n"
-		+"p3: "+ this.x3 + "  " + this.y3 + "  " + this.z3
-		);
+		//console.log("triangle: \n" 
+		//+"p1: "+ this.x1 + "  " + this.y1 + "  " + this.z1 + "\n" 
+		//+"p2: "+ this.x2 + "  " + this.y2 + "  " + this.z2+"\n"
+		//+"p3: "+ this.x3 + "  " + this.y3 + "  " + this.z3
+		//);
+		primitives_obj.primitives_list[i].add_Triangle(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
 		
 		}
 		else if(child.nodeName == "cylinder")
 		{
 		cylinder = prim.children[j];
 		this.base = this.reader.getFloat(cylinder, 'base');
-		this.top_c = this.reader.getFloat(cylinder, 'top');
+		this.top = this.reader.getFloat(cylinder, 'top');
 		this.height = this.reader.getFloat(cylinder, 'height');
 		this.slices = this.reader.getFloat(cylinder, 'slices');
 		this.stacks = this.reader.getFloat(cylinder, 'stacks');
-		console.log("cylinder: " +this.base + "  " + this.top_c + "  " + this.height + "  "+
-		this.slices+"  " + this.stacks +"\n");
+		//console.log("cylinder: " +this.base + "  " + this.top_c + "  " + this.height + "  "+
+		//this.slices+"  " + this.stacks +"\n");
+		primitives_obj.primitives_list[i].add_Cylinder(this.base, this.top, this.height, this.slices, this.stacks);
 		}
 		else if(child.nodeName == "sphere")
 		{
@@ -621,7 +629,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.radius = this.reader.getFloat(sphere, 'radius');
 		this.slices = this.reader.getFloat(sphere, 'slices');
 		this.stacks = this.reader.getFloat(sphere, 'stacks');
-		console.log("sphere: " +this.radius + "  " + this.slices + "  " + this.stacks +"\n");
+		//console.log("sphere: " +this.radius + "  " + this.slices + "  " + this.stacks +"\n");
+		primitives_obj.primitives_list[i].add_Sphere(this.radius, this.slices, this.stacks);
 		}
 		else if(child.nodeName == "torus")
 		{
@@ -630,15 +639,56 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.outer = this.reader.getFloat(torus, 'outer');
 		this.slices = this.reader.getFloat(torus, 'slices');
 		this.loops = this.reader.getFloat(torus, 'loops');
-		console.log("torus: " +this.inner + "  " + this.outer + "  " + this.slices + "  " + this.loops+"\n");
+		//console.log("torus: " +this.inner + "  " + this.outer + "  " + this.slices + "  " + this.loops+"\n");
+		primitives_obj.primitives_list[i].add_Torus(this.inner, this.outer, this.slices, this.loops);
+		
 		}
-		
-		
 		
 		}
 		
 		
 	}
+	
+	//TESTE PRINT
+	
+	console.log(primitives_obj.primitives_list.length);
+
+	for(var t = 0; t <primitives_obj.primitives_list.length ; t++)
+	{
+		primitive = primitives_obj.primitives_list[t];
+		if(primitive.id == "torus")
+		{
+			console.log("torus: " + primitive.primitiveref.inner + "  " + primitive.primitiveref.outer + "  " + primitive.primitiveref.slices + "  " + primitive.primitiveref.loops+"\n");
+		}
+		else if(primitive.id == "sphere")
+		{
+			console.log("sphere: " +primitive.primitiveref.radius + "  " + primitive.primitiveref.slices + "  " + primitive.primitiveref.stacks +"\n");
+		}
+		else if(primitive.id == "cylinder")
+		{
+			console.log("cylinder: " +primitive.primitiveref.base + "  " + primitive.primitiveref.top + "  " + primitive.primitiveref.height + "  "+
+			primitive.primitiveref.slices+"  " + primitive.primitiveref.stacks +"\n");
+		}
+		else if(primitive.id == "triangle")
+		{
+			console.log("triangle: \n" 
+		+"p1: "+ primitive.primitiveref.x1 + "  " + primitive.primitiveref.y1 + "  " + primitive.primitiveref.z1 + "\n" 
+		+"p2: "+ primitive.primitiveref.x2 + "  " + primitive.primitiveref.y2 + "  " + primitive.primitiveref.z2+"\n"
+		+"p3: "+ primitive.primitiveref.x3 + "  " + primitive.primitiveref.y3 + "  " + primitive.primitiveref.z3
+		);
+		}else if(primitive.id == "rectangle")
+		{
+			console.log("rectangle: " +primitive.primitiveref.x1 + "  " + primitive.primitiveref.y1 + "  " + primitive.primitiveref.x2+ "  " + primitive.primitiveref.y2 +"\n");
+		}
+		
+		
+		
+	}
+	//____
+	console.log("\n ENDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+	
+	
+	
 };
 	
 MySceneGraph.prototype.parseComponents = function(rootElement)

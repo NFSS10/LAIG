@@ -134,18 +134,32 @@
     
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
-        <primitive id="primitivas">
-           
+        <primitive id="rectangle">
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!--     rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente como-->
             <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
-            <rectangle x1="0" y1="0" x2="2" y2="1" />
-            <triangle x1="2" y1="2" z1="0" x2="1" y2="1" z2="0" x3="2" y3="0" z3="0" />
-            <cylinder base="1" top="1" height="2" slices="20" stacks="20" />
-            <sphere radius="1" slices="20" stacks="20" />
-            <torus inner="1" outer="2" slices="20" loops="20" />
-            
+            <rectangle x1="0" y1="0" x2="1" y2="1" />
+		</primitive>
+		
+        <primitive id="triangle">
+			<triangle x1="2" y1="2" z1="0" x2="1" y2="1" z2="0" x3="2" y3="0" z3="0" />
+		</primitive>
+		
+        <primitive id="cylinder">
+			<cylinder base="0.5" top="0.5" height="1" slices="20" stacks="20" />
+		</primitive>
+		
+        <primitive id="sphere">
+			<sphere radius="0.5" slices="20" stacks="20" />
+		</primitive>
+		
+        <primitive id="torus">
+			<torus inner="0.1" outer="1" slices="20" loops="10" />
+		</primitive>
+
+		<primitive id="cone">
+            <cylinder base="0" top="0.5" height="1" slices="50" stacks="10" />
         </primitive>
         
     </primitives>
