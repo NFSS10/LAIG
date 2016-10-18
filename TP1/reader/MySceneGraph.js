@@ -227,24 +227,24 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 
 		
 		//TESTE____________________________________________
-		console.log("\n\n\n ..........Teste.........");
+		console.log("\n\n\n ..........Teste........." + i +"coisociooio");
 
 		view_teste.addPerspective_Info(this.id, this.near, this.far, this.angle);
 		view_teste.addPerspective_From(this.xF,this.yF,this.zF);
 		view_teste.addPerspective_To(this.xT,this.yT,this.zT)
 
-		console.log(view_teste.perspectives_list[0].id);
-		console.log(view_teste.perspectives_list[0].near);
-		console.log(view_teste.perspectives_list[0].far);
-		console.log(view_teste.perspectives_list[0].angle);
+		console.log(view_teste.perspectives_list[i].info.id);
+		console.log(view_teste.perspectives_list[i].info.near);
+		console.log(view_teste.perspectives_list[i].info.far);
+		console.log(view_teste.perspectives_list[i].info.angle);
 		console.log("\n");
-		console.log(view_teste.perspectives_list[0].from.x);
-		console.log(view_teste.perspectives_list[0].from.y);
-		console.log(view_teste.perspectives_list[0].from.z);
+		console.log(view_teste.perspectives_list[i].from.x);
+		console.log(view_teste.perspectives_list[i].from.y);
+		console.log(view_teste.perspectives_list[i].from.z);
 		console.log("\n");
-		console.log(view_teste.perspectives_list[0].to.x);
-		console.log(view_teste.perspectives_list[0].to.y);
-		console.log(view_teste.perspectives_list[0].to.z);
+		console.log(view_teste.perspectives_list[i].to.x);
+		console.log(view_teste.perspectives_list[i].to.y);
+		console.log(view_teste.perspectives_list[i].to.z);
 
 
 		/*console.log(view_teste.perspectives_list[1]);

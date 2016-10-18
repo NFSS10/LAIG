@@ -6,14 +6,16 @@ from_obj e to_obj sao separados, porque da sintax error se for declaradodentro d
 */
 
 var from_obj = {x: null, y : null, z : null};
-		
+var info_obj = {id : null, near : null, far : null, angle : null};
 var to_obj = {x : null, y : null, z : null};
 
 var perspective = {
-		id : null,
-		near : null,
-		far : null,
-		angle : null,
+		//id : null,
+		//near : null,
+		//far : null,
+		//angle : null,
+		
+		info : {},
 		
 		from : {},
 
@@ -36,11 +38,12 @@ function Views()
 
 Views.prototype.addPerspective_Info = function(id, near, far, angle)
 {
-	perspective.id = id;
-	perspective.near = near;
-	perspective.far = far;
-	perspective.angle = angle;
+	info_obj.id = id;
+	info_obj.near = near;
+	info_obj.far = far;
+	info_obj.angle = angle;
 
+	perspective.info = info_obj;
 	this.perspectives_list.push(perspective);
 /*
 	this.perspectives_list.push(id: id);

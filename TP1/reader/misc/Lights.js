@@ -36,7 +36,7 @@ var spot = {
 
 function Lights() 
 {
-	this.lights_list = [];
+	//this.lights_list = [];
 	this.lightsOmni_list = [];
 	this.lightsSpot_list = [];
 	
