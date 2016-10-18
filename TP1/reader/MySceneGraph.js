@@ -279,7 +279,13 @@ MySceneGraph.prototype.parseIllumination = function(rootElement)
 	this.local = this.reader.getFloat(illumination, 'local');
 	
 	console.log("Illuminations .........");
-	console.log(this.doublesided + "   " + this.local);
+	//TESTE____________________________________________
+	var illumination_teste = new Illumination();
+	illumination_teste.doublesided = this.doublesided;
+	illumination_teste.local = this.local;
+	
+	//console.log(this.doublesided + "   " + this.local);
+	console.log(illumination_teste.doublesided + "   " + illumination_teste.local);
 
 	
 		ambient = illumination.children[0];
@@ -297,8 +303,16 @@ MySceneGraph.prototype.parseIllumination = function(rootElement)
 		this.bB = this.reader.getFloat(background, 'b');
 		this.aB = this.reader.getFloat(background, 'a');
 		
-		console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
-		console.log(this.rB + "  " + this.gB + "  " + this.bB + "  "+this.aB+"\n\n\n");
+		
+		
+		illumination_teste.addAmbient(this.rA,this.gA,this.bA,this.aA);
+		illumination_teste.addBackground(this.rB,this.gB,this.bB,this.aB);
+		//console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
+		//console.log(this.rB + "  " + this.gB + "  " + this.bB + "  "+this.aB+"\n\n\n");
+		console.log(illumination_teste.ambient.r + "  " + illumination_teste.ambient.g + "  " + illumination_teste.ambient.b + "  "+illumination_teste.ambient.a+"\n");
+		console.log(illumination_teste.background.r + "  " + illumination_teste.background.g + "  " + illumination_teste.background.b + "  "+illumination_teste.background.a+"\n\n\n");
+
+
 
 };
 
