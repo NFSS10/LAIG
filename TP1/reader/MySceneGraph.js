@@ -227,7 +227,7 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 
 		
 		//TESTE____________________________________________
-		console.log("\n\n\n ..........Teste........." + i +"coisociooio");
+		console.log("\n\n\n ..........Teste1........." + i +"coisociooio");
 
 		view_teste.addPerspective_Info(this.id, this.near, this.far, this.angle);
 		view_teste.addPerspective_From(this.xF,this.yF,this.zF);
@@ -247,22 +247,30 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 		console.log(view_teste.perspectives_list[i].to.z);
 
 
-		/*console.log(view_teste.perspectives_list[1]);
-		console.log(view_teste.perspectives_list[2]);
-		console.log(view_teste.perspectives_list[3]);
-		console.log("\n");
-		console.log(view_teste.perspectives_list[4]);
-		console.log(view_teste.perspectives_list[5]);
-		console.log(view_teste.perspectives_list[6]);
-		console.log("\n");
-		console.log(view_teste.perspectives_list[7]);
-		console.log(view_teste.perspectives_list[8]);
-		console.log(view_teste.perspectives_list[9]);
-		*/
 		console.log("\n\n----fim fim fim---\n\n\n\n");
 		//TESTE............................................
 
 	}
+	
+for(var a = 0; a <2 ; a++)
+	{
+		console.log("\n\n\n ..........Teste Depois de sair do for........." + a +"AAAA");
+		console.log(view_teste.perspectives_list[a].info.id);
+		console.log(view_teste.perspectives_list[a].info.near);
+		console.log(view_teste.perspectives_list[a].info.far);
+		console.log(view_teste.perspectives_list[a].info.angle);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[a].from.x);
+		console.log(view_teste.perspectives_list[a].from.y);
+		console.log(view_teste.perspectives_list[a].from.z);
+		console.log("\n");
+		console.log(view_teste.perspectives_list[a].to.x);
+		console.log(view_teste.perspectives_list[a].to.y);
+		console.log(view_teste.perspectives_list[a].to.z);
+		console.log("\n\n----fim TESTE DEPOIS ---\n\n\n\n");
+		//TESTE............................................
+	}
+	
 };
 
 
