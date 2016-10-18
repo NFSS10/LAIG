@@ -328,7 +328,6 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 	var  light = lights[0];
 
 	console.log("Lights .........");
-	var lights_teste = new Lights();
 
 	var nnodes = lights[0].children.length;
 	for(var i = 0; i <nnodes ; i++)
@@ -341,46 +340,38 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 		this.id = this.reader.getString(omni, 'id');
 		this.enabled = this.reader.getFloat(omni, 'enabled');
 		
-		//console.log(this.id + "  " + this.enabled);
-		lights_teste.addOmni_Info(this.id, this.enabled);
-		//console.log(lights.lightsOmni_list[i].id + "  " + lights.lightsOmni_list[i].enabled);
-		console.log(lights_teste.lightsOmni_list[0].id + "  " + lights_teste.lightsOmni_list[0].enabled);
+		console.log(this.id + "  " + this.enabled);
 		
 		loc = omni.children[0];
 		this.x = this.reader.getFloat(loc, 'x');
 		this.y = this.reader.getFloat(loc, 'y');
 		this.z = this.reader.getFloat(loc, 'z');
 		this.w = this.reader.getFloat(loc, 'w');
-		//console.log(this.x + "  " + this.y + "  " + this.z + "  "+this.w+"\n");
-		lights_teste.addLocationOmni(this.x,this.y,this.z,this.w);
+		console.log(this.x + "  " + this.y + "  " + this.z + "  "+this.w+"\n");
+		
 		
 		ambient = omni.children[1];
 		this.rA = this.reader.getFloat(ambient, 'r');
 		this.gA = this.reader.getFloat(ambient, 'g');
 		this.bA = this.reader.getFloat(ambient, 'b');
 		this.aA = this.reader.getFloat(ambient, 'a');
-		//console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
-		lights_teste.addAmbientOmni(this.rA,this.gA,this.bA,this.aA);
+		console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
+		
 		
 		diffuse = omni.children[2];
 		this.rD = this.reader.getFloat(diffuse, 'r');
 		this.gD = this.reader.getFloat(diffuse, 'g');
 		this.bD	= this.reader.getFloat(diffuse, 'b');
 		this.aD = this.reader.getFloat(diffuse, 'a');
-		//console.log(this.rD + "  " + this.gD + "  " + this.bD + "  "+this.aD+"\n");
-		lights_teste.addDiffuseOmni(this.rD,this.gD,this.bD,this.aD);
+		console.log(this.rD + "  " + this.gD + "  " + this.bD + "  "+this.aD+"\n");
+		
 		
 		specular = omni.children[3];
 		this.rS = this.reader.getFloat(specular, 'r');
 		this.gS = this.reader.getFloat(specular, 'g');
 		this.bS = this.reader.getFloat(specular, 'b');
 		this.aS = this.reader.getFloat(specular, 'a');
-		//console.log(this.rS	+ "  " + this.gS + "  " + this.bS + "  "+this.aS+"\n");
-		lights_teste.addDiffuseOmni(this.rS,this.gS,this.bS,this.aS);
-		//TESTE____________________________________________
-		
-		
-		//TESTE____________________________________________
+		console.log(this.rS	+ "  " + this.gS + "  " + this.bS + "  "+this.aS+"\n");
 		}
 		else
 		{
@@ -391,21 +382,19 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 		this.angle = this.reader.getFloat(spot, 'angle');
 		this.exponent = this.reader.getFloat(spot, 'exponent');
 		
-		//console.log(this.id + "  " + this.enabled + "  " +this.angle + "  " + this.exponent);
-		lights_teste.addSpot_Info(this.id, this.enabled, this.angle, this.exponent);
-		console.log(lights_teste.lightsSpot_list[0].id + "  " + lights_teste.lightsSpot_list[0].enabled + "  " + lights_teste.lightsSpot_list[0].angle + "  " + lights_teste.lightsSpot_list[0].exponent + "\n" );
+		console.log(this.id + "  " + this.enabled + "  " +this.angle + "  " + this.exponent);
 		
 		target = spot.children[0];
 		this.xt = this.reader.getFloat(target, 'x');
 		this.yt = this.reader.getFloat(target, 'y');
 		this.zt = this.reader.getFloat(target, 'z');
-		//console.log(this.xt + "  " + this.yt + "  " + this.zt + "  "+"\n");
+		console.log(this.xt + "  " + this.yt + "  " + this.zt + "  "+"\n");
 		
 		loc = spot.children[1];
 		this.x = this.reader.getFloat(loc, 'x');
 		this.y = this.reader.getFloat(loc, 'y');
 		this.z = this.reader.getFloat(loc, 'z');
-		//console.log(this.x + "  " + this.y + "  " + this.z + "  "+"\n");
+		console.log(this.x + "  " + this.y + "  " + this.z + "  "+"\n");
 		
 		
 		ambient = spot.children[2];
@@ -413,7 +402,7 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 		this.gA = this.reader.getFloat(ambient, 'g');
 		this.bA = this.reader.getFloat(ambient, 'b');
 		this.aA = this.reader.getFloat(ambient, 'a');
-		//console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
+		console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
 		
 		
 		diffuse = spot.children[3];
@@ -421,7 +410,7 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 		this.gD = this.reader.getFloat(diffuse, 'g');
 		this.bD	= this.reader.getFloat(diffuse, 'b');
 		this.aD = this.reader.getFloat(diffuse, 'a');
-		//console.log(this.rD + "  " + this.gD + "  " + this.bD + "  "+this.aD+"\n");
+		console.log(this.rD + "  " + this.gD + "  " + this.bD + "  "+this.aD+"\n");
 		
 		
 		specular = spot.children[4];
@@ -429,11 +418,10 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 		this.gS = this.reader.getFloat(specular, 'g');
 		this.bS = this.reader.getFloat(specular, 'b');
 		this.aS = this.reader.getFloat(specular, 'a');
-		//console.log(this.rS	+ "  " + this.gS + "  " + this.bS + "  "+this.aS+"\n");
+		console.log(this.rS	+ "  " + this.gS + "  " + this.bS + "  "+this.aS+"\n");
 		}
 
 	}
-	console.log("\n -----LIGHTS END-----")
 };
 
 MySceneGraph.prototype.parseTextures = function(rootElement)
@@ -446,6 +434,7 @@ MySceneGraph.prototype.parseTextures = function(rootElement)
 	}
 	
 	var  texture = textures[0];
+	var texture_teste = new Textures();
 	console.log("Textures...........");
 	var nnodes = texture.children.length;
 	for(var i = 0; i <nnodes ; i++)
@@ -455,7 +444,9 @@ MySceneGraph.prototype.parseTextures = function(rootElement)
 		this.file = this.reader.getString(tex, 'file');
 		this.length_s = this.reader.getFloat(tex, 'length_s');
 		this.length_t = this.reader.getFloat(tex, 'length_t');
-		console.log(this.id	+ "  " + this.file + "  " + this.length_s + "  "+this.length_t+"\n");
+		
+		texture_teste.addTexture(this.id,this.file,this.length_s,this.length_t);
+		console.log(texture_teste.textures[i].id	+ "  " + texture_teste.textures[i].file + "  " + texture_teste.textures[i].length_s + "  "+texture_teste.textures[i].length_t+"\n");
 	}
 	
 };
@@ -471,44 +462,53 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 	var  material = materials[0];
 	console.log("Materials .........");
 	
+	var material_teste = new Materials();
+	
 	var nnodes = material.children.length;
+	
 	for(var i = 0; i <nnodes ; i++)
 	{
 		mat = material.children[i];
 		this.id = this.reader.getString(mat,'id');
-		console.log(this.id);
+		material_teste.addMaterial_id(this.id);
+		console.log(material_teste.materials[i].id);
 		
 		emission = mat.children[0];
 		this.rE = this.reader.getFloat(emission, 'r');
 		this.gE = this.reader.getFloat(emission, 'g');
 		this.bE = this.reader.getFloat(emission, 'b');
 		this.aE = this.reader.getFloat(emission, 'a');
-		console.log(this.rE + "  " + this.gE + "  " + this.bE + "  "+this.aE+"\n");
+		material_teste.addMaterial_emission(this.rE,this.gE,this.bE,this.aE);
+		console.log(material_teste.materials[i].emission.r + "  " + material_teste.materials[i].emission.g + "  " + material_teste.materials[i].emission.b + "  "+material_teste.materials[i].emission.a+"\n");
 		
 		ambient = mat.children[1];
 		this.rA = this.reader.getFloat(ambient, 'r');
 		this.gA = this.reader.getFloat(ambient, 'g');
 		this.bA = this.reader.getFloat(ambient, 'b');
 		this.aA = this.reader.getFloat(ambient, 'a');
-		console.log(this.rA + "  " + this.gA + "  " + this.bA + "  "+this.aA+"\n");
+		material_teste.addMaterial_ambient(this.rA,this.gA,this.bA,this.aA);
+		console.log(material_teste.materials[i].ambient.r + "  " + material_teste.materials[i].ambient.g + "  " + material_teste.materials[i].ambient.b + "  "+material_teste.materials[i].ambient.a+"\n");
 		
 		diffuse = mat.children[2];
 		this.rD = this.reader.getFloat(diffuse, 'r');
 		this.gD = this.reader.getFloat(diffuse, 'g');
 		this.bD	= this.reader.getFloat(diffuse, 'b');
 		this.aD = this.reader.getFloat(diffuse, 'a');
-		console.log(this.rD + "  " + this.gD + "  " + this.bD + "  "+this.aD+"\n");
+		material_teste.addMaterial_diffuse(this.rD,this.gD,this.bD,this.aD);
+		console.log(material_teste.materials[i].diffuse.r + "  " +material_teste.materials[i].diffuse.g + "  " + material_teste.materials[i].diffuse.b + "  "+material_teste.materials[i].diffuse.a +"\n");
 		
 		specular = mat.children[3];
 		this.rS = this.reader.getFloat(specular, 'r');
 		this.gS = this.reader.getFloat(specular, 'g');
 		this.bS = this.reader.getFloat(specular, 'b');
 		this.aS = this.reader.getFloat(specular, 'a');
-		console.log(this.rS	+ "  " + this.gS + "  " + this.bS + "  "+this.aS+"\n");
+		material_teste.addMaterial_specular(this.rS,this.gS,this.bS,this.aS);
+		console.log(material_teste.materials[i].specular.r	+ "  " + material_teste.materials[i].diffuse.g + "  " + material_teste.materials[i].diffuse.b + "  "+ material_teste.materials[i].diffuse.a +"\n");
 		
 		shininess = mat.children[4];
 		this.value = this.reader.getFloat(shininess, 'value');
-		console.log(this.value);
+		material_teste.addMaterial_shininess(this.value);
+		console.log(material_teste.materials[i].shininess);
 		
 	}
 }
