@@ -693,6 +693,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 	
 MySceneGraph.prototype.parseComponents = function(rootElement)
 {
+	
 	var components = rootElement.getElementsByTagName('components');
 	
 	if (components == null  || components.length==0){
@@ -702,14 +703,17 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 	var  component = components[0];
 	console.log("\n \n components .........");	
 	var nnodes = component.children.length;
-	
+	console.log(nnodes);
 	for(var i = 0; i <nnodes ; i++)
 	{
 		comp = component.children[i];
 		this.id = this.reader.getString(comp,'id');
 		console.log(this.id + "\n");
 		//aqui;
+		
+		
 		var Nchild = comp.children.length;
+		console.log(Nchild);
 		for(var j = 0; j <Nchild ; j++)
 		{
 			var child= comp.children[j];
@@ -779,8 +783,8 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			if(child.nodeName=="children")  //filhos
 			{
 				console.log("...Children...\n");
-				var Nchild = child.children.length;
-				for(var c = 0; c <Nchild; c++)
+				var Nchildren = child.children.length;
+				for(var c = 0; c <Nchildren; c++)
 				{
 						children=child.children[c];
 						if(children.nodeName=="componentref")
@@ -804,6 +808,13 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 		
 		
 	}
+	
+	
+
+	
+	
+	
+	
 }
 	
 	

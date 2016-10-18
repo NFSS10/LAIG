@@ -169,17 +169,8 @@
         
        <component id="root">
         
-            <!-- bloco "transformation" obrigatorio -->
             <transformation>
-            
-                <!-- deve conter uma referencia a uma das "transformation" -->
-                <!-- declaradas anteriormente -->
-                <!--transformationref id="ss" />
-                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
-                <!-- usando zero ou mais das instrucoes seguintes, sem -->
-                <!-- limite nem ordem -->
-                <!-- ex: bloco transformation pode ficar sem conteudo -->
-                <translate x="0" y="2" z="0" />
+                <transformationref id="ss" />
             </transformation>
        
             <!-- declaracao obrigatoria de pelo menos um material; -->
@@ -215,7 +206,7 @@
             
         </component>
 		
-		        <component id="chao">
+		<component id="chao">
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
@@ -240,7 +231,7 @@
 
         </component>
 
-		 <component id="parede1">
+		<component id="parede1">
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
