@@ -1,22 +1,22 @@
-/*
-Estrutura da struct...
 
-from_obj e to_obj sao separados, porque da sintax error se for declaradodentro de perspective
+function From_obj() 
+{
+	this.x = null; 
+	this.y = null;
+	this.z = null;
+};
 
-*/
 
-var from_obj = {x: null, y : null, z : null};
-var info_obj = {id : null, near : null, far : null, angle : null};
-var to_obj = {x : null, y : null, z : null};
-
-var perspective = {
-
-		info : {},
+function Perspective()
+{
+		this.id = null;
+		this.near = null;
+		this.far = null;
+		this.angle = null;
 		
-		from : {},
+		this.from = null;
 
-		to : {}
-
+		this.to = null;
 		
 };
 
@@ -29,36 +29,43 @@ function Views()
 }
 
 
-Views.prototype.addPerspective_Info = function(id, near, far, angle)
+Perspective.prototype.add_Info = function(id, near, far, angle)
 {
-	info_obj.id = id;
-	info_obj.near = near;
-	info_obj.far = far;
-	info_obj.angle = angle;
-
-	perspective.info = info_obj;
-	this.perspectives_list.push(perspective);
-
+	this.id = id;
+	this.near = near;
+	this.far = far;
+	this.angle = angle;
 };
 
-Views.prototype.addPerspective_From = function(x, y, z)
+Perspective.prototype.add_From = function(x, y, z)
 {
+	from_obj= new From_obj();
 	
 	from_obj.x=x;
 	from_obj.y=y;
 	from_obj.z=z;
-	perspective.from=from_obj;
-	this.perspectives_list.push(perspective);
-
+	
+	this.from=from_obj;
 	
 };
 
-Views.prototype.addPerspective_To = function(x, y, z)
+Perspective.prototype.add_To = function(x, y, z)
 {
-	to_obj.x=x;
-	to_obj.y=y;
-	to_obj.z=z;
-	perspective.to=to_obj;
-	this.perspectives_list.push(perspective);
-
+	from_obj= new From_obj();
+	
+	from_obj.x=x;
+	from_obj.y=y;
+	from_obj.z=z;
+	
+	this.to=from_obj;
 };
+
+Views.prototype.add_default = function(def)
+{
+	this.default=def;
+}
+
+Views.prototype.add_perspective = function(perspective)
+{
+	this.perspectives_list.push(perspective);
+}

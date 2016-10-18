@@ -1,7 +1,12 @@
-
-var ambient = {r : null, g : null, b : null, a : null};
 		
-var background = {r : null, g : null, b : null, a : null};
+function rgba()
+{
+	r = null;
+	g = null;
+	b = null;
+	a = null;
+
+};
 
 
 
@@ -10,15 +15,15 @@ function Illumination()
 	
 	this.doublesided = null;
 	this.local = null;
-	this.ambient = [];
-	this.background = [];
+	this.ambient = null;
+	this.background = null;
 }
 
 
 
-Illumination.prototype.addAmbient = function(r, g, b, a)
+Illumination.prototype.add_Ambient = function(r, g, b, a)
 {
-	
+	ambient = new rgba();
 	ambient.r=r;
 	ambient.g=g;
 	ambient.b=b;
@@ -29,8 +34,9 @@ Illumination.prototype.addAmbient = function(r, g, b, a)
 
 };
 
-Illumination.prototype.addBackground = function(r, g, b, a)
+Illumination.prototype.add_Background = function(r, g, b, a)
 {
+	background= new rgba();
 	background.r=r;
 	background.g=g;
 	background.b=b;
