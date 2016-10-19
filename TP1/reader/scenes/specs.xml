@@ -173,29 +173,18 @@
                 <transformationref id="ss" />
             </transformation>
        
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do --> 
-            <!-- ultimo material da lista volta ao primeiro -->
+            
             <materials>
                 <material id="materialParede" />
             </materials>
                          
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
+           
             <texture id="none" />
             
-            <!-- bloco "children" obrigatorio num "component" -->
+         
             <children>
             
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
+                
                 <componentref id="chao" />
 				<componentref id="parede1" />
 				<componentref id="parede2" />
@@ -208,7 +197,7 @@
 		
 		<component id="chao">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
               <translate x="10" y="0" z="10" />
 			 <scale x="10" y="1" z="10" />
@@ -233,7 +222,7 @@
 
 		<component id="parede1">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
 			  <translate x="0" y="0" z="10" />
               <scale x="10" y="10" z="10" />
@@ -256,7 +245,7 @@
 
 		 <component id="parede2">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
 			  <translate x="0" y="0" z="0" />
               <scale x="10" y="10" z="10" />
@@ -278,7 +267,7 @@
 		
         <component id="cesto">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
 
                 <translate x="1" y="5" z="5" />
@@ -325,7 +314,7 @@
 
         <component id="cestoAro">
 
-            <!-- bloco "transformation" obrigatorio -->
+            
             <transformation>
 
 
@@ -348,7 +337,7 @@
 
         <component id="bola">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
                 <translate x="4" y="5" z="5" />
                 <scale x="1" y="1" z="1" />
@@ -371,7 +360,7 @@
 
 		<component id="carro">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
              <translate x="5" y="4.25" z="4.75" />
 			 <rotate axis="z" angle="-45" />
@@ -397,7 +386,7 @@
 		
 		<component id="carropt1">
 
-            <!-- bloco "transformation" obrigatorio -->
+            
             <transformation>
              <scale x="1" y="0.2" z="0.5" />
             </transformation>
@@ -419,7 +408,7 @@
 		
 		<component id="carropt2">
 
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
 			<translate x="0.1" y="0.02" z="0.005" />
              <scale x="0.5" y="0.25" z="0.49" />
@@ -469,7 +458,7 @@
 		
 		<component id="roda1">
 
-            <!-- bloco "transformation" obrigatorio -->
+          
             <transformation>
 			 <translate x="-0.25" y="-0.1" z="0.42" />
              <scale x="0.22" y="0.22" z="0.15" />
@@ -517,7 +506,7 @@
 		
 		<component id="roda3">
 
-            <!-- bloco "transformation" obrigatorio -->
+            
             <transformation>
 			 <translate x="0.25" y="-0.1" z="0.42" />
              <scale x="0.22" y="0.22" z="0.15" />
@@ -541,7 +530,7 @@
 		
 		<component id="roda4">
 
-            <!-- bloco "transformation" obrigatorio -->
+            
             <transformation>
 			 <translate x="0.25" y="-0.1" z="-0.11" />
              <scale x="0.22" y="0.22" z="0.15" />
@@ -564,7 +553,7 @@
         </component>
 		
 		<component id="boost">
-            <!-- bloco "transformation" obrigatorio -->
+     
             <transformation>
 				<translate x="1.95" y="0" z="0.25" />
 				<scale x="2" y="0.1" z="0.05" />
@@ -584,7 +573,7 @@
         </component>
 		
 		<component id="boost1">
-            <!-- bloco "transformation" obrigatorio -->
+           
             <transformation>
 				<translate x="0" y="0" z="3.75" />
 				<rotate axis="y" angle="-90" />
@@ -603,7 +592,7 @@
         </component>
 		
 		<component id="boost2">
-            <!-- bloco "transformation" obrigatorio -->
+        
             <transformation>
 				<translate x="0" y="0" z="-3.75" />
 				<rotate axis="y" angle="-90" />

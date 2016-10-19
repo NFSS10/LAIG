@@ -1,6 +1,6 @@
 function Transformation ()
 {
-	this.id = null;
+	this.id = [];
 	this.translate = [];
 	this.rotate = [];
 	this.scale = [];
@@ -35,7 +35,7 @@ function Transformations()
 
 Transformation.prototype.add_id = function (id)
 {
-	this.id=id;
+	this.id.push(id);
 }
 
 Transformation.prototype.add_translate = function (x,y,z)

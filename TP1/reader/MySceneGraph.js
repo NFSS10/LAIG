@@ -711,7 +711,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 	{
 		comp = component.children[i];
 		this.id = this.reader.getString(comp,'id');
-		//console.log(this.id + "\n");
+		console.log(this.id + "\n");
 		component_obj = new Component();
 		component_obj.id = this.id;
 		
@@ -727,7 +727,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			{
 				console.log("...Transformation..............\n");
 				var Ntranf = child.children.length;
-				
+				ids=0;
+				translates=0;
+				rotates=0;
+				scales=0;
 				transformation_obj = new Transformation_Components();
 				
 				for(var t = 0; t <Ntranf; t++)
@@ -739,9 +742,9 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 					{	
 						transformationref = transf
 						this.idT = this.reader.getString(transformationref, 'id');
-						//console.log(this.idT);
-						transformation_obj.set_id(this.id);
-						
+						transformation_obj.set_id(this.idT);
+						console.log("AQUIIIII" +transformation_obj.id[ids] +"\n");
+						ids++;
 					}
 					//TODO faz apartir de aqui, ja que fizeste os transformations
 					//Usas o ... add_transformation(); para fazer push para a lista de transformacoes
@@ -751,14 +754,18 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						this.xT = this.reader.getFloat(translate, 'x');
 						this.yT = this.reader.getFloat(translate, 'y');
 						this.zT = this.reader.getFloat(translate, 'z');
-						console.log("translate: " +this.xT + "  " + this.yT + "  " + this.zT +"\n");
+						transformation_obj.add_translate(this.xT,this.yT,this.zT);
+						console.log("translate: " +transformation_obj.translate_list[translates].x + "  " + transformation_obj.translate_list[translates].y + "  " + transformation_obj.translate_list[translates].z +"\n");
+						translates++;
 					}
 					if(transf.nodeName=="rotate")
 					{
 						rotate = transf
 						this.axis = this.reader.getString(rotate, 'axis');
 						this.angle = this.reader.getFloat(rotate, 'angle');
-						console.log("rotate: " +this.axis + "  " + this.angle +"\n");
+						transformation_obj.add_rotate(this.axis,this.angle);
+						console.log("rotate: " +transformation_obj.rotate_list[rotates].axis+ "  " + transformation_obj.rotate_list[rotates].angle +"\n");
+						rotates++;
 					}
 					if(transf.nodeName=="scale")
 					{
@@ -766,10 +773,12 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						this.xS = this.reader.getFloat(scale, 'x');
 						this.yS = this.reader.getFloat(scale, 'y');
 						this.zS = this.reader.getFloat(scale, 'z');
-						console.log("scale: " +this.xS + "  " + this.yS + "  " + this.zS +"\n");
+						transformation_obj.add_scale(this.xS,this.yS,this.zS);
+						console.log("scale: " +transformation_obj.scale_list[scales].x+ "  " + transformation_obj.scale_list[scales].y + "  " + transformation_obj.scale_list[scales].z +"\n");
 					}
 					//TODO ATE AQUI
 				}
+				component_obj.transformations=transformation_obj;
 			}
 			if(child.nodeName=="materials") //materiais
 			{
@@ -781,7 +790,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				{
 					material = child.children[t]
 					this.idM= this.reader.getString(material, 'id');
-					//console.log(this.idM + "\n");
+					console.log(this.idM + "\n");
 					material_obj = new Material_Components();
 					material_obj.id =this.idM;
 					
@@ -796,7 +805,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				
 				texture= child;
 				this.idT= this.reader.getString(texture, 'id');
-				//console.log(this.idT + "\n");
+				console.log(this.idT + "\n");
 				textures_obj.id = this.idT;
 				
 				component_obj.texture = textures_obj;
@@ -824,13 +833,13 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						{
 							
 							this.idP= this.reader.getString(children, 'id');
-							//console.log("Primitive: "+this.idP+"\n");
+							console.log("Primitive: "+this.idP+"\n");
 							
 							childsref.id = this.idP;
 						}
 					childrens_obj.children_list.push(childsref);
 				}
-				
+				component_obj.children=childrens_obj;
 			}
 			
 			//chegou aqui, ja passou por todos os childrens de component
