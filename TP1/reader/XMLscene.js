@@ -3,6 +3,7 @@ function XMLscene() {
     CGFscene.call(this);
 }
 
+
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
@@ -14,6 +15,8 @@ XMLscene.prototype.init = function (application) {
     this.initLights();
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	
+	
 
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
@@ -66,11 +69,11 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
-
+	
 	this.setDefaultAppearance();
 	
 	// ---- END Background, camera and axis setup
-
+		
 	// it is important that things depending on the proper loading of the graph
 	// only get executed after the graph has loaded correctly.
 	// This is one possible way to do it
@@ -78,5 +81,6 @@ XMLscene.prototype.display = function () {
 	{
 		this.lights[0].update();
 	};	
+
 };
 

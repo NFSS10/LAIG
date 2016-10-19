@@ -1,33 +1,51 @@
-var locationo = {x: null, y : null, z : null, w : null};
-var target = {x: null, y : null, z : null};
-var locationS = {x: null, y : null, z : null};
-var ambient = {r : null, g : null, b : null, a : null};
-var diffuse = {r : null, g : null, b : null, a : null};
-var specular = {r : null, g : null, b : null, a : null};
+function Locationo ()
+{
+	this.x= null;
+	this.y = null;
+	this.z = null;
+	this.w = null;
+};
+
+function Locations()  
+{
+	this.x= null; 
+	this.y= null; 
+	this.z = null;
+};
+function Rgba_lights()  
+{
+	this.r = null; 
+	this.g = null; 
+	this.b = null; 
+	this.a = null;
+};
 
 
-var omni = {
-	id : null,
-	enabled : null,
+
+function Omni ()
+{
+	this.id = null;
+	this.enabled = null;
 	
-	locationo : {},
-	ambient : {},
-	diffuse : {},
-	specular : {}
+	this.locationo = null;
+	this.ambient = null;
+	this.diffuse = null;
+	this.specular = null;
 		
 };
 
-var spot = {
-	id : null,
-	enabled : null,
-	angle : null,
-	exponent : null,
+function Spot()
+{
+	this.id = null;
+	this.enabled = null;
+	this.angle = null;
+	this.exponent = null;
 	
-	target : {},
-	locationo : {},
-	ambient : {},
-	diffuse : {},
-	specular : {}
+	this.target = null;
+	this.locations = null;
+	this.ambient = null;
+	this.diffuse = null;
+	this.specular = null;
 		
 };
 
@@ -36,132 +54,127 @@ var spot = {
 
 function Lights() 
 {
-	//this.lights_list = [];
-	this.lightsOmni_list = [];
-	this.lightsSpot_list = [];
+	
+	this.omni_list = [];
+	this.spot_list = [];
 	
 }
 
-//Omni stuff--------------------------
-Lights.prototype.addOmni_Info = function(id, enabled)
-{
-	omni.id = id;
-	omni.enabled = enabled;
 
-	this.lightsOmni_list.push(omni);
-	//this.lights_list.push(omni);
+Lights.prototype.add_omni = function(omni)
+{
+	this.omni_list.push(omni);
 
 };
 
-Lights.prototype.addLocationOmni = function(x, y, z, w)
+Lights.prototype.add_spot = function(spot)
 {
+	this.spot_list.push(spot);
+
+};
+
+//omni
+
+Omni.prototype.add_info = function(id,enabled)
+{
+	this.id=id;
+	this.enabled=enabled;
+}
+
+Omni.prototype.add_location = function(x,y,z,w)
+{
+	locationo = new Locationo();
 	locationo.x=x;
 	locationo.y=y;
 	locationo.z=z;
-	omni.locationo=locationo;
-	this.lightsOmni_list.push(omni);
-	//this.lights_list.push(omni);
-};
+	locationo.w=w;
+	this.locationo=locationo;
+}
 
-Lights.prototype.addAmbientOmni = function(r, g, b, a)
+Omni.prototype.add_ambient = function(r,g,b,a)
 {
-	ambient.r=r;
-	ambient.g=g;
-	ambient.b=b;
-	ambient.a=a;
-	omni.ambient=ambient;
-	this.lightsOmni_list.push(omni);
-	//this.lights_list.push(omni);
-};
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.ambient=rgba;
+}
 
-Lights.prototype.addDiffuseOmni = function(r, g, b, a)
+Omni.prototype.add_diffuse = function(r,g,b,a)
 {
-	diffuse.r=r;
-	diffuse.g=g;
-	diffuse.b=b;
-	diffuse.a=a;
-	omni.diffuse=diffuse;
-	this.lightsOmni_list.push(omni);
-	//this.lights_list.push(omni);
-};
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.diffuse=rgba;
+}
 
-Lights.prototype.addSpecularOmni = function(r, g, b, a)
+Omni.prototype.add_specular = function(r,g,b,a)
 {
-	specular.r=r;
-	specular.g=g;
-	specular.b=b;
-	specular.a=a;
-	omni.specular=specular;
-	this.lightsOmni_list.push(omni);
-	//this.lights_list.push(omni);
-};
-//END Omni Stuff -------------------
-//END Omni Stuff -------------------
-//END Omni Stuff -------------------
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.specular=rgba;
+}
 
-//Spot stuff--------------------------
-Lights.prototype.addSpot_Info = function(id, enabled, angle, exponent)
-{
-	spot.id = id;
-	spot.enabled = enabled;
-	spot.angle = angle;
-	spot.exponent = exponent;
-	
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
+//spot
 
-Lights.prototype.addTargetSpot = function(x, y, z)
+Spot.prototype.add_info = function(id,enabled,angle,exponent)
 {
+	this.id=id;
+	this.enabled=enabled;
+	this.angle=angle;
+	this.exponent=exponent;
+}
+
+Spot.prototype.add_location = function(x,y,z)
+{
+	locations = new Locations();
+	locations.x=x;
+	locations.y=y;
+	locations.z=z;
+	this.locations=locations;
+}
+
+Spot.prototype.add_target = function(x,y,z)
+{
+	target = new Locations();
 	target.x=x;
 	target.y=y;
 	target.z=z;
-	spot.target=target;
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
+	this.target=target;
+}
 
-Lights.prototype.addLocationSpot = function(x, y, z)
+Spot.prototype.add_ambient = function(r,g,b,a)
 {
-	locationS.x=x;
-	locationS.y=y;
-	locationS.z=z;
-	spot.locationS=locationS;
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.ambient=rgba;
+}
 
-Lights.prototype.addAmbientSpot = function(r, g, b, a)
+Spot.prototype.add_diffuse = function(r,g,b,a)
 {
-	ambient.r=r;
-	ambient.g=g;
-	ambient.b=b;
-	ambient.a=a;
-	spot.ambient=ambient;
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.diffuse=rgba;
+}
 
-Lights.prototype.addDiffuseSpot = function(r, g, b, a)
+Spot.prototype.add_specular = function(r,g,b,a)
 {
-	diffuse.r=r;
-	diffuse.g=g;
-	diffuse.b=b;
-	diffuse.a=a;
-	spot.diffuse=diffuse;
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
-
-Lights.prototype.addSpecularSpot = function(r, g, b, a)
-{
-	specular.r=r;
-	specular.g=g;
-	specular.b=b;
-	specular.a=a;
-	spot.specular=specular;
-	this.lightsSpot_list.push(spot);
-	//this.lights_list.push(spot);
-};
-
-
+	rgba= new Rgba_lights();
+	rgba.r=r;
+	rgba.g=g;
+	rgba.b=b;
+	rgba.a=a;
+	this.specular=rgba;
+}
