@@ -28,6 +28,10 @@ XMLscene.prototype.init = function (application) {
 	this.luzesEstado;
 };
 
+XMLscene.prototype.setInterface = function (inter) {
+this.interface=inter;
+}
+
 XMLscene.prototype.initLights = function () {
 
 	this.lights[0].setPosition(2, 3, 3, 1);
@@ -79,10 +83,18 @@ XMLscene.prototype.init_All_Lights = function ()
 		this.lights[indice].setDiffuse(light.diffuse.r,light.diffuse.g,light.diffuse.b,light.diffuse.a);
 		this.lights[indice].setSpecular(light.specular.r,light.specular.g,light.specular.b,light.specular.a);
 		
-		this.luzesEstado[indice]= light.enabled;
+		if(light.enabled==1)
+		{
 		
-		//TODO ADICIONAR Á INTERFACE
-		
+		this.luzesEstado[indice]= true;
+		}
+		else
+		{
+		this.luzesEstado[indice]= false;
+		}
+
+		this.interface.addLightInterface(light.id,this.luzesEstado[indice],indice);
+	
 		if(light.enabled==1)
 		{
 			this.lights[indice].enable();
@@ -97,14 +109,57 @@ XMLscene.prototype.init_All_Lights = function ()
 		
 	}
 
-	//TODO spots;
+	for (var i=0; i< n_spot ; i++ , indice++)
+	{
+		var light = this.graph.lights_teste.spot_list[i];
+		//todo calcular direçao
+		var spotDirectionx= light.locations.x-light.target.x;
+		var spotDirectiony= light.locations.y-light.target.y;
+		var spotDirectionz= light.locations.z-light.target.z;
+		
+
+		this.lights[indice].setSpotExponent(light.exponent);
+		//TODO compor isto;
+		this.lights[indice].setPosition(light.locations.x,light.locations.y,light.locations.z);
+		this.lights[indice].setSpotDirection(spotDirectionx,spotDirectiony,spotDirectionz);
+		this.lights[indice].setAmbient(light.ambient.r,light.ambient.g,light.ambient.b,light.ambient.a);
+		this.lights[indice].setDiffuse(light.diffuse.r,light.diffuse.g,light.diffuse.b,light.diffuse.a);
+		this.lights[indice].setSpecular(light.specular.r,light.specular.g,light.specular.b,light.specular.a);
+		
+		if(light.enabled==1)
+		{
+		
+		this.luzesEstado[indice]= true;
+		}
+		else
+		{
+		this.luzesEstado[indice]= false;
+		}
+		
+		if(light.enabled==1)
+		{
+			this.lights[indice].enable();
+		}
+		else
+		{
+			this.lights[indice].disable();
+		}
+		
+		this.interface.addLightInterface(light.id,this.luzesEstado[indice],indice);
+		
+		this.lights[indice].setVisible(true);
+		this.lights[indice].update();
+
+	}
+
+	
 };
 
 XMLscene.prototype.updateLuzes = function ()
 {
 	for (var i=0; i<this.luzesEstado.length; i++)
 	{
-		if(this.luzesEstado[i]==1)
+		if(this.luzesEstado[i]==true)
 		{
 			this.lights[i].enable();
 		}

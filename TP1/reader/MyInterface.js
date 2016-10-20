@@ -31,8 +31,9 @@ MyInterface.prototype.init = function(application) {
 	// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
 	// add a group of controls (and open/expand by defult)
 	
-	var group=this.gui.addFolder("Luzes");
-	group.open();
+	this.group=this.gui.addFolder("Luzes");
+	this.group.open();
+	
 
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
@@ -44,7 +45,14 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
+MyInterface.prototype.addLightInterface = function(id,luzEstado,indice)
+{
+	
+		
+	this.group.add(this.scene.luzesEstado,indice,luzEstado).name(id);
 
+
+}
  
  
 MyInterface.prototype.processKeyboard = function(event) {
