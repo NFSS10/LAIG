@@ -24,6 +24,8 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
+	
+	this.luzesEstado;
 };
 
 XMLscene.prototype.initLights = function () {
@@ -31,6 +33,7 @@ XMLscene.prototype.initLights = function () {
 	this.lights[0].setPosition(2, 3, 3, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
+	
 };
 
 XMLscene.prototype.initCameras = function () {
@@ -48,11 +51,74 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function () 
 {
-	//this.gl.clearColor(this.graph.background[0],this.graph.background[1],this.graph.background[2],this.graph.background[3]);
-	//this.lights[0].setVisible(true);
-    //this.lights[0].enable();
+	this.gl.clearColor(this.graph.illumination_teste.background.r,this.graph.illumination_teste.background.g,this.graph.illumination_teste.background.b,this.graph.illumination_teste.background.a);
+	this.setGlobalAmbientLight(this.graph.illumination_teste.ambient.r,this.graph.illumination_teste.ambient.g,this.graph.illumination_teste.ambient.b,this.graph.illumination_teste.ambient.a);
+	this.lights[0].setVisible(true);
+    this.lights[0].enable();
+	
+	//Liga as luzes que carregou
+	this.init_All_Lights();
+
 };
 
+XMLscene.prototype.init_All_Lights = function () 
+{
+	var indice = 0;
+	
+	var n_omni = this.graph.lights_teste.omni_list.length;
+	var n_spot = this.graph.lights_teste.spot_list.length;
+	
+	this.luzesEstado = new Array(n_omni+n_spot);
+	
+	for (var i=0; i< n_omni ; i++ , indice++)
+	{
+		var light =  this.graph.lights_teste.omni_list[i];
+		
+		this.lights[indice].setPosition(light.locationo.x,light.locationo.y,light.locationo.z,light.locationo.w);
+		this.lights[indice].setAmbient(light.ambient.r,light.ambient.g,light.ambient.b,light.ambient.a);
+		this.lights[indice].setDiffuse(light.diffuse.r,light.diffuse.g,light.diffuse.b,light.diffuse.a);
+		this.lights[indice].setSpecular(light.specular.r,light.specular.g,light.specular.b,light.specular.a);
+		
+		this.luzesEstado[indice]= light.enabled;
+		
+		//TODO ADICIONAR Á INTERFACE
+		
+		if(light.enabled==1)
+		{
+			this.lights[indice].enable();
+		}
+		else
+		{
+			this.lights[indice].disable();
+		}
+
+		this.lights[indice].setVisible(true);
+		this.lights[indice].update();
+		
+	}
+
+	//TODO spots;
+};
+
+XMLscene.prototype.updateLuzes = function ()
+{
+	for (var i=0; i<this.luzesEstado.length; i++)
+	{
+		if(this.luzesEstado[i]==1)
+		{
+			this.lights[i].enable();
+		}
+		else
+		{
+			this.lights[i].disable();
+		}
+	}
+
+	for (var i = 0; i<this.lights.length;i++)
+	{
+		this.lights[i].update();
+	}
+}
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 	
@@ -79,7 +145,7 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
-		this.lights[0].update();
+		this.updateLuzes();
 	};	
 
 };
