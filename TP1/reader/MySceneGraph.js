@@ -950,6 +950,46 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 }
 
 
+MySceneGraph.prototype.displayScene = function()
+{
+	//com o root
+	console.log("\n\n\n DRAW DRAW DRAWTESTE TESTE TESTE");
+		console.log(this.components_obj.components_list[0].id);
+
+	this.displayComponents(this.components_obj.components_list[0].id);
+
+}
+
+
+//1º chamada com o component root
+MySceneGraph.prototype.displayComponents = function(component_name)
+{
+	//console.log("\n\n TESTE DRAW  " + component.children.children_list[0].id);
+
+	//procura e seleciona o component a desenhar no momento
+	var tempComponent;
+	for (var ind = 0; ind < this.components_obj.components_list.length; ind++)
+	{
+		tempComponent = this.components_obj.components_list[ind];
+		if(tempComponent.id == component_name)
+			break;
+	}
+
+
+	if(tempComponent.children.children_list.length == 1)
+	{
+		console.log(tempComponent.id);
+	}
+	else //chega aqui n é poara desenhar ja
+	{
+		for (var i = 0; i < tempComponent.children.children_list.length; i++)
+							this.displayComponents(tempComponent.children.children_list[i].id);
+	}
+
+
+
+};
+
 
 
 
