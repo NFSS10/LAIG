@@ -224,6 +224,7 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.updateLuzes();
+    this.graph.displayScene();
 	};
 
 };
