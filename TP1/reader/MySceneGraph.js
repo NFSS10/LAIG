@@ -673,6 +673,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		//console.log("rectangle: " +this.x1 + "  " + this.y1 + "  " + this.x2+ "  " + this.y2 +"\n");
 		this.primitives_obj.primitives_list[i].add_Rectangle(this.x1, this.y1, this.x2, this.y2);
 
+		rectangle_primitive= new MyRectangle(this.scene,this.x1,this.y1,this.x2,this.y2);
+		this.primitives_obj.primitives_list[i].realPrimitive=rectangle_primitive;
+
 		}
 		else if(child.nodeName == "triangle")
 		{
@@ -691,6 +694,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		//+"p2: "+ this.x2 + "  " + this.y2 + "  " + this.z2+"\n"
 		//+"p3: "+ this.x3 + "  " + this.y3 + "  " + this.z3
 		//);
+
+		//TODO CRALHO
 		this.primitives_obj.primitives_list[i].add_Triangle(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
 
 		}
@@ -705,6 +710,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		//console.log("cylinder: " +this.base + "  " + this.top_c + "  " + this.height + "  "+
 		//this.slices+"  " + this.stacks +"\n");
 		this.primitives_obj.primitives_list[i].add_Cylinder(this.base, this.top, this.height, this.slices, this.stacks);
+		cylinder_primitive= new MyCylinder(this.scene,this.base,this.top,this.height,this.slices,this.stacks);
+		this.primitives_obj.primitives_list[i].realPrimitive=cylinder_primitive;
 		}
 		else if(child.nodeName == "sphere")
 		{
@@ -714,6 +721,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.stacks = this.reader.getFloat(sphere, 'stacks');
 		//console.log("sphere: " +this.radius + "  " + this.slices + "  " + this.stacks +"\n");
 		this.primitives_obj.primitives_list[i].add_Sphere(this.radius, this.slices, this.stacks);
+		sphere_primitive= new MySphere(this.scene, this.radius, this.slices ,this.stacks);
+		this.primitives_obj.primitives_list[i].realPrimitive=sphere_primitive;
 		}
 		else if(child.nodeName == "torus")
 		{
@@ -724,7 +733,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		this.loops = this.reader.getFloat(torus, 'loops');
 		//console.log("torus: " +this.inner + "  " + this.outer + "  " + this.slices + "  " + this.loops+"\n");
 		this.primitives_obj.primitives_list[i].add_Torus(this.inner, this.outer, this.slices, this.loops);
-
+		torus_primitive= new MyTorus(this.scene, this.inner, this.outer,this.slices,this.loops);
+		this.primitives_obj.primitives_list[i].realPrimitive=torus_primitive;
 		}
 
 		}
@@ -910,7 +920,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							this.idC= this.reader.getString(children, 'id');
 							//console.log("Component: "+this.idC+"\n");
 
-							childsref.id = this.idC;
+							childsref.idC = this.idC;
 						}
 						if(children.nodeName=="primitiveref")
 						{
@@ -918,7 +928,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							this.idP= this.reader.getString(children, 'id');
 							console.log("Primitive: "+this.idP+"\n");
 
-							childsref.id = this.idP;
+							childsref.idP = this.idP;
 						}
 					childrens_obj.children_list.push(childsref);
 				}
@@ -950,47 +960,35 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 }
 
 
-MySceneGraph.prototype.displayScene = function()
+MySceneGraph.prototype.readGraph = function(rootElement)
 {
-	//com o root
-	console.log("\n\n\n DRAW DRAW DRAWTESTE TESTE TESTE");
-		console.log(this.components_obj.components_list[0].id);
-
-	this.displayComponents(this.components_obj.components_list[0].id);
-
+	var node;
+	for(var i=0 ; i<this.components_obj.components_list.length; i++)
+	{
+		if(this.components_obj.components_list[i].id==rootElement)
+		{
+			node=this.components_obj.components_list[i];
+		}
+	}
+	if (node.children.children_list[0].idP!=null)
+	{
+		
+		for(var i=0; i< this.primitives_obj.primitives_list.length;i++)
+		{
+			if(node.children.children_list[0].idP=this.primitives_obj.primitives_list[i].id)
+			{
+				this.primitives_obj.primitives_list[i].realPrimitive.display();
+			}
+		}
+	}
+	else
+	{
+		for(var i=0; i<node.children.children_list.length; i++)
+		{
+			this.readGraph(node.children.children_list[i].idC);
+		}
+	}	
 }
-
-
-//1º chamada com o component root
-MySceneGraph.prototype.displayComponents = function(component_name)
-{
-	//console.log("\n\n TESTE DRAW  " + component.children.children_list[0].id);
-
-	//procura e seleciona o component a desenhar no momento
-	var tempComponent;
-	for (var ind = 0; ind < this.components_obj.components_list.length; ind++)
-	{
-		tempComponent = this.components_obj.components_list[ind];
-		if(tempComponent.id == component_name)
-			break;
-	}
-
-
-	if(tempComponent.children.children_list.length == 1)
-	{
-		console.log(tempComponent.id);
-	}
-	else //chega aqui n é poara desenhar ja
-	{
-		for (var i = 0; i < tempComponent.children.children_list.length; i++)
-							this.displayComponents(tempComponent.children.children_list[i].id);
-	}
-
-
-
-};
-
-
 
 
 /*

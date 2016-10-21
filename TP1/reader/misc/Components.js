@@ -7,12 +7,12 @@ function Components()
 function Component()
 {
 	this.id = null;
-	
 	this.transformations = null;
 	this.materials = null;
 	this.texture = null;
 	this.children = null;
 }
+
 
 Component.prototype.add_components = function(transf, mat, tex, chil)
 {
@@ -123,7 +123,8 @@ function Children()
 //componentref ou primitiveref
 function ChildrenRef()
 {
-	this.id = null;
+	this.idC = null;
+	this.idP = null;
 }
 //..........................
 

@@ -1,57 +1,79 @@
-function Triangle(scene, v1x, v1y, v1z, v2x, v2y, v2z, v3x, v3y, v3z) {
-	CGFobject.call(this,scene);
-	
-	this.v1x = v1x;
-	this.v1y = v1y;
-	this.v1z = v1z;
-	this.v2x = v2x;
-	this.v2y = v2y;
-	this.v2z = v2z;
-	this.v3x = v3x;
-	this.v3y = v3y;
-	this.v3z = v3z;
-	
-	this.minS = 0;
-	this.minT = 0;
-	this.maxS = 1;
-	this.maxT = 1;
+/**
+ * Triangle
+ * @constructor
+ */
+function MyTriangle(scene, x1,y1,z1,x2,y2,z2, x3,y3,z3) {
+    CGFobject.call(this, scene);
 
-	this.initBuffers();
+    this.x1 = x1;
+    this.x2 = x2;
+    this.x3 = x3;
+    this.y1 = y1;
+    this.y2 = y2;
+    this.y3 = y3;
+    this.z1 = z1;
+    this.z2 = z2;
+    this.z3 = z3;
+
+    this.initBuffers();
 };
 
-Triangle.prototype = Object.create(CGFobject.prototype);
-Triangle.prototype.constructor=Triangle;
+MyTriangle.prototype = Object.create(CGFobject.prototype);
+MyTriangle.prototype.constructor = MyTriangle;
 
+MyTriangle.prototype.initBuffers = function() {
+   
+    this.vertices = [
+        this.x1, this.y1, this.z1,
+        this.x2, this.y2, this.z2,
+        this.x3, this.y3, this.z3
+    ];
 
-Triangle.prototype.initBuffers = function () {
-	this.vertices = [
-            this.v1x, this.v1y, this.v1z,
-            this.v2x, this.v2y, this.v2z,
-            this.v3x, this.v3y, this.v3z
-			];
+    this.indices = [
+        0, 1, 2,
+    ];
 
-	this.indices = [ 0, 1, 2 ];
-	
-	var nx = (this.v2y-this.v1y)*(this.v3z-this.v1z) - (this.v2z-this.v1z)*(this.v3y-this.v1y);
-	var ny = (this.v2z-this.v1z)*(this.v3x-this.v1x) - (this.v2x-this.v1x)*(this.v3z-this.v1z);
-	var nz = (this.v2x-this.v1x)*(this.v3y-this.v1y) - (this.v2y-this.v1y)*(this.v3x-this.v1x);
+    this.primitiveType = this.scene.gl.TRIANGLES;
+
 
     this.normals = [
-    nx, ny, nz,
-    nx, ny, nz,
-    nx, ny, nz ];
-    
-    var ab = Math.sqrt(Math.pow(this.v2x-this.v1x, 2) + Math.pow(this.v2y-this.v1y, 2) + Math.pow(this.v2z-this.v1z, 2));
-    var bc = Math.sqrt(Math.pow(this.v2x-this.v3x, 2) + Math.pow(this.v2y-this.v3y, 2) + Math.pow(this.v2z-this.v3z, 2));
-    var ac = Math.sqrt(Math.pow(this.v1x-this.v3x, 2) + Math.pow(this.v1y-this.v3y, 2) + Math.pow(this.v1z-this.v3z, 2));
-    var b = Math.acos((Math.pow(bc, 2) + Math.pow(ab, 2) - Math.pow(ac, 2))/(2*ab*bc));
-    
-    this.texCoords = [
-		this.minS, this.minT,
-		this.maxS, this.minT,
-		(ab - bc*Math.cos(b))/ab, bc*Math.sin(b)/ab
+        0, 0, 1,
+        0, 0, 1,
+        0, 0, 1,
     ];
-		
-	this.primitiveType=this.scene.gl.TRIANGLES;
-	this.initGLBuffers();
+
+
+    var properties = this.getVectorsProperties(this.makeVector(this.point2, this.point1),
+        this.makeVector(this.point2, this.point3));
+
+
+    this.texCoords = [
+      0, 0,
+      properties[0], 0,
+      properties[0] - properties[1] * Math.cos(properties[2]), properties[1] * Math.sin(properties[2])
+    ]
+
+    this.initGLBuffers();
 };
+
+
+MyTriangle.prototype.makeVector = function(point1, point2) {
+    return new Point3(point2.x - point1.x, point2.y - point1.y, point2.z - point1.z)
+}
+
+MyTriangle.prototype.dotProduct = function(point1, point2) {
+    return (point1.x * point2.x) + (point1.y * point2.y) + (point1.z * point2.z);
+}
+
+MyTriangle.prototype.calculateLength = function(vec) {
+    return Math.sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
+}
+
+MyTriangle.prototype.getVectorsProperties = function(vec1, vec2) {
+    var length1 = this.calculateLength(vec1);
+    var length2 = this.calculateLength(vec2);
+    var dot = this.dotProduct(vec1, vec2);
+    var angle = Math.acos(dot / (length1 * length2));
+
+    return [length1, length2, angle];
+}

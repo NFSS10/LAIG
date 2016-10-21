@@ -3,6 +3,7 @@ function Primitive()
 {
 	this.id = null;
 	this.primitiveref = null;
+	this.realPrimitive = null;
 }
 
 Primitive.prototype.add_id = function(id)

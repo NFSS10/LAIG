@@ -20,11 +20,12 @@ XMLscene.prototype.init = function (application) {
 
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
-	   this.gl.enable(this.gl.CULL_FACE);
+	  this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
 
+	
 	this.luzesEstado;
   this.indice_View = 0;
 };
@@ -213,7 +214,7 @@ XMLscene.prototype.display = function () {
 
 	// Draw axis
 	this.axis.display();
-
+	
 	this.setDefaultAppearance();
 
 	// ---- END Background, camera and axis setup
@@ -224,7 +225,7 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 		this.updateLuzes();
-    this.graph.displayScene();
+		this.graph.readGraph("root");
 	};
 
 };
