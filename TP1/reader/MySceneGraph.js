@@ -975,7 +975,7 @@ MySceneGraph.prototype.readGraph = function(rootElement)
 		
 		for(var i=0; i< this.primitives_obj.primitives_list.length;i++)
 		{
-			if(node.children.children_list[0].idP=this.primitives_obj.primitives_list[i].id)
+			if(node.children.children_list[0].idP==this.primitives_obj.primitives_list[i].id)
 			{
 				this.primitives_obj.primitives_list[i].realPrimitive.display();
 			}
