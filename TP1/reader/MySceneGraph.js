@@ -34,6 +34,8 @@ function MySceneGraph(filename, scene) {
 	this.primitives_obj = new Primitives();
 	this.components_obj = new Components();
 
+	this.degToRad= Math.PI / 180.0;
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -516,6 +518,7 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 	for(var i = 0; i <nnodes ; i++)
 	{
 		matrial= new Material();
+		var materialappearance = new CGFappearance(this.scene);
 		mat = material.children[i];
 		this.id = this.reader.getString(mat,'id');
 		matrial.add_id(this.id);
@@ -529,6 +532,8 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 		matrial.add_emission(this.rE,this.gE,this.bE,this.aE);
 		console.log(matrial.emission.r + "  " + matrial.emission.g + "  " + matrial.emission.b + "  "+matrial.emission.a+"\n");
 
+		materialappearance.setEmission(this.rE, this.gE, this.bE, this.aE);
+
 		ambient = mat.children[1];
 		this.rA = this.reader.getFloat(ambient, 'r');
 		this.gA = this.reader.getFloat(ambient, 'g');
@@ -536,6 +541,8 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 		this.aA = this.reader.getFloat(ambient, 'a');
 		matrial.add_ambient(this.rA,this.gA,this.bA,this.aA);
 		console.log(matrial.ambient.r + "  " + matrial.ambient.g + "  " + matrial.ambient.b + "  "+ matrial.ambient.a+"\n");
+
+		materialappearance.setAmbient(this.rA, this.gA, this.bA, this.aA);
 
 		diffuse = mat.children[2];
 		this.rD = this.reader.getFloat(diffuse, 'r');
@@ -545,6 +552,8 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 		matrial.add_diffuse(this.rD,this.gD,this.bD,this.aD);
 		console.log(matrial.diffuse.r + "  " +matrial.diffuse.g + "  " + matrial.diffuse.b + "  "+matrial.diffuse.a +"\n");
 
+		materialappearance.setDiffuse(this.rD, this.gD, this.bD, this.aD);
+
 		specular = mat.children[3];
 		this.rS = this.reader.getFloat(specular, 'r');
 		this.gS = this.reader.getFloat(specular, 'g');
@@ -553,11 +562,17 @@ MySceneGraph.prototype.parseMaterialas = function(rootElement)
 		matrial.add_specular(this.rS,this.gS,this.bS,this.aS);
 		console.log(matrial.specular.r	+ "  " + matrial.specular.g + "  " + matrial.specular.b + "  "+ matrial.specular.a +"\n");
 
+		materialappearance.setSpecular(this.rS, this.gS, this.bS, this.aS);
+
 		shininess = mat.children[4];
 		this.value = this.reader.getFloat(shininess, 'value');
 		matrial.add_shininess(this.value);
 		console.log(matrial.shininess);
 
+		materialappearance.setShininess(this.value);
+			
+		matrial.realMaterial= materialappearance;
+		
 		this.materiais.add_material(matrial);
 
 	}
@@ -582,6 +597,7 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 	for(var i = 0; i <nnodes ; i++)
 	{
 		var transform = new Transformation();
+		var matrix = mat4.create();
 		transf = transfor.children[i];
 		this.id = this.reader.getString(transf,'id');
 		transform.add_id(this.id);
@@ -602,6 +618,15 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 		transform.add_translate(this.xT,this.yT,this.zT);
 		console.log("translate: " + transform.translate[translates].x + "  " + transform.translate[translates].y + "  " + transform.translate[translates].z +"\n");
 		translates++;
+
+		//criar matriz
+
+		var  translate_xyz = [];
+		translate_xyz[0]= this.xT;
+		translate_xyz[1]= this.yT;
+		translate_xyz[2]= this.zT;
+		
+		mat4.translate(matrix, matrix, translate_xyz);
 		}
 		else if(child.nodeName == "rotate")
 		{
@@ -611,6 +636,25 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 		transform.add_rotate(this.axis,this.angle);
 		console.log("rotate: " + transform.rotate[rotates].axis + "  " +  transform.rotate[rotates].angle +"\n");
 		rotates++;
+
+		//criar matriz
+
+		var rotation_array= null;
+		if(this.axis=="x")
+		{
+			rotation_array=[1,0,0];
+		}
+		else if(this.axis=="y")
+		{
+			rotation_array=[0,1,0];
+		}
+		else if(this.axis=="z")
+		{
+			rotation_array=[0,0,1];
+		}
+		
+		mat4.rotate(matrix,matrix,this.angle*this.degToRad,rotation_array);
+
 		}
 		else if(child.nodeName == "scale")
 		{
@@ -621,10 +665,19 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 		transform.add_scale(this.xS,this.yS,this.zS);
 		console.log("scale: " + transform.scale[scales].x  + "  " + transform.scale[scales].y + "  " +transform.scale[scales].z +"\n");
 		scales++;
+
+		//criar matrix
+
+		var  scale_xyz = [];
+		scale_xyz[0]= this.xS;
+		scale_xyz[1]= this.yS;
+		scale_xyz[2]= this.zS;
+		
+		mat4.scale(matrix, matrix,scale_xyz);
 		}
 
 		}
-
+		transform.realMatrix=matrix;
 		this.transformationst.add_transformation(transform);
 		translates=0;
 		rotates=0;
@@ -825,6 +878,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				rotates=0;
 				scales=0;
 				transformation_obj = new Transformation_Components();
+				var matrix= mat4.create();
 
 				for(var t = 0; t <Ntranf; t++)
 				{
@@ -838,6 +892,14 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						transformation_obj.set_id(this.idT);
 						console.log("AQUIIIII" +transformation_obj.id[ids] +"\n");
 						ids++;
+
+						for(var z=0; z<this.transformationst.transformations.length;z++)
+						{
+							if(this.idT==this.transformationst.transformations[z].id)
+							{
+								mat4.multiply(matrix,matrix,this.transformationst.transformations[z].realMatrix);
+							}
+						}
 					}
 					//TODO faz apartir de aqui, ja que fizeste os transformations
 					//Usas o ... add_transformation(); para fazer push para a lista de transformacoes
@@ -850,6 +912,14 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						transformation_obj.add_translate(this.xT,this.yT,this.zT);
 						console.log("translate: " +transformation_obj.translate_list[translates].x + "  " + transformation_obj.translate_list[translates].y + "  " + transformation_obj.translate_list[translates].z +"\n");
 						translates++;
+
+						//fazer matriz;
+						var  translate_xyz = [];
+						translate_xyz[0]= this.xT;
+						translate_xyz[1]= this.yT;
+						translate_xyz[2]= this.zT;
+		
+						mat4.translate(matrix, matrix, translate_xyz);
 					}
 					if(transf.nodeName=="rotate")
 					{
@@ -859,6 +929,23 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						transformation_obj.add_rotate(this.axis,this.angle);
 						console.log("rotate: " +transformation_obj.rotate_list[rotates].axis+ "  " + transformation_obj.rotate_list[rotates].angle +"\n");
 						rotates++;
+
+						//fazer matriz;
+						var rotation_array= null;
+						if(this.axis=="x")
+						{
+							rotation_array=[1,0,0];
+						}
+						else if(this.axis=="y")
+						{
+							rotation_array=[0,1,0];
+						}
+						else if(this.axis=="z")
+						{
+							rotation_array=[0,0,1];
+						}
+
+						mat4.rotate(matrix,matrix,this.angle*this.degToRad,rotation_array);
 					}
 					if(transf.nodeName=="scale")
 					{
@@ -868,9 +955,19 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						this.zS = this.reader.getFloat(scale, 'z');
 						transformation_obj.add_scale(this.xS,this.yS,this.zS);
 						console.log("scale: " +transformation_obj.scale_list[scales].x+ "  " + transformation_obj.scale_list[scales].y + "  " + transformation_obj.scale_list[scales].z +"\n");
+
+						//fazer matriz
+
+						var  scale_xyz = [];
+						scale_xyz[0]= this.xS;
+						scale_xyz[1]= this.yS;
+						scale_xyz[2]= this.zS;
+		
+						mat4.scale(matrix, matrix,scale_xyz);
 					}
 					//TODO ATE AQUI
 				}
+				transformation_obj.realMatrix=matrix;
 				component_obj.transformations=transformation_obj;
 			}
 			if(child.nodeName=="materials") //materiais
@@ -887,8 +984,26 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 					material_obj = new Material_Components();
 					material_obj.id =this.idM;
 
+
+					//descobrir real material
+
+					for(var z=0; z<this.materiais.materials.length; z++)
+					{
+
+						if(this.idM==this.materiais.materials[z].id)
+						{
+							material_obj.realMaterial=this.materiais.materials[z].realMaterial;
+						}
+					
+					}
+						
 					materials_obj.materials_list.push(material_obj);
 				}
+				
+				
+
+				
+
 				component_obj.materials = materials_obj;
 			}
 			if(child.nodeName=="texture") //texturas
@@ -929,6 +1044,16 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							console.log("Primitive: "+this.idP+"\n");
 
 							childsref.idP = this.idP;
+							
+							for(var z=0; z< this.primitives_obj.primitives_list.length;z++)
+							{
+								if(this.idP==this.primitives_obj.primitives_list[z].id)
+								{
+									console.log("HEYYYYYY CHEGUEIIIIII");
+									childsref.realPrimitive=this.primitives_obj.primitives_list[z].realPrimitive;
+								}
+							}	
+							
 						}
 					childrens_obj.children_list.push(childsref);
 				}
@@ -959,8 +1084,15 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 
 }
 
+MySceneGraph.prototype.readGraphaux = function()
+{
+	var transformationStack = new Stack();
+	var materialStack = new Stack();
+	transformationStack.push(mat4.create());
+	this.readGraph("root",transformationStack,materialStack );
+}
 
-MySceneGraph.prototype.readGraph = function(rootElement)
+MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,materialStack )
 {
 	var node;
 	for(var i=0 ; i<this.components_obj.components_list.length; i++)
@@ -970,23 +1102,60 @@ MySceneGraph.prototype.readGraph = function(rootElement)
 			node=this.components_obj.components_list[i];
 		}
 	}
-	if (node.children.children_list[0].idP!=null)
+	if (node.children.children_list[0].idP!=null)// se for a children for primitiva desenha;
 	{
-		
-		for(var i=0; i< this.primitives_obj.primitives_list.length;i++)
+		//Transformaçao
+		transformation = mat4.create();
+		mat4.multiply(transformation,transformationStack.top(),node.transformations.realMatrix);
+		transformationStack.push(transformation);
+
+		//material
+		var material_id = node.materials.materials_list[this.scene.indiceMaterial].id;
+		if(material_id=="inherit")
 		{
-			if(node.children.children_list[0].idP==this.primitives_obj.primitives_list[i].id)
-			{
-				this.primitives_obj.primitives_list[i].realPrimitive.display();
-			}
+			materialStack.push(materialStack.top());
 		}
+		else
+		{
+			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial].realMaterial);
+		}
+
+		this.scene.pushMatrix();
+        this.scene.multMatrix(transformationStack.top());
+
+		materialStack.top().apply();
+		node.children.children_list[0].realPrimitive.display();
+
+		this.scene.popMatrix();
+		transformationStack.pop();
+		materialStack.pop()
 	}
-	else
+	else//component
 	{
+		//transformacoes
+		transformation = mat4.create();
+		mat4.multiply(transformation,transformationStack.top(),node.transformations.realMatrix);
+		transformationStack.push(transformation);
+		//materials
+		
+		var material_id = node.materials.materials_list[this.scene.indiceMaterial].id;
+		if(material_id=="inherit")
+		{
+			materialStack.push(materialStack.top());
+		}
+		else
+		{
+			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial].realMaterial);
+		}
+
+
 		for(var i=0; i<node.children.children_list.length; i++)
 		{
-			this.readGraph(node.children.children_list[i].idC);
+			this.readGraph(node.children.children_list[i].idC,transformationStack,materialStack);
 		}
+
+		transformationStack.pop();
+		materialStack.pop();
 	}	
 }
 

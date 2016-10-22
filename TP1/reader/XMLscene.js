@@ -28,6 +28,7 @@ XMLscene.prototype.init = function (application) {
 	
 	this.luzesEstado;
   this.indice_View = 0;
+  this.indiceMaterial =0;
 };
 
 XMLscene.prototype.setInterface = function (inter) {
@@ -224,8 +225,9 @@ XMLscene.prototype.display = function () {
 	// This is one possible way to do it
 	if (this.graph.loadedOk)
 	{
+		
 		this.updateLuzes();
-		this.graph.readGraph("root");
+		this.graph.readGraphaux();
 	};
 
 };

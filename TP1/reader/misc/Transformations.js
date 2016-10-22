@@ -4,6 +4,7 @@ function Transformation ()
 	this.translate = [];
 	this.rotate = [];
 	this.scale = [];
+	this.realMatrix = [];
 };
 
 

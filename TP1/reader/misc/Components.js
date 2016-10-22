@@ -13,7 +13,6 @@ function Component()
 	this.children = null;
 }
 
-
 Component.prototype.add_components = function(transf, mat, tex, chil)
 {
 	this.transformations = transf;
@@ -32,6 +31,7 @@ function Transformation_Components()
 	this.translate_list = [];
 	this.scale_list = [];
 	this.rotate_list = [];
+	this.realMatrix = null;
 }
 
 function Scale()
@@ -104,6 +104,7 @@ function Materials_Components()
 function Material_Components()
 {
 	this.id = null;
+	this.realMaterial = null;
 }
 //ººººººººººººººººººººººººººº
 
@@ -125,6 +126,7 @@ function ChildrenRef()
 {
 	this.idC = null;
 	this.idP = null;
+	this.realPrimitive = null;
 }
 //..........................
 

@@ -8,6 +8,7 @@ function Material ()
 	this.diffuse = null; 
 	this.specular = null; 
 	this.shininess = null;
+	this.realMaterial = null;
 	
 	
 };
