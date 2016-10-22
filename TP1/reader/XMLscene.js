@@ -10,6 +10,8 @@ XMLscene.prototype.constructor = XMLscene;
 XMLscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
+	this.enableTextures(true);
+	
     this.initCameras();
 
     this.initLights();
