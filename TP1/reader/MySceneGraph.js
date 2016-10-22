@@ -753,8 +753,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		//);
 
 		//TODO CRALHO
+		triangle_primitive= new MyTriangle(this.scene,this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
 		this.primitives_obj.primitives_list[i].add_Triangle(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
-
+		this.primitives_obj.primitives_list[i].realPrimitive=triangle_primitive;
 		}
 		else if(child.nodeName == "cylinder")
 		{
