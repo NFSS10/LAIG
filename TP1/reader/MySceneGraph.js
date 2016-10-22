@@ -1104,8 +1104,9 @@ MySceneGraph.prototype.readGraphaux = function()
 	var transformationStack = new Stack();
 	var materialStack = new Stack();
 	var textureStack = new Stack();
+	var root = this.components_obj.components_list[0].id;
 	transformationStack.push(mat4.create());
-	this.readGraph("root",transformationStack,materialStack,textureStack );
+	this.readGraph(root,transformationStack,materialStack,textureStack);
 }
 
 MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,materialStack, textureStack )
