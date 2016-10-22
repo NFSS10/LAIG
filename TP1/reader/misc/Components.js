@@ -112,6 +112,7 @@ function Material_Components()
 function Texture_Components()
 {
 	this.id = null;
+	this.realTexture=null;
 }
 
 

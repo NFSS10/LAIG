@@ -491,12 +491,16 @@ MySceneGraph.prototype.parseTextures = function(rootElement)
 	for(var i = 0; i <nnodes ; i++)
 	{
 		tex = texture.children[i];
+		
 		this.id = this.reader.getString(tex, 'id');
 		this.file = this.reader.getString(tex, 'file');
 		this.length_s = this.reader.getFloat(tex, 'length_s');
 		this.length_t = this.reader.getFloat(tex, 'length_t');
 
-		this.texture_teste.addTexture(this.id,this.file,this.length_s,this.length_t);
+		realTexture = new CGFtexture(this.scene, this.file, this.length_s,this.length_t);
+
+		this.texture_teste.addTexture(this.id,this.file,this.length_s,this.length_t,realTexture);
+
 		console.log(this.texture_teste.textures[i].id	+ "  " + this.texture_teste.textures[i].file + "  " + this.texture_teste.textures[i].length_s + "  "+this.texture_teste.textures[i].length_t+"\n");
 	}
 	//graph.textures=texture_teste;
@@ -1016,6 +1020,16 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				console.log(this.idT + "\n");
 				textures_obj.id = this.idT;
 
+				for(var y=0; y< this.texture_teste.textures.length; y++)
+				{
+					if(this.idT==this.texture_teste.textures[y].id)
+					{
+						
+						textures_obj.realTexture=this.texture_teste.textures[y].realTexture;
+						
+					}
+				}
+
 				component_obj.texture = textures_obj;
 			}
 			if(child.nodeName=="children")  //filhos
@@ -1049,7 +1063,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							{
 								if(this.idP==this.primitives_obj.primitives_list[z].id)
 								{
-									console.log("HEYYYYYY CHEGUEIIIIII");
+								
 									childsref.realPrimitive=this.primitives_obj.primitives_list[z].realPrimitive;
 								}
 							}	
@@ -1088,11 +1102,12 @@ MySceneGraph.prototype.readGraphaux = function()
 {
 	var transformationStack = new Stack();
 	var materialStack = new Stack();
+	var textureStack = new Stack();
 	transformationStack.push(mat4.create());
-	this.readGraph("root",transformationStack,materialStack );
+	this.readGraph("root",transformationStack,materialStack,textureStack );
 }
 
-MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,materialStack )
+MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,materialStack, textureStack )
 {
 	var node;
 	for(var i=0 ; i<this.components_obj.components_list.length; i++)
@@ -1110,52 +1125,101 @@ MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,mate
 		transformationStack.push(transformation);
 
 		//material
-		var material_id = node.materials.materials_list[this.scene.indiceMaterial].id;
+		var material_id = node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].id;
 		if(material_id=="inherit")
 		{
 			materialStack.push(materialStack.top());
 		}
 		else
 		{
-			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial].realMaterial);
+			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].realMaterial);
 		}
+		//texturas
+		
+		var texture_id= node.texture.id;
+	
+		if(texture_id=="inherit")
+		{
+			textureStack.push(textureStack.top());
+		}
+		else if(texture_id=="none")
+		{
+			textureStack.push("none");
+		}
+		else 
+		{
+			textureStack.push(node.texture.realTexture);
+		}
+
+		
+		if(textureStack.top() != "none")
+		{
+			materialStack.top().setTexture(textureStack.top());
+		}	
 
 		this.scene.pushMatrix();
         this.scene.multMatrix(transformationStack.top());
+		
+		
 
 		materialStack.top().apply();
 		node.children.children_list[0].realPrimitive.display();
+		
 
 		this.scene.popMatrix();
+		
 		transformationStack.pop();
 		materialStack.pop()
+		textureStack.pop();
+		
 	}
 	else//component
 	{
 		//transformacoes
+
 		transformation = mat4.create();
 		mat4.multiply(transformation,transformationStack.top(),node.transformations.realMatrix);
 		transformationStack.push(transformation);
+
 		//materials
 		
-		var material_id = node.materials.materials_list[this.scene.indiceMaterial].id;
+		var material_id = node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].id;
 		if(material_id=="inherit")
 		{
 			materialStack.push(materialStack.top());
 		}
 		else
 		{
-			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial].realMaterial);
+			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].realMaterial);
 		}
+
+		//texturas
+
+		var texture_id= node.texture.id;
+	
+		if(texture_id=="inherit")
+		{
+			textureStack.push(textureStack.top());
+		}
+		else if(texture_id=="none")
+		{
+			textureStack.push("none");
+		}
+		else 
+		{
+			textureStack.push(node.texture.realTexture);
+		}
+
 
 
 		for(var i=0; i<node.children.children_list.length; i++)
 		{
-			this.readGraph(node.children.children_list[i].idC,transformationStack,materialStack);
+			this.readGraph(node.children.children_list[i].idC,transformationStack,materialStack,textureStack);
 		}
 
 		transformationStack.pop();
 		materialStack.pop();
+		textureStack.pop();
 	}	
 }
 

@@ -24,8 +24,11 @@ XMLscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis=new CGFaxis(this);
-
-	
+	this.appearance= new CGFappearance(this);
+	this.bola= new MySphere(this,1,10,10);
+	this.textura= new CGFtexture(this,"resources\\images\\arotex.jpg");
+	this.appearance.loadTexture("./resources/images/arotex.jpg");
+	this.appearance.setAmbient( 0, 0, 0, 0 );
 	this.luzesEstado;
   this.indice_View = 0;
   this.indiceMaterial =0;
@@ -199,6 +202,13 @@ XMLscene.prototype.changeViews = function () {
     this.interface.setActiveCamera(this.camera);
 };
 
+XMLscene.prototype.updateMaterial = function () {
+  //Passa a primeira view
+  this.indiceMaterial++;
+
+  
+};
+
 XMLscene.prototype.display = function () {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -228,6 +238,7 @@ XMLscene.prototype.display = function () {
 		
 		this.updateLuzes();
 		this.graph.readGraphaux();
+		
 	};
-
+	
 };
