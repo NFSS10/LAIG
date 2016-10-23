@@ -1,5 +1,5 @@
 /**
-* Cylinder
+* MyCylinder
 * @constructor
 */
 function MyCylinder(scene, base, top, height, slices, stacks) {
@@ -14,8 +14,8 @@ MyCylinder.prototype = Object.create(CGFobject.prototype);
 MyCylinder.prototype.constructor = MyCylinder;
 
 
-MyCylinder.prototype.display = function() {
-
+MyCylinder.prototype.display = function()
+ {
 	this.surface.display();
 
 	this.scene.pushMatrix();

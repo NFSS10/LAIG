@@ -655,7 +655,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				//console.log("cylinder: " +this.base + "  " + this.top_c + "  " + this.height + "  "+
 				//this.slices+"  " + this.stacks +"\n");
 				this.primitives_info.primitives_list[i].add_Cylinder(this.base, this.top, this.height, this.slices, this.stacks);
-				cylinder_primitive= new MyCylinder(this.scene,this.base,this.top,this.height,this.slices,this.stacks);
+				cylinder_primitive= new MyCylinder(this.scene, this.base, this.top, this.height, this.slices, this.stacks);
 				this.primitives_info.primitives_list[i].realPrimitive=cylinder_primitive;
 			}
 			else if(child.nodeName == "sphere")

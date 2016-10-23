@@ -1,41 +1,43 @@
 /**
- * Torus
+ * MyTorus
  * @constructor
  */
-function MyTorus(scene, inner, outer, slices, loops) {
+
+function MySphere(scene, radius, slices, stacks) {
     CGFobject.call(this, scene);
 
-    this.r = inner;
-    this.R = outer;
+    this.radius = radius;
     this.slices = slices;
-    this.stacks = loops;
+    this.stacks = stacks;
 
     this.initBuffers();
 };
 
-MyTorus.prototype = Object.create(CGFobject.prototype);
-MyTorus.prototype.constructor = MyTorus;
+MySphere.prototype = Object.create(CGFobject.prototype);
+MySphere.prototype.constructor = MySphere;
 
-MyTorus.prototype.initBuffers = function() {
-
+MySphere.prototype.initBuffers = function()
+{
     this.vertices = [];
     this.indices = [];
     this.normals = [];
     this.texCoords = [];
 
-    for (var stack = 0; stack <= this.stacks; stack++) {
-        var theta = stack * 2 * Math.PI / this.stacks;
+    for (var stack = 0; stack <= this.stacks; stack++)
+     {
+        var theta = stack * Math.PI / this.stacks;
         var sinTheta = Math.sin(theta);
         var cosTheta = Math.cos(theta);
 
-        for (var slice = 0; slice <= this.slices; slice++) {
+        for (var slice = 0; slice <= this.slices; slice++)
+        {
             var phi = slice * 2 * Math.PI / this.slices;
             var sinPhi = Math.sin(phi);
             var cosPhi = Math.cos(phi);
 
-            var x = (this.R + (this.r * cosTheta)) * cosPhi;
-            var y = (this.R + (this.r * cosTheta)) * sinPhi
-            var z = this.r * sinTheta;
+            var x = this.radius * cosPhi * sinTheta;
+            var y = this.radius * cosTheta;
+            var z = this.radius * sinPhi * sinTheta;
             var s = 1 - (stack / this.stacks);
             var t = 1 - (slice / this.slices);
 
@@ -45,8 +47,10 @@ MyTorus.prototype.initBuffers = function() {
         }
     }
 
-    for (var stack = 0; stack < this.stacks; stack++) {
-        for (var slice = 0; slice < this.slices; slice++) {
+    for (var stack = 0; stack < this.stacks; stack++)
+    {
+        for (var slice = 0; slice < this.slices; slice++)
+         {
             var first = (stack * (this.slices + 1)) + slice;
             var second = first + this.slices + 1;
 
@@ -54,7 +58,6 @@ MyTorus.prototype.initBuffers = function() {
             this.indices.push(first, first + 1, second + 1);
         }
     }
-
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

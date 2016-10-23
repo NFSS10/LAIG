@@ -1,5 +1,5 @@
 /**
-* CylinderBase
+* MyCylinderBase
 * @constructor
 */
 function MyCylinderBase(scene, radius, slices) {
@@ -14,7 +14,12 @@ function MyCylinderBase(scene, radius, slices) {
 MyCylinderBase.prototype = Object.create(CGFobject.prototype);
 MyCylinderBase.prototype.constructor = MyCylinderBase;
 
-MyCylinderBase.prototype.initBuffers = function() {
+MyCylinderBase.prototype.initBuffers = function()
+{
+
+	var ang = (2*Math.PI) / this.slices;
+	var start = 1;
+	var texCenter;
 
 
 	this.vertices = [];
@@ -23,18 +28,13 @@ MyCylinderBase.prototype.initBuffers = function() {
 	this.texCoords = [];
 
 
-	var ang = (2*Math.PI) / this.slices;
-	var start = 1;
-	var texCenter;
-	
-
-	// Circle center
 	this.vertices.push(0, 0, 0);
 	this.normals.push(0, 0, 1);
 	this.texCoords.push(0.5, 0.5);
 
 
-	for (var slice = 0; slice <= this.slices; slice++) {
+	for (var slice = 0; slice <= this.slices; slice++)
+	{
 		var x = Math.cos(slice * ang);
 		var y = Math.sin(slice * ang);
 
@@ -47,7 +47,6 @@ MyCylinderBase.prototype.initBuffers = function() {
 	}
 
 	this.indices.push(0, start, 1);
-
 
 	this.primitiveType = this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
