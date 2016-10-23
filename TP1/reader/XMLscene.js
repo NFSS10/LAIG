@@ -110,13 +110,12 @@ XMLscene.prototype.init_All_Lights = function ()
   {
     var light = this.graph.lights_info.spot_list[i];
 
-    var spotDirectionx= light.locations.x-light.target.x;
-    var spotDirectiony= light.locations.y-light.target.y;
-    var spotDirectionz= light.locations.z-light.target.z;
+    var spotDirectionx= light.target.x - light.locations.x;
+    var spotDirectiony= light.target.y - light.locations.y;
+    var spotDirectionz= light.target.z - light.locations.z;
 
 
     this.lights[indice].setSpotExponent(light.exponent);
-    //TODO compor isto;
     this.lights[indice].setPosition(light.locations.x,light.locations.y,light.locations.z);
     this.lights[indice].setSpotDirection(spotDirectionx,spotDirectiony,spotDirectionz);
     this.lights[indice].setAmbient(light.ambient.r,light.ambient.g,light.ambient.b,light.ambient.a);
