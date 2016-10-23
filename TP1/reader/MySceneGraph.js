@@ -9,14 +9,14 @@ function MySceneGraph(filename, scene) {
 
 	//construtores
 	this.scene_info=new Scene();
-	this.view_teste = new Views();
-	this.illumination_teste = new Illumination();
-	this.lights_teste= new Lights();
-	this.texture_teste = new Textures();
-	this.materiais= new Materials();
-	this.transformationst = new Transformations();
-	this.primitives_obj = new Primitives();
-	this.components_obj = new Components();
+	this.views_info = new Views();
+	this.illumination_info = new Illumination();
+	this.lights_info= new Lights();
+	this.textures_info = new Textures();
+	this.materials_info= new Materials();
+	this.transformations_info = new Transformations();
+	this.primitives_info = new Primitives();
+	this.components_info = new Components();
 
 	//graus para radianos
 	this.degToRad= Math.PI / 180.0;
@@ -196,7 +196,7 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 
 	var view = views[0];
 
-	this.view_teste.add_default(this.reader.getString(view, 'default'));
+	this.views_info.add_default(this.reader.getString(view, 'default'));
 
 	var nnodes = views[0].children.length;
 	for(var i = 0; i <nnodes ; i++)
@@ -229,7 +229,7 @@ MySceneGraph.prototype.parseViews = function(rootElement)
 
 		console.log("From: "+perspec.from.x + "  " + perspec.from.y + "  " + perspec.from.z + "\n To: " + perspec.to.x + "  " + perspec.to.y + "  " + perspec.to.z + "  ");
 
-		this.view_teste.add_perspective(perspec);
+		this.views_info.add_perspective(perspec);
 	}
 };
 
@@ -243,11 +243,11 @@ MySceneGraph.prototype.parseIllumination = function(rootElement)
 	}
 
 	var  illumination = illuminations[0];
-	this.illumination_teste.doublesided = this.reader.getFloat(illumination, 'doublesided');
-	this.illumination_teste.local = this.reader.getFloat(illumination, 'local');
+	this.illumination_info.doublesided = this.reader.getFloat(illumination, 'doublesided');
+	this.illumination_info.local = this.reader.getFloat(illumination, 'local');
 
 	console.log("Illuminations .........");
-	console.log(this.illumination_teste.doublesided + "   " + this.illumination_teste.local);
+	console.log(this.illumination_info.doublesided + "   " + this.illumination_info.local);
 
 
 	ambient = illumination.children[0];
@@ -255,17 +255,17 @@ MySceneGraph.prototype.parseIllumination = function(rootElement)
 	this.gA = this.reader.getFloat(ambient, 'g');
 	this.bA = this.reader.getFloat(ambient, 'b');
 	this.aA = this.reader.getFloat(ambient, 'a');
-	this.illumination_teste.add_Ambient(this.rA,this.gA,this.bA,this.aA);
+	this.illumination_info.add_Ambient(this.rA,this.gA,this.bA,this.aA);
 
 	background = illumination.children[1];
 	this.rB = this.reader.getFloat(background, 'r');
 	this.gB = this.reader.getFloat(background, 'g');
 	this.bB = this.reader.getFloat(background, 'b');
 	this.aB = this.reader.getFloat(background, 'a');
-	this.illumination_teste.add_Background(this.rB,this.gB,this.bB,this.aB);
+	this.illumination_info.add_Background(this.rB,this.gB,this.bB,this.aB);
 
-	console.log(this.illumination_teste.ambient.r + "  " + this.illumination_teste.ambient.g + "  " + this.illumination_teste.ambient.b + "  "+ this.illumination_teste.ambient.a+"\n");
-	console.log(this.illumination_teste.background.r + "  " + this.illumination_teste.background.g + "  " + this.illumination_teste.background.b + "  "+ this.illumination_teste.background.a+"\n\n\n");
+	console.log(this.illumination_info.ambient.r + "  " + this.illumination_info.ambient.g + "  " + this.illumination_info.ambient.b + "  "+ this.illumination_info.ambient.a+"\n");
+	console.log(this.illumination_info.background.r + "  " + this.illumination_info.background.g + "  " + this.illumination_info.background.b + "  "+ this.illumination_info.background.a+"\n\n\n");
 
 };
 
@@ -329,7 +329,7 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 			omni_light.add_specular(this.rS,this.gS,this.bS,this.aS);
 			console.log(omni_light.specular.r + "  " + omni_light.specular.g + "  " + omni_light.specular.b + "  "+omni_light.specular.a+"\n");
 
-			this.lights_teste.add_omni(omni_light);
+			this.lights_info.add_omni(omni_light);
 		}
 		else
 		{
@@ -382,7 +382,7 @@ MySceneGraph.prototype.parseLights = function(rootElement)
 			this.aS = this.reader.getFloat(specular, 'a');
 			spot_light.add_specular(this.rS,this.gS,this.bS,this.aS);
 			console.log(spot_light.specular.r + "  " + spot_light.specular.g + "  " + spot_light.specular.b + "  "+spot_light.specular.a+"\n");
-			this.lights_teste.add_spot(spot_light);
+			this.lights_info.add_spot(spot_light);
 		}
 	}
 
@@ -409,8 +409,8 @@ MySceneGraph.prototype.parseTextures = function(rootElement)
 		this.length_s = this.reader.getFloat(tex, 'length_s');
 		this.length_t = this.reader.getFloat(tex, 'length_t');
 		realTexture = new CGFtexture(this.scene, this.file, this.length_s,this.length_t);
-		this.texture_teste.addTexture(this.id,this.file,this.length_s,this.length_t,realTexture);
-		console.log(this.texture_teste.textures[i].id	+ "  " + this.texture_teste.textures[i].file + "  " + this.texture_teste.textures[i].length_s + "  "+this.texture_teste.textures[i].length_t+"\n");
+		this.textures_info.addTexture(this.id,this.file,this.length_s,this.length_t,realTexture);
+		console.log(this.textures_info.textures[i].id	+ "  " + this.textures_info.textures[i].file + "  " + this.textures_info.textures[i].length_s + "  "+this.textures_info.textures[i].length_t+"\n");
 	}
 };
 
@@ -481,7 +481,7 @@ MySceneGraph.prototype.parseMaterials = function(rootElement)
 
 
 		matrial.realMaterial= materialappearance;
-		this.materiais.add_material(matrial);
+		this.materials_info.add_material(matrial);
 	}
 };
 
@@ -574,7 +574,7 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 
 		}
 		transform.realMatrix=matrix;
-		this.transformationst.add_transformation(transform);
+		this.transformations_info.add_transformation(transform);
 		translates=0;
 		rotates=0;
 		scales=0;
@@ -600,7 +600,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 		prim = primitive.children[i];
 		this.id = this.reader.getString(prim,'id');
 		//console.log(this.id);
-		this.primitives_obj.add_Primitive(this.id);
+		this.primitives_info.add_Primitive(this.id);
 
 
 		var n_childrens = prim.children.length;
@@ -616,10 +616,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.x2 = this.reader.getFloat(rectangle, 'x2');
 				this.y2 = this.reader.getFloat(rectangle, 'y2');
 				//console.log("rectangle: " +this.x1 + "  " + this.y1 + "  " + this.x2+ "  " + this.y2 +"\n");
-				this.primitives_obj.primitives_list[i].add_Rectangle(this.x1, this.y1, this.x2, this.y2);
+				this.primitives_info.primitives_list[i].add_Rectangle(this.x1, this.y1, this.x2, this.y2);
 
 				rectangle_primitive= new MyRectangle(this.scene,this.x1,this.y1,this.x2,this.y2);
-				this.primitives_obj.primitives_list[i].realPrimitive=rectangle_primitive;
+				this.primitives_info.primitives_list[i].realPrimitive=rectangle_primitive;
 
 			}
 			else if(child.nodeName == "triangle")
@@ -641,8 +641,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				//);
 
 				triangle_primitive= new MyTriangle(this.scene,this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
-				this.primitives_obj.primitives_list[i].add_Triangle(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
-				this.primitives_obj.primitives_list[i].realPrimitive=triangle_primitive;
+				this.primitives_info.primitives_list[i].add_Triangle(this.x1, this.y1, this.z1, this.x2, this.y2, this.z2, this.x3, this.y3, this.z3);
+				this.primitives_info.primitives_list[i].realPrimitive=triangle_primitive;
 			}
 			else if(child.nodeName == "cylinder")
 			{
@@ -654,9 +654,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.stacks = this.reader.getFloat(cylinder, 'stacks');
 				//console.log("cylinder: " +this.base + "  " + this.top_c + "  " + this.height + "  "+
 				//this.slices+"  " + this.stacks +"\n");
-				this.primitives_obj.primitives_list[i].add_Cylinder(this.base, this.top, this.height, this.slices, this.stacks);
+				this.primitives_info.primitives_list[i].add_Cylinder(this.base, this.top, this.height, this.slices, this.stacks);
 				cylinder_primitive= new MyCylinder(this.scene,this.base,this.top,this.height,this.slices,this.stacks);
-				this.primitives_obj.primitives_list[i].realPrimitive=cylinder_primitive;
+				this.primitives_info.primitives_list[i].realPrimitive=cylinder_primitive;
 			}
 			else if(child.nodeName == "sphere")
 			{
@@ -665,9 +665,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.slices = this.reader.getFloat(sphere, 'slices');
 				this.stacks = this.reader.getFloat(sphere, 'stacks');
 				//console.log("sphere: " +this.radius + "  " + this.slices + "  " + this.stacks +"\n");
-				this.primitives_obj.primitives_list[i].add_Sphere(this.radius, this.slices, this.stacks);
+				this.primitives_info.primitives_list[i].add_Sphere(this.radius, this.slices, this.stacks);
 				sphere_primitive= new MySphere(this.scene, this.radius, this.slices ,this.stacks);
-				this.primitives_obj.primitives_list[i].realPrimitive=sphere_primitive;
+				this.primitives_info.primitives_list[i].realPrimitive=sphere_primitive;
 			}
 			else if(child.nodeName == "torus")
 			{
@@ -677,9 +677,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.slices = this.reader.getFloat(torus, 'slices');
 				this.loops = this.reader.getFloat(torus, 'loops');
 				//console.log("torus: " +this.inner + "  " + this.outer + "  " + this.slices + "  " + this.loops+"\n");
-				this.primitives_obj.primitives_list[i].add_Torus(this.inner, this.outer, this.slices, this.loops);
+				this.primitives_info.primitives_list[i].add_Torus(this.inner, this.outer, this.slices, this.loops);
 				torus_primitive= new MyTorus(this.scene, this.inner, this.outer,this.slices,this.loops);
-				this.primitives_obj.primitives_list[i].realPrimitive=torus_primitive;
+				this.primitives_info.primitives_list[i].realPrimitive=torus_primitive;
 			}
 		}
 
@@ -687,11 +687,11 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 
 	//TESTE PRINT____________________________
 
-	console.log(this.primitives_obj.primitives_list.length);
+	console.log(this.primitives_info.primitives_list.length);
 
-	for(var t = 0; t <this.primitives_obj.primitives_list.length ; t++)
+	for(var t = 0; t <this.primitives_info.primitives_list.length ; t++)
 	{
-		primitive = this.primitives_obj.primitives_list[t];
+		primitive = this.primitives_info.primitives_list[t];
 		if(primitive.id == "torus")
 			console.log("torus: " + primitive.primitiveref.inner + "  " + primitive.primitiveref.outer + "  " + primitive.primitiveref.slices + "  " + primitive.primitiveref.loops+"\n");
 		else if(primitive.id == "sphere")
@@ -771,10 +771,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 						console.log("AQUIIIII" +transformation_obj.id[ids] +"\n");
 						ids++;
 
-						for(var z=0; z<this.transformationst.transformations.length;z++)
+						for(var z=0; z<this.transformations_info.transformations.length;z++)
 						{
-							if(this.idT==this.transformationst.transformations[z].id)
-								mat4.multiply(matrix,matrix,this.transformationst.transformations[z].realMatrix);
+							if(this.idT==this.transformations_info.transformations[z].id)
+								mat4.multiply(matrix,matrix,this.transformations_info.transformations[z].realMatrix);
 						}
 					}
 					if(transf.nodeName=="translate")
@@ -837,7 +837,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				transformation_obj.realMatrix=matrix;
 				component_obj.transformations=transformation_obj;
 			}
-			if(child.nodeName=="materials") //materiais
+			if(child.nodeName=="materials") //materials_info
 			{
 				console.log("...Materials...\n");
 				materials_obj = new Materials_Components();
@@ -853,10 +853,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 
 					//descobrir real material
 
-					for(var z=0; z<this.materiais.materials.length; z++)
+					for(var z=0; z<this.materials_info.materials.length; z++)
 					{
-						if(this.idM==this.materiais.materials[z].id)
-							material_obj.realMaterial=this.materiais.materials[z].realMaterial;
+						if(this.idM==this.materials_info.materials[z].id)
+							material_obj.realMaterial=this.materials_info.materials[z].realMaterial;
 					}
 
 					materials_obj.materials_list.push(material_obj);
@@ -874,10 +874,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				console.log(this.idT + "\n");
 				textures_obj.id = this.idT;
 
-				for(var y=0; y< this.texture_teste.textures.length; y++)
+				for(var y=0; y< this.textures_info.textures.length; y++)
 				{
-					if(this.idT==this.texture_teste.textures[y].id)
-						textures_obj.realTexture=this.texture_teste.textures[y].realTexture;
+					if(this.idT==this.textures_info.textures[y].id)
+						textures_obj.realTexture=this.textures_info.textures[y].realTexture;
 				}
 				component_obj.texture = textures_obj;
 			}
@@ -907,10 +907,10 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 
 						childsref.idP = this.idP;
 
-						for(var z=0; z< this.primitives_obj.primitives_list.length;z++)
+						for(var z=0; z< this.primitives_info.primitives_list.length;z++)
 						{
-							if(this.idP==this.primitives_obj.primitives_list[z].id)
-								childsref.realPrimitive=this.primitives_obj.primitives_list[z].realPrimitive;
+							if(this.idP==this.primitives_info.primitives_list[z].id)
+								childsref.realPrimitive=this.primitives_info.primitives_list[z].realPrimitive;
 						}
 					}
 					childrens_obj.children_list.push(childsref);
@@ -920,40 +920,40 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			//chegou aqui, ja passou por todos os childrens de component
 			//Depois de carregar todos os components, adicionar junto aos outros na lista
 		}
-		this.components_obj.components_list.push(component_obj);
+		this.components_info.components_list.push(component_obj);
 	}
 
 	//teste___________________
 	console.log("\n\n\n\n\n teste-------------");
-	for(var g = 0; g <this.components_obj.components_list.length ; g++)
-		console.log(this.components_obj.components_list[g].id);
+	for(var g = 0; g <this.components_info.components_list.length ; g++)
+		console.log(this.components_info.components_list[g].id);
 }
 
 
-MySceneGraph.prototype.readGraphaux = function()
+MySceneGraph.prototype.displayScene = function()
 {
-	var transformationStack = new Stack();
+	var transformations_infoack = new Stack();
 	var materialStack = new Stack();
 	var textureStack = new Stack();
-	var root = this.components_obj.components_list[0].id;
-	transformationStack.push(mat4.create());
-	this.readGraph(root,transformationStack,materialStack,textureStack);
+	var root = this.components_info.components_list[0].id;
+	transformations_infoack.push(mat4.create());
+	this.displayComponents(root,transformations_infoack,materialStack,textureStack);
 }
 
-MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,materialStack, textureStack )
+MySceneGraph.prototype.displayComponents = function(rootElement, transformations_infoack, materialStack, textureStack )
 {
 	var node;
-	for(var i=0 ; i<this.components_obj.components_list.length; i++)
+	for(var i=0 ; i<this.components_info.components_list.length; i++)
 	{
-		if(this.components_obj.components_list[i].id==rootElement)
-			node=this.components_obj.components_list[i];
+		if(this.components_info.components_list[i].id==rootElement)
+			node=this.components_info.components_list[i];
 	}
-	if (node.children.children_list[0].idP!=null)// se for a children for primitiva desenha;
+	if (node.children.children_list[0].idP!=null)// se a children for primitiva desenha;
 	{
 		//Transformaçao
 		transformation = mat4.create();
-		mat4.multiply(transformation,transformationStack.top(),node.transformations.realMatrix);
-		transformationStack.push(transformation);
+		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
+		transformations_infoack.push(transformation);
 
 		//material
 		var material_id = node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].id;
@@ -975,7 +975,7 @@ MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,mate
 			materialStack.top().setTexture(textureStack.top());
 
 		this.scene.pushMatrix();
-		this.scene.multMatrix(transformationStack.top());
+		this.scene.multMatrix(transformations_infoack.top());
 
 
 		materialStack.top().apply();
@@ -984,7 +984,7 @@ MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,mate
 
 		this.scene.popMatrix();
 
-		transformationStack.pop();
+		transformations_infoack.pop();
 		materialStack.pop()
 		textureStack.pop();
 
@@ -992,52 +992,35 @@ MySceneGraph.prototype.readGraph = function(rootElement,transformationStack,mate
 	else//component
 	{
 		//transformacoes
-
 		transformation = mat4.create();
-		mat4.multiply(transformation,transformationStack.top(),node.transformations.realMatrix);
-		transformationStack.push(transformation);
+		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
+		transformations_infoack.push(transformation);
 
-		//materials
-
+		//material
 		var material_id = node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].id;
 		if(material_id=="inherit")
-		{
 			materialStack.push(materialStack.top());
-		}
 		else
-		{
 			materialStack.push(node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].realMaterial);
-		}
 
 		//texturas
-
 		var texture_id= node.texture.id;
-
 		if(texture_id=="inherit")
-		{
 			textureStack.push(textureStack.top());
-		}
 		else if(texture_id=="none")
-		{
 			textureStack.push("none");
-		}
 		else
-		{
 			textureStack.push(node.texture.realTexture);
-		}
 
-
-
+		//Percorre as children
 		for(var i=0; i<node.children.children_list.length; i++)
-		{
-			this.readGraph(node.children.children_list[i].idC,transformationStack,materialStack,textureStack);
-		}
+			this.displayComponents(node.children.children_list[i].idC, transformations_infoack, materialStack, textureStack);
 
-		transformationStack.pop();
+		transformations_infoack.pop();
 		materialStack.pop();
 		textureStack.pop();
 	}
-}
+};
 
 
 /*

@@ -59,8 +59,8 @@ XMLscene.prototype.setDefaultAppearance = function () {
 // As loading is asynchronous, this may be called already after the application has started the run loop
 XMLscene.prototype.onGraphLoaded = function ()
 {
-  this.gl.clearColor(this.graph.illumination_teste.background.r,this.graph.illumination_teste.background.g,this.graph.illumination_teste.background.b,this.graph.illumination_teste.background.a);
-  this.setGlobalAmbientLight(this.graph.illumination_teste.ambient.r,this.graph.illumination_teste.ambient.g,this.graph.illumination_teste.ambient.b,this.graph.illumination_teste.ambient.a);
+  this.gl.clearColor(this.graph.illumination_info.background.r,this.graph.illumination_info.background.g,this.graph.illumination_info.background.b,this.graph.illumination_info.background.a);
+  this.setGlobalAmbientLight(this.graph.illumination_info.ambient.r,this.graph.illumination_info.ambient.g,this.graph.illumination_info.ambient.b,this.graph.illumination_info.ambient.a);
   this.lights[0].setVisible(true);
   this.lights[0].enable();
 
@@ -74,14 +74,14 @@ XMLscene.prototype.init_All_Lights = function ()
 {
   var indice = 0;
 
-  var n_omni = this.graph.lights_teste.omni_list.length;
-  var n_spot = this.graph.lights_teste.spot_list.length;
+  var n_omni = this.graph.lights_info.omni_list.length;
+  var n_spot = this.graph.lights_info.spot_list.length;
 
   this.luzesEstado = new Array(n_omni+n_spot);
 
   for (var i=0; i< n_omni ; i++ , indice++)
   {
-    var light =  this.graph.lights_teste.omni_list[i];
+    var light =  this.graph.lights_info.omni_list[i];
 
     this.lights[indice].setPosition(light.locationo.x,light.locationo.y,light.locationo.z,light.locationo.w);
     this.lights[indice].setAmbient(light.ambient.r,light.ambient.g,light.ambient.b,light.ambient.a);
@@ -108,7 +108,7 @@ XMLscene.prototype.init_All_Lights = function ()
 
   for (var i=0; i< n_spot ; i++ , indice++)
   {
-    var light = this.graph.lights_teste.spot_list[i];
+    var light = this.graph.lights_info.spot_list[i];
 
     var spotDirectionx= light.locations.x-light.target.x;
     var spotDirectiony= light.locations.y-light.target.y;
@@ -169,10 +169,10 @@ XMLscene.prototype.changeViews = function () {
   this.indice_View++;
 
   //Volta à primeira view
-  if(this.indice_View >= this.graph.view_teste.perspectives_list.length)
+  if(this.indice_View >= this.graph.views_info.perspectives_list.length)
   this.indice_View = 0;
 
-  var perspectiveTemp = this.graph.view_teste.perspectives_list[this.indice_View];
+  var perspectiveTemp = this.graph.views_info.perspectives_list[this.indice_View];
   var degToRad= Math.PI / 180.0;
 
   this.camera = new CGFcamera(perspectiveTemp.angle*degToRad
@@ -220,10 +220,8 @@ XMLscene.prototype.display = function () {
   // This is one possible way to do it
   if (this.graph.loadedOk)
   {
-
     this.updateLuzes();
-    this.graph.readGraphaux();
-
+    this.graph.displayScene();
   };
 
 };
