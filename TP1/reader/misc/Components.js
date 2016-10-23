@@ -1,4 +1,4 @@
-function Components() 
+function Components()
 {
 	this.components_list = [];
 }
@@ -12,16 +12,6 @@ function Component()
 	this.texture = null;
 	this.children = null;
 }
-
-Component.prototype.add_components = function(transf, mat, tex, chil)
-{
-	this.transformations = transf;
-	this.materials = mat;
-	this.texture = tex;
-	this.children = chil;
-}
-
-//************************
 
 
 //________________________
@@ -60,7 +50,7 @@ Transformation_Components.prototype.add_translate = function(x,y,z)
 	translate.x=x;
 	translate.y=y;
 	translate.z=z;
-	
+
 	this.translate_list.push(translate);
 }
 
@@ -70,7 +60,7 @@ Transformation_Components.prototype.add_scale = function(x,y,z)
 	scale.x=x;
 	scale.y=y;
 	scale.z=z;
-	
+
 	this.scale_list.push(scale);
 }
 
@@ -79,8 +69,8 @@ Transformation_Components.prototype.add_rotate = function(axis,angle)
 	rotate= new Rotate();
 	rotate.axis=axis;
 	rotate.angle=angle;
-	
-	
+
+
 	this.rotate_list.push(rotate);
 }
 
@@ -88,7 +78,7 @@ Transformation_Components.prototype.add_rotate = function(axis,angle)
 Transformation_Components.prototype.set_id = function(id)
 {
 	this.id.push(id);
-	
+
 }
 
 //----------------------------
@@ -130,5 +120,3 @@ function ChildrenRef()
 	this.realPrimitive = null;
 }
 //..........................
-
-

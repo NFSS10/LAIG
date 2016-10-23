@@ -867,7 +867,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 			if(child.nodeName=="texture") //texturas
 			{
 				console.log("...Texture...\n");
-				textures_obj = new Materials_Components();
+				textures_obj = new Texture_Components();
 
 				texture= child;
 				this.idT= this.reader.getString(texture, 'id');

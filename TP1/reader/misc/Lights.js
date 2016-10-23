@@ -6,75 +6,73 @@ function Locationo ()
 	this.w = null;
 };
 
-function Locations()  
+function Locations()
 {
-	this.x= null; 
-	this.y= null; 
+	this.x= null;
+	this.y= null;
 	this.z = null;
 };
-function Rgba_lights()  
+function Rgba_lights()
 {
-	this.r = null; 
-	this.g = null; 
-	this.b = null; 
+	this.r = null;
+	this.g = null;
+	this.b = null;
 	this.a = null;
 };
 
 
-
+/**Tipos de Luz*/
+/**Omni*/
 function Omni ()
 {
 	this.id = null;
 	this.enabled = null;
-	
+
 	this.locationo = null;
 	this.ambient = null;
 	this.diffuse = null;
 	this.specular = null;
-		
+
 };
 
+/**Spot*/
 function Spot()
 {
 	this.id = null;
 	this.enabled = null;
 	this.angle = null;
 	this.exponent = null;
-	
+
 	this.target = null;
 	this.locations = null;
 	this.ambient = null;
 	this.diffuse = null;
 	this.specular = null;
-		
+
 };
 
 
 
-
-function Lights() 
+/**Vai conter todas as luzes*/
+function Lights()
 {
-	
 	this.omni_list = [];
 	this.spot_list = [];
-	
-}
+};
 
 
 Lights.prototype.add_omni = function(omni)
 {
 	this.omni_list.push(omni);
-
 };
 
 Lights.prototype.add_spot = function(spot)
 {
 	this.spot_list.push(spot);
-
 };
 
-//omni
 
+/**Omni*/
 Omni.prototype.add_info = function(id,enabled)
 {
 	this.id=id;
@@ -121,8 +119,8 @@ Omni.prototype.add_specular = function(r,g,b,a)
 	this.specular=rgba;
 }
 
-//spot
 
+/**Spot*/
 Spot.prototype.add_info = function(id,enabled,angle,exponent)
 {
 	this.id=id;
