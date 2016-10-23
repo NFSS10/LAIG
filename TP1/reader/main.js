@@ -4,14 +4,17 @@ serialInclude=function(a){var b=console,c=serialInclude.l;if(a.length>0)c.splice
 
 function getUrlVars() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
     function(m,key,value) {
       vars[decodeURIComponent(key)] = decodeURIComponent(value);
     });
     return vars;
-}	 
+}
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', './misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', 'MyInterface.js', './misc/Scene.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js',
+'./misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', './misc/Scene.js',
+'./primitives/MyCylinder.js' , './primitives/MyCylinderBase.js' , './primitives/MyCylinderSurface.js' , './primitives/MyRectangle.js' , './primitives/MySphere.js' , './primitives/MyTorus.js' , './primitives/MyTriangle.js' ,
+'./misc/Stack.js',
 
 main=function()
 {
@@ -24,19 +27,20 @@ main=function()
 
     app.setScene(myScene);
     app.setInterface(myInterface);
-	
+
 	myScene.setInterface(myInterface);
     myInterface.setActiveCamera(myScene.camera);
 
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	
+	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
+	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
+
+  //Colocar aqui ficheiro a carregar
 	var filename=getUrlVars()['file'] || "specs.xml";
 
-	// create and load graph, and associate it to scene. 
+	// create and load graph, and associate it to scene.
 	// Check console for loading errors
 	var myGraph = new MySceneGraph(filename, myScene);
-	
+
 	// start
     app.run();
 }
