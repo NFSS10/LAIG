@@ -1,8 +1,3 @@
-/**
- * MyTorus
- * @constructor
- */
-
 function MySphere(scene, radius, slices, stacks) {
     CGFobject.call(this, scene);
 
@@ -16,21 +11,19 @@ function MySphere(scene, radius, slices, stacks) {
 MySphere.prototype = Object.create(CGFobject.prototype);
 MySphere.prototype.constructor = MySphere;
 
-MySphere.prototype.initBuffers = function()
-{
+MySphere.prototype.initBuffers = function() {
+
     this.vertices = [];
     this.indices = [];
     this.normals = [];
     this.texCoords = [];
 
-    for (var stack = 0; stack <= this.stacks; stack++)
-     {
+    for (var stack = 0; stack <= this.stacks; stack++) {
         var theta = stack * Math.PI / this.stacks;
         var sinTheta = Math.sin(theta);
         var cosTheta = Math.cos(theta);
 
-        for (var slice = 0; slice <= this.slices; slice++)
-        {
+        for (var slice = 0; slice <= this.slices; slice++) {
             var phi = slice * 2 * Math.PI / this.slices;
             var sinPhi = Math.sin(phi);
             var cosPhi = Math.cos(phi);
@@ -47,10 +40,8 @@ MySphere.prototype.initBuffers = function()
         }
     }
 
-    for (var stack = 0; stack < this.stacks; stack++)
-    {
-        for (var slice = 0; slice < this.slices; slice++)
-         {
+    for (var stack = 0; stack < this.stacks; stack++) {
+        for (var slice = 0; slice < this.slices; slice++) {
             var first = (stack * (this.slices + 1)) + slice;
             var second = first + this.slices + 1;
 

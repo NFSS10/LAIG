@@ -74,10 +74,10 @@ MyInterface.prototype.processKeyboard = function(event) {
 			this.scene.changeViews();
 			break;
 		case(77):
-			this.scene.updateMaterial();
+			//this.scene.updateMaterial();
 			break;
 		case(109):
-			this.scene.updateMaterial();
+			//this.scene.updateMaterial();
 			break;
 	};
 };

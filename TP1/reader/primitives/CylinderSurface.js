@@ -2,7 +2,7 @@
 * CylinderSurface
 * @constructor
 */
-function MyCylinderSurface(scene, base, top, height, slices, stacks) {
+function CylinderSurface(scene, base, top, height, slices, stacks) {
 	CGFobject.call(this,scene);
 
 	this.base = base;
@@ -14,10 +14,10 @@ function MyCylinderSurface(scene, base, top, height, slices, stacks) {
 	this.initBuffers();
 };
 
-MyCylinderSurface.prototype = Object.create(CGFobject.prototype);
-MyCylinderSurface.prototype.constructor = MyCylinderSurface;
+CylinderSurface.prototype = Object.create(CGFobject.prototype);
+CylinderSurface.prototype.constructor = CylinderSurface;
 
-MyCylinderSurface.prototype.initBuffers = function() {
+CylinderSurface.prototype.initBuffers = function() {
 
 
 	this.vertices = [];

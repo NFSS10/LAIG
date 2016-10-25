@@ -1,9 +1,8 @@
-/**Vai conter o objecto a fazer display assim como outras informacoes*/
+
 function Primitive()
 {
 	this.id = null;
 	this.primitiveref = null;
-	this.realPrimitive = null;
 }
 
 Primitive.prototype.add_id = function(id)
@@ -12,12 +11,12 @@ Primitive.prototype.add_id = function(id)
 }
 
 //________________________
-/**Primitivas*/
+
 function Rectangle()
 {
 	x1 = null;
 	y1 = null;
-
+	
 	x2 = null;
 	y2 = null;
 }
@@ -27,11 +26,11 @@ function Triangle()
 	x1 = null;
 	y1 = null;
 	z1 = null;
-
+	
 	x2 = null;
 	y2 = null;
 	z2 = null;
-
+	
 	x3 = null;
 	y3 = null;
 	z3 = null;
@@ -62,8 +61,7 @@ function Torus()
 };
 //________________________
 
-/**Vai conter todas as primitivas*/
-function Primitives()
+function Primitives() 
 {
 	this.primitives_list = [];
 }
@@ -111,7 +109,7 @@ Primitive.prototype.add_Cylinder = function(base, top, height, slices, stacks)
 	cylinder.height = height;
 	cylinder.slices = slices;
 	cylinder.stacks = stacks;
-
+	
 	this.primitiveref = cylinder;
 }
 

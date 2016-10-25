@@ -7,11 +7,22 @@ function Components()
 function Component()
 {
 	this.id = null;
+
 	this.transformations = null;
 	this.materials = null;
 	this.texture = null;
 	this.children = null;
 }
+
+Component.prototype.add_components = function(transf, mat, tex, chil)
+{
+	this.transformations = transf;
+	this.materials = mat;
+	this.texture = tex;
+	this.children = chil;
+}
+
+//************************
 
 
 //________________________
@@ -21,7 +32,6 @@ function Transformation_Components()
 	this.translate_list = [];
 	this.scale_list = [];
 	this.rotate_list = [];
-	this.realMatrix = null;
 }
 
 function Scale()
@@ -94,7 +104,6 @@ function Materials_Components()
 function Material_Components()
 {
 	this.id = null;
-	this.realMaterial = null;
 }
 //ººººººººººººººººººººººººººº
 
@@ -102,7 +111,6 @@ function Material_Components()
 function Texture_Components()
 {
 	this.id = null;
-	this.realTexture=null;
 }
 
 
@@ -115,8 +123,7 @@ function Children()
 //componentref ou primitiveref
 function ChildrenRef()
 {
-	this.idC = null;
-	this.idP = null;
-	this.realPrimitive = null;
+	this.id = null;
+	this.primitive = null;
 }
 //..........................

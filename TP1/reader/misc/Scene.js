@@ -1,5 +1,5 @@
-/**Contem informacao sobre a "scene"*/
-function Scene()
+
+function Scene() 
 {
 	this.root = null;
 	this.axis_length = null;

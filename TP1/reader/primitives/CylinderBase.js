@@ -2,7 +2,7 @@
 * CylinderBase
 * @constructor
 */
-function MyCylinderBase(scene, radius, slices) {
+function CylinderBase(scene, radius, slices) {
 	CGFobject.call(this,scene);
 
 	this.radius = radius;
@@ -11,10 +11,10 @@ function MyCylinderBase(scene, radius, slices) {
 	this.initBuffers();
 };
 
-MyCylinderBase.prototype = Object.create(CGFobject.prototype);
-MyCylinderBase.prototype.constructor = MyCylinderBase;
+CylinderBase.prototype = Object.create(CGFobject.prototype);
+CylinderBase.prototype.constructor = CylinderBase;
 
-MyCylinderBase.prototype.initBuffers = function() {
+CylinderBase.prototype.initBuffers = function() {
 
 
 	this.vertices = [];
