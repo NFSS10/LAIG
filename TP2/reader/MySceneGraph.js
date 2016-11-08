@@ -98,6 +98,14 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
+	//Anumations
+	var animationsError = this.	parseAnimations(rootElement);
+	if (animationsError != null) {
+		this.onXMLError(animationsError);
+		return;
+	}
+
+	
 	//Primitives
 	var primitivesError = this.parsePrimitives(rootElement);
 	if (primitivesError != null) {
@@ -582,6 +590,68 @@ MySceneGraph.prototype.parseTransformations = function(rootElement)
 };
 
 
+/** Carrega a informação de "Animations" do ficheiro*/
+MySceneGraph.prototype.parseAnimations = function(rootElement)
+{
+	var animations = rootElement.getElementsByTagName('animations');
+	console.log("\n\n\n");
+	console.log("RUSSSSSSSSSSSSSSKIIIIIIIIIIIIIIIIIII");
+	
+	
+	if (animations == null  || animations.length==0){
+		return "animations element is missing.";
+	}
+	
+	var animation = animations[0];
+	console.log("\n\n Animations ......................");
+	
+	
+	var nnodes = animation.children.length;
+	for(var i = 0; i <nnodes ; i++)
+	{
+		anim = animation.children[i];
+		this.type = this.reader.getString(anim,'type');
+		console.log("\b");
+		console.log(this.type);
+		//Linear
+		if(this.type == "linear")
+		{
+			this.id = this.reader.getString(anim,'id');
+			this.span = this.reader.getString(anim,'span');
+			console.log(this.id + "  " + this.span);
+			
+			//controlpoints
+			var n_childrens = anim.children.length;
+			for(var j = 0; j < n_childrens ; j++)
+			{
+				controlpoint = anim.children[j];
+				this.xx = this.reader.getString(controlpoint,'xx');
+				this.yy = this.reader.getString(controlpoint,'yy');
+				this.zz = this.reader.getString(controlpoint,'zz');
+				console.log(this.xx + "  " + this.yy + "  " + this.zz);
+			}
+			
+			
+		}
+		else if(this.type == "circular") //Circular
+		{
+			this.id = this.reader.getString(anim,'id');
+			this.span = this.reader.getString(anim,'span');
+			this.center = this.reader.getString(anim,'center');
+			this.radius = this.reader.getString(anim,'radius');
+			this.startang = this.reader.getString(anim,'startang');
+			this.rotang = this.reader.getString(anim,'rotang');
+			
+			console.log(this.id + "  " + this.span + "  " + this.center + "  " + this.radius + "  " + this.startang + "  " + this.rotang);
+		}
+		else
+			console.log("\n Error, Wrong type of anumation");
+	}
+	
+	
+};
+
+
 /** Carrega a informação de "Primitives" do ficheiro*/
 MySceneGraph.prototype.parsePrimitives = function(rootElement)
 {
@@ -593,7 +663,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 
 	var  primitive = primitives[0];
 	console.log("Primitives .........");
-
+	
 	var nnodes = primitive.children.length;
 	for(var i = 0; i <nnodes ; i++)
 	{
