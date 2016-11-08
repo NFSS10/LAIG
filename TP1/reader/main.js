@@ -11,17 +11,17 @@ function getUrlVars() {
     return vars;
 }
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', './misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', 'MyInterface.js', './misc/Scene.js',
-'./primitives/MyRectangle.js', './primitives/MySphere.js', './primitives/MyTriangle.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js',
+'./misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', './misc/Scene.js',
+'./primitives/MyCylinder.js' , './primitives/MyCylinderBase.js' , './primitives/MyCylinderSurface.js' , './primitives/MyRectangle.js' , './primitives/MySphere.js' , './primitives/MyTorus.js' , './primitives/MyTriangle.js' ,
+'./misc/Stack.js',
 
 main=function()
 {
 	// Standard application, scene and interface setup
     var app = new CGFapplication(document.body);
-
     var myScene = new XMLscene();
-        var myInterface = new MyInterface();
-
+    var myInterface = new MyInterface();
 
     app.init();
 
@@ -34,6 +34,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
+  //Colocar aqui ficheiro a carregar
 	var filename=getUrlVars()['file'] || "specs.xml";
 
 	// create and load graph, and associate it to scene.
