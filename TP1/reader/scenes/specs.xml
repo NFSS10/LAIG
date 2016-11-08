@@ -118,6 +118,30 @@
 
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
+		<material id="materialTeste" >
+          <emission r="0" g="0" b="0" a="0" />
+          <ambient r="0.1" g="0.3" b="0.1" a="0.9" />
+          <diffuse r="0.1" g="0.9" b="0.1" a="0.7" />
+          <specular r="1" g="0.1" b="0.1" a="0.7" />
+          <shininess value="0.9" />
+        </material>
+		
+		<material id="materialTeste2" >
+          <emission r="0" g="0" b="0" a="0" />
+          <ambient r="0.1" g="0.3" b="0.4" a="0.9" />
+          <diffuse r="0.1" g="0.9" b="0.9" a="0.7" />
+          <specular r="0.1" g="0.1" b="0.9" a="0.7" />
+          <shininess value="0.9" />
+        </material>
+		
+		<material id="materialTeste3" >
+          <emission r="1" g="0" b="0" a="0" />
+          <ambient r="0.9" g="0.3" b="0.1" a="0.9" />
+          <diffuse r="0.9" g="0.1" b="0.1" a="0.7" />
+          <specular r="1" g="0.1" b="0.1" a="0.7" />
+          <shininess value="0.9" />
+        </material>
+		
 		<material id="materialBola" >
           <emission r="0" g="0" b="0" a="0" />
           <ambient r="0.1" g="0.1" b="0.1" a="0.9" />
@@ -324,6 +348,8 @@
 
             <materials>
                 <material id="materialChao"  />
+				<material id="materialTeste2" />
+				<material id="materialTeste3" />
             </materials>
 
             <texture id="ParedeTex" />
@@ -445,6 +471,8 @@
 
             <materials>
                 <material id="materialCesto" />
+				<material id="materialTeste" />
+
             </materials>
 
             <texture id="RodaTex" />
