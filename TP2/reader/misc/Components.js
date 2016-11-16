@@ -11,6 +11,8 @@ function Component()
 	this.materials = null;
 	this.texture = null;
 	this.children = null;
+	this.animations = [];
+	this.fullAnimation = null;
 }
 
 

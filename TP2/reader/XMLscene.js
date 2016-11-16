@@ -30,6 +30,8 @@ XMLscene.prototype.init = function (application) {
   this.luzesEstado;
   this.indice_View = 0; //Usado para mudar as views atraves da tecla 'V'
   this.indiceMaterial =0; //Usado para mudar os materiais atraves da tecla 'M'
+
+  this.setUpdatePeriod(30);
 };
 
 XMLscene.prototype.setInterface = function (inter) {
@@ -225,3 +227,20 @@ XMLscene.prototype.display = function () {
   };
 
 };
+
+XMLscene.prototype.update = function(currTime) {
+  if (this.graph.loadedOk)
+  {
+    for(var i =0; i< this.graph.components_info.components_list.length; i++)
+    {
+      if(this.graph.components_info.components_list[i].fullAnimation!=null)
+      {
+      for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
+      {
+        this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+      }
+      }
+    }
+  }
+   
+}
