@@ -31,7 +31,24 @@ XMLscene.prototype.init = function (application) {
   this.indice_View = 0; //Usado para mudar as views atraves da tecla 'V'
   this.indiceMaterial =0; //Usado para mudar os materiais atraves da tecla 'M'
 
+  this.text = new CGFappearance(this);
+  this.text.loadTexture("./textures/rockettex.jpg");
   this.setUpdatePeriod(30);
+  this.pontos=[];
+  ponto1= new Ponto3(0,0,0);
+  this.pontos.push(ponto1);
+  ponto2= new Ponto3(0,1,0);
+  this.pontos.push(ponto2);
+  ponto3= new Ponto3(0,2,0);
+  this.pontos.push(ponto3);
+  ponto4= new Ponto3(2,0,0);
+  this.pontos.push(ponto4);
+  ponto5= new Ponto3(2,1,2);
+  this.pontos.push(ponto5);
+  ponto6= new Ponto3(2,2,0);
+  this.pontos.push(ponto6);
+
+  this.plane = new Vehicle(this);
 };
 
 XMLscene.prototype.setInterface = function (inter) {
@@ -226,6 +243,8 @@ XMLscene.prototype.display = function () {
     this.graph.displayScene();
   };
 
+  //this.plane.display();
+
 };
 
 XMLscene.prototype.update = function(currTime) {
@@ -235,10 +254,11 @@ XMLscene.prototype.update = function(currTime) {
     {
       if(this.graph.components_info.components_list[i].fullAnimation!=null)
       {
-      for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
-      {
-        this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
-      }
+         for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
+          {
+           this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+          }
+        
       }
     }
   }

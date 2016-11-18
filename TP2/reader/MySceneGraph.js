@@ -642,14 +642,14 @@ MySceneGraph.prototype.parseAnimations = function(rootElement)
 		{
 			this.id = this.reader.getString(anim,'id');
 			this.span = this.reader.getFloat(anim,'span');
-			this.center = this.reader.getString(anim, 'center');
+			this.centerx = this.reader.getFloat(anim,'centerx');
+			this.centery = this.reader.getFloat(anim,'centery');
+			this.centerz = this.reader.getFloat(anim,'centerz');
 			this.radius = this.reader.getFloat(anim,'radius');
 			this.startang = this.reader.getFloat(anim,'startang');
 			this.rotang = this.reader.getFloat(anim,'rotang');
 			
-			this.centerx = parseFloat(this.center[0]);
-			this.centery = parseFloat(this.center[2]);
-			this.centerz = parseFloat(this.center[4]);
+			
 			console.log(this.id + "  " + this.span + "  " + this.centerx + "  " +this.centery + "  "+this.centerz + "  " + this.radius + "  " + this.startang + "  " + this.rotang);
 			centerPoint = new Ponto3(this.centerx,this.centery,this.centerz)
 			circularAnimation = new CircularAnimation(this.id,this.span,centerPoint,this.radius,this.startang,this.rotang);
@@ -761,6 +761,102 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.primitives_info.primitives_list[i].add_Torus(this.inner, this.outer, this.slices, this.loops);
 				torus_primitive= new MyTorus(this.scene, this.inner, this.outer,this.slices,this.loops);
 				this.primitives_info.primitives_list[i].realPrimitive=torus_primitive;
+			}
+			else if(child.nodeName == "plane")
+			{
+				plane = prim.children[j];
+				this.dimX = this.reader.getFloat(plane, 'dimX');
+				this.dimY = this.reader.getFloat(plane, 'dimY');
+				this.partsX = this.reader.getFloat(plane, 'partsX');
+				this.partsY = this.reader.getFloat(plane, 'partsY');
+
+				console.log("plane: "  +this.dimX + "  " + this.dimY + "  " + this.partsX + "  " + this.partsY+"\n");
+				
+				
+				plane_primitive= new Plane(this.scene, this.dimX, this.dimY,this.partsX,this.partsY);
+				this.primitives_info.primitives_list[i].realPrimitive=plane_primitive;
+			}
+			else if(child.nodeName == "patch")
+			{
+				patch = prim.children[j];
+				controlpoints = [];
+				this.orderU = this.reader.getFloat(patch, 'orderU');
+				this.orderV = this.reader.getFloat(patch, 'orderV');
+				this.partsU = this.reader.getFloat(patch, 'partsU');
+				this.partsV = this.reader.getFloat(patch, 'partsV');
+				
+				console.log("patch: "  +this.orderU + "  " + this.orderV + "  " + this.partsU + "  " + this.partsV+"\n");
+				
+				var npoints = patch.children.length;
+			
+				
+				for(var p = 0; p<npoints;p++)
+				{
+					var point = patch.children[p];
+
+					this.pointX = this.reader.getFloat(point, 'x');
+					this.pointY = this.reader.getFloat(point, 'y');
+					this.pointZ = this.reader.getFloat(point, 'z');
+
+					console.log("patch: "  +this.pointX + "  " + this.pointY + "  " + this.pointZ + "\n");
+
+					controlvertex= new Ponto3(this.pointX,this.pointY,this.pointZ);
+
+					controlpoints.push(controlvertex);
+					
+				}
+
+				patch_primitive= new Patch(this.scene, this.orderU, this.orderV,this.partsU,this.partsV,controlpoints);
+				this.primitives_info.primitives_list[i].realPrimitive=patch_primitive;
+			}
+			else if(child.nodeName == "vehicle")
+			{
+				vehicle_primitive= new Vehicle(this.scene);
+				this.primitives_info.primitives_list[i].realPrimitive=vehicle_primitive;
+			}
+			else if(child.nodeName == "chessboard")
+			{
+				chessboard = prim.children[j];
+
+				this.du = this.reader.getFloat(chessboard, 'du');
+				this.dv = this.reader.getFloat(chessboard, 'dv');
+				this.textureref = this.reader.getString(chessboard, 'textureref');
+				this.su = this.reader.getFloat(chessboard, 'su');
+				this.sv = this.reader.getFloat(chessboard, 'sv');
+				
+				console.log("patch: "  +this.orderU + "  " + this.orderV + "  " + this.partsU + "  " + this.partsV+"\n");
+				
+				//COR 1
+				var color1 = chessboard.children[0];
+				this.c1r = this.reader.getFloat(color1, 'r');
+				this.c1g = this.reader.getFloat(color1, 'g');
+				this.c1b = this.reader.getFloat(color1, 'b');
+				this.c1a = this.reader.getFloat(color1, 'a');
+				
+				c1= new Rgba(this.c1r,this.c1g,this.c1b,this.c1a);
+				
+				//COR 2
+				var color2 = chessboard.children[1];
+				this.c2r = this.reader.getFloat(color2, 'r');
+				this.c2g = this.reader.getFloat(color2, 'g');
+				this.c2b = this.reader.getFloat(color2, 'b');
+				this.c2a = this.reader.getFloat(color2, 'a');
+				
+				c2= new Rgba(this.c2r,this.c2g,this.c2b,this.c2a);
+				
+				//COR 3
+
+				var color3 = chessboard.children[2];
+				this.c3r = this.reader.getFloat(color3, 'r');
+				this.c3g = this.reader.getFloat(color3, 'g');
+				this.c3b = this.reader.getFloat(color3, 'b');
+				this.c3a = this.reader.getFloat(color3, 'a');
+				
+				c3= new Rgba(this.c3r,this.c3g,this.c3b,this.c3a);
+				
+				console.log("cs: "+ this.c3r+ " " + this.c3g+ " "+ this.c3b+ "\n");
+				chessboard_primitive= new Chessboard(this.scene,this.du,this.dv,this.textureref,this.su,this.sv,c1,c2,c3);
+				this.primitives_info.primitives_list[i].realPrimitive=chessboard_primitive;
 			}
 		}
 
@@ -1065,13 +1161,6 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		//Transformaçao
 		transformation = mat4.create();
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
-		if(node.animations.length>0)
-		{
-			
-			mat4.multiply(transformation,transformation,node.fullAnimation.getFullMatrix());
-			
-		}
-		
 		transformations_infoack.push(transformation);
 		
 
@@ -1095,6 +1184,14 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 			materialStack.top().setTexture(textureStack.top());
 
 		this.scene.pushMatrix();
+		if(node.fullAnimation!=null)
+		{
+		if(node.fullAnimation.animations.length>0)
+		{
+			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
+
+		}
+		}
 		this.scene.multMatrix(transformations_infoack.top());
 
 
@@ -1119,6 +1216,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 			mat4.multiply(transformation,transformation,node.fullAnimation.getFullMatrix());
 
 		}
+
 		transformations_infoack.push(transformation);
 
 		//material

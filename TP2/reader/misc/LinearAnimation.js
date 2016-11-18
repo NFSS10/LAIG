@@ -22,7 +22,7 @@ var LinearAnimation = function(id,span,pontosControlo) {
 	this.pontoControloAtual =0;
 	this.currentPosition = new Ponto3(pontosControlo[0].x, pontosControlo[0].y, pontosControlo[0].z);
 	
-	this.currentAngle =  Math.atan2(this.pontosControlo[1].z - this.pontosControlo[0].z,  this.pontosControlo[1].x -  this.pontosControlo[0].x);
+	this.currentAngle =  Math.atan2(this.pontosControlo[1].x - this.pontosControlo[0].x,  this.pontosControlo[1].z -  this.pontosControlo[0].z);
 	
 	this.tempoDecorrido= null;
 	
@@ -61,13 +61,16 @@ LinearAnimation.prototype.update = function(currTime) {
 		{
 		    this.tempoDecorrido= null;
 			this.acabou=1;
+			
+			this.currentPosition.x = this.pontosControlo[this.pontosControlo.length-1].x;
+  			this.currentPosition.y = this.pontosControlo[this.pontosControlo.length-1].y;
+   			this.currentPosition.z = this.pontosControlo[this.pontosControlo.length-1].z;
 			return;
 		}
 		else
 		{
-            console.log("Rodou");
 			this.pontoControloAtual++;
-			this.currentAngle = Math.atan2(this.pontosControlo[this.pontoControloAtual+1].z - this.pontosControlo[this.pontoControloAtual].z,  this.pontosControlo[this.pontoControloAtual+1].x -  this.pontosControlo[this.pontoControloAtual].x);
+			this.currentAngle = Math.atan2(this.pontosControlo[this.pontoControloAtual+1].x - this.pontosControlo[this.pontoControloAtual].x,  this.pontosControlo[this.pontoControloAtual+1].z -  this.pontosControlo[this.pontoControloAtual].z);
 			this.distanciaPercorrida=0;
 		}
 
