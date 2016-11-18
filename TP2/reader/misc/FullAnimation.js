@@ -36,7 +36,7 @@ FullAnimation.prototype.getFullMatrix = function(id)
 		
 		
 
-		if(this.animations[this.index] instanceof LinearAnimation )
+		/*if(this.animations[this.index] instanceof LinearAnimation )
 		{
 		for(var i=0; i<this.animations[this.index].pontosControlo.length ; i++)
 		{
@@ -57,7 +57,7 @@ FullAnimation.prototype.getFullMatrix = function(id)
 			this.animations[this.index].centro.x+= newposition.x;
 			this.animations[this.index].centro.y+= newposition.y;
 			this.animations[this.index].centro.z+= newposition.z;
-		}
+		}*/
 		this.animations[this.index].start=1;
 		
 		

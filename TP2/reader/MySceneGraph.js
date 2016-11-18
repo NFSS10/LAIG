@@ -1213,7 +1213,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
 		if(node.animations.length>0)
 		{
-			mat4.multiply(transformation,transformation,node.fullAnimation.getFullMatrix());
+			
+			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
+		
 
 		}
 

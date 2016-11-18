@@ -59,8 +59,6 @@ CircularAnimation.prototype.update = function(currTime)
 		this.currentPosition.y= this.centro.y;
 		this.currentPosition.z= this.centro.z+this.raio * Math.sin(this.startAng + this.rotAng);
 		
-		
-
 		this.acabou=1;
 		
 		return;
