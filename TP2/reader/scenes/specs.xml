@@ -341,24 +341,6 @@
                  <translate x="0" y="0" z="0" />
             </transformation>
 				<animation>
-            <!-- podem ser declaradas zero ou mais animacoes -->
-            <!-- de entre as declaradas no bloco de animacoes; -->
-            <!-- as animacoes devem ser executadas sequencialmente -->
-            <!-- pela ordem com que sao declaradas.     -->
-            <!-- NOTA: as transformacoes geometricas da -->
-            <!-- animacao seguem as mesmas regras de ordenacao -->
-            <!-- definidas no trabalho anterior para as -->
-            <!-- transformacoes geometricas; dado que as -->
-            <!-- animacoes sao declaradas apos as transformacoes -->
-            <!-- geometricas do mesmo objeto, isso significa -->
-            <!-- que as animacoes sao afetadas pelas transformacoes -->
-            <!-- geometricas do objeto.  -->
-            
-            
-         	<animationref id="linera1" />
-         	
-         	
-         	 
 
        	    </animation>
            
@@ -381,8 +363,8 @@
 
             <!-- bloco "children" obrigatorio num "component" -->
             <children>
-				<componentref id="roda2" />
-				<componentref id="chess"/>
+				
+				<componentref id="paraquedas"/>
                 <!-- deve existir uma ou mais tags "componentref" e/ou -->
                 <!-- "primitiveref", identificando outros -->
                 <!-- componentes ou primitivas -->
@@ -392,7 +374,7 @@
         </component>
 
    
-		<component id="roda2">
+		<component id="paraquedas">
 
             <!-- bloco "transformation" obrigatorio -->
             <transformation>
@@ -400,27 +382,6 @@
             </transformation>
 			
 			<animation>
-            <!-- podem ser declaradas zero ou mais animacoes -->
-            <!-- de entre as declaradas no bloco de animacoes; -->
-            <!-- as animacoes devem ser executadas sequencialmente -->
-            <!-- pela ordem com que sao declaradas.     -->
-            <!-- NOTA: as transformacoes geometricas da -->
-            <!-- animacao seguem as mesmas regras de ordenacao -->
-            <!-- definidas no trabalho anterior para as -->
-            <!-- transformacoes geometricas; dado que as -->
-            <!-- animacoes sao declaradas apos as transformacoes -->
-            <!-- geometricas do mesmo objeto, isso significa -->
-            <!-- que as animacoes sao afetadas pelas transformacoes -->
-            <!-- geometricas do objeto.  -->
-            
-            
-         
-         	  
-         	  <animationref id="circular1" />
-         	   
-		
-        	 
-
        	    </animation>
            
             <materials>
@@ -435,28 +396,6 @@
 
         </component>
 
-		 
-
-   
-		<component id="chess">
-
-            <!-- bloco "transformation" obrigatorio -->
-            <transformation>
-				<translate x="0" y="0" z="0" />
-            </transformation>
-			
-           
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="RodaTex" />
-
-            <children>
-                <primitiveref id="chessboard1" />
-            </children>
-
-        </component>
 
 
 
