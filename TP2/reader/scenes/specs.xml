@@ -246,7 +246,7 @@
         </primitive>
 
         <primitive id="plane1">
-            <plane dimX="2" dimY="3" partsX="4" partsY="5"/>
+            <plane dimX="50" dimY="50" partsX="100" partsY="100"/>
         </primitive>
 
 		<primitive id="patch1">
@@ -298,6 +298,31 @@
         
             <children>
 				<componentref id="parapente"/>
+				<componentref id="plane"/>
+            </children>
+
+        </component>
+		
+		 <component id="plane">
+
+            <transformation>
+                 <translate x="0" y="-20" z="0" />
+				 <rotate axis="x" angle="-90" />
+            </transformation>
+			
+			<animation>
+       	    </animation>
+
+           
+            <materials>
+                <material id="materialParede" />
+            </materials>
+
+            <texture id="none" />
+
+        
+            <children>
+				<primitiveref id="plane1"/>
             </children>
 
         </component>

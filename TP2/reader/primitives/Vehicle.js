@@ -3,11 +3,24 @@ function Vehicle(scene) {
 
 	 this.scene=scene;
 	 
-	 this.tex =new CGFappearance(this.scene);
-	this.tex.setDiffuse(0.9,0.9,0.9,1);
-	this.tex.setSpecular(0.1,0.1,0.1,1);
-	this.tex.setShininess(10);
-	this.tex.loadTexture("./textures//paredetex.jpg");
+	this.texParaquedas =new CGFappearance(this.scene);
+	this.texParaquedas.setDiffuse(0.9,0.9,0.9,1);
+	this.texParaquedas.setSpecular(0.7,0.7,0.7,1);
+	this.texParaquedas.setShininess(10);
+	this.texParaquedas.loadTexture("./textures//paraquedasTex.jpg");
+	
+	this.texCabo =new CGFappearance(this.scene);
+	this.texCabo.setDiffuse(0.9,0.9,0.9,1);
+	this.texCabo.setSpecular(0.1,0.1,0.1,1);
+	this.texCabo.setShininess(10);
+	this.texCabo.loadTexture("./textures//caboTex.jpg");
+	
+	
+	this.texMotor =new CGFappearance(this.scene);
+	this.texMotor.setDiffuse(0.4,0.4,0.4,1);
+	this.texMotor.setSpecular(0.9,0.9,0.9,1);
+	this.texMotor.setShininess(10);
+	this.texMotor.loadTexture("./textures//motortex.jpg");
 	
      this.controlvertexes = [];
 	 
@@ -59,20 +72,23 @@ Vehicle.prototype.constructor = Vehicle;
 
 Vehicle.prototype.display = function() {
 
-	this.tex.apply();
+	
 	
 	this.scene.pushMatrix();
 	this.scene.translate(-1.75,3,3);
 	this.scene.rotate(-90*(Math.PI / 180.0),1,0,0);
 	this.scene.scale(0.1,0.1,0.1);
+	this.texParaquedas.apply();
 	this.paraquedas.display();
 	this.scene.popMatrix();
 	
 	
+
 	this.scene.pushMatrix();
 	this.scene.translate(0, 0.9, 0.7);
 	this.scene.rotate(-50*(Math.PI / 180.0),1,0,0);
 	this.scene.rotate(-5*(Math.PI / 180.0),0,1,0);
+	this.texCabo.apply();
 	this.cabo.display();
 	this.scene.popMatrix();
 	
@@ -87,6 +103,7 @@ Vehicle.prototype.display = function() {
 	this.scene.translate(0.25, 3, -2.45);
 	this.scene.rotate(50*(Math.PI / 180.0),1,0,0);
 	this.scene.rotate(-5*(Math.PI / 180.0),0,1,0);
+	this.texCabo.apply();
 	this.cabo.display();
 	this.scene.popMatrix();
 	
@@ -94,6 +111,7 @@ Vehicle.prototype.display = function() {
 	this.scene.translate(-0.25, 3, -2.45);
 	this.scene.rotate(50*(Math.PI / 180.0),1,0,0);
 	this.scene.rotate(5*(Math.PI / 180.0),0,1,0);
+	this.texCabo.apply();
 	this.cabo.display();
 	this.scene.popMatrix();
 	
@@ -101,6 +119,7 @@ Vehicle.prototype.display = function() {
 	this.scene.translate(0.05,0.47,0);
 	this.scene.rotate(-90*(Math.PI / 180.0),0,1,0);
 	this.scene.scale(0.83,0.83,0.5);
+	this.texMotor.apply();
 	this.cilindro.display();
 	this.scene.popMatrix();
 	
