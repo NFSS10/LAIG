@@ -67,59 +67,21 @@
 
 
     <textures>
-		<texture id="ParedeTex" file="textures\\paredetex.jpg" length_s="1" length_t="1." />
+		<texture id="VentoinhaTex" file="textures\\paredetex.jpg" length_s="1" length_t="1" />
+		<texture id="PlaneTex" file="textures\\plane1tex.jpg" length_s="1" length_t="1" />
 	</textures>
 
 
     <materials>
 
-		<material id="materialTeste" >
+		<material id="materialPlane" >
           <emission r="0" g="0" b="0" a="0" />
           <ambient r="0.1" g="0.3" b="0.1" a="0.9" />
-          <diffuse r="0.1" g="0.9" b="0.1" a="0.7" />
-          <specular r="1" g="0.1" b="0.1" a="0.7" />
+          <diffuse r="0.1" g="0.6" b="0.1" a="0.7" />
+          <specular r="0.1" g="0.1" b="0.1" a="0.7" />
           <shininess value="0.9" />
         </material>
-
-		<material id="materialTeste2" >
-          <emission r="0" g="0" b="0" a="0" />
-          <ambient r="0.1" g="0.3" b="0.4" a="0.9" />
-          <diffuse r="0.1" g="0.9" b="0.9" a="0.7" />
-          <specular r="0.1" g="0.1" b="0.9" a="0.7" />
-          <shininess value="0.9" />
-        </material>
-
-		<material id="materialTeste3" >
-          <emission r="1" g="0" b="0" a="0" />
-          <ambient r="0.9" g="0.3" b="0.1" a="0.9" />
-          <diffuse r="0.9" g="0.1" b="0.1" a="0.7" />
-          <specular r="1" g="0.1" b="0.1" a="0.7" />
-          <shininess value="0.9" />
-        </material>
-
-		<material id="materialBola" >
-          <emission r="0" g="0" b="0" a="0" />
-          <ambient r="0.1" g="0.1" b="0.1" a="0.9" />
-          <diffuse r="0.6" g="0.6" b="0.6" a="0.7" />
-          <specular r="0.4" g="0.4" b="0.4" a="0.5" />
-          <shininess value="0.9" />
-        </material>
-
-        <material id="materialCarropt2" >
-          <emission r="0.1" g="0.1" b="0.1" a="0.1" />
-          <ambient r="0.2" g="0.2" b="0.2" a="0.2" />
-          <diffuse r="0.3" g="0.3" b="0.3" a="0.3" />
-          <specular r="1.0" g="1.0" b="1.0" a="1" />
-          <shininess value="0.9" />
-        </material>
-
-		<material id="materialParedeRocket" >
-            <emission r="0.5" g="0.5" b="0.5" a="0.5" />
-            <ambient r="0.9" g="0.9" b="0.9" a="1" />
-            <diffuse r="0.9" g="0.9" b="0.9" a="1" />
-            <specular r="0" g="0" b="0.0" a="0" />
-            <shininess value="0.5" />
-        </material>
+	
 
 		<material id="materialParede" >
             <emission r="0" g="0" b="0" a="0" />
@@ -127,38 +89,6 @@
             <diffuse r="0.5" g="0.5" b="0.5" a="0.3" />
             <specular r="0.1" g="0.1" b="0.1" a="1" />
             <shininess value="0.1" />
-        </material>
-
-		<material id="materialChao" >
-            <emission r="0" g="0" b="0" a="0" />
-            <ambient r="0.1" g="0.1" b="0.1" a="0.1" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="0.3" />
-            <specular r="0.5" g="0.5" b="0.5" a="1" />
-            <shininess value="0.5" />
-        </material>
-
-		<material id="materialCesto" >
-            <emission r="0.1" g="0.1" b="0.1" a="0.9" />
-            <ambient r="0.2" g="0.2" b="0.2" a="0.6" />
-            <diffuse r="0.2" g="0.2" b="0.2" a="1" />
-            <specular r="1" g="1" b="1" a="1" />
-            <shininess value="0.8" />
-        </material>
-
-		<material id="materialAro" >
-            <emission r="0.3" g="0.2" b="0.2" a="0.2" />
-            <ambient r="0.1" g="0.1" b="0.1" a="0.6" />
-            <diffuse r="0.2" g="0.2" b="0.2" a="0.7" />
-            <specular r="1" g="1" b="1" a="0.9" />
-            <shininess value="0.8" />
-        </material>
-
-		<material id="materialBoost" >
-            <emission r="0.9" g="0.9" b="0.9" a="0.9" />
-            <ambient r="0.5" g="0.5" b="0.5" a="0.6" />
-            <diffuse r="0.2" g="0.2" b="0.2" a="0.7" />
-            <specular r="0" g="0" b="0" a="0.9" />
-            <shininess value="0.8" />
         </material>
 
     </materials>
@@ -318,7 +248,7 @@
                 <material id="materialParede" />
             </materials>
 
-            <texture id="none" />
+            <texture id="PlaneTex" />
 
         
             <children>
@@ -394,7 +324,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="BolaTex" />
+            <texture id="VentoinhaTex" />
 
             <children>
 				<componentref id="helice1"/>
