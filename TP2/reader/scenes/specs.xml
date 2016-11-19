@@ -1,41 +1,26 @@
-<!-- Cena de jogo baseada no jogo Rocket League para primeira entrega de LAIG (Nuno Silva e Paulo Babo) -->
+<!-- Cena de um parapente a movimentar-se para primeira entrega de LAIG (Nuno Silva e Paulo Babo) -->
 
-<!-- Os comentarios devem ter espacos no inicio e no fim, a -->
-<!-- separar dos hifens -->
-<!-- Nao devem ser usados caracteres especiais (p.ex. acentos) -->
-<!-- Todas as tags e atributos sao obrigatorios, exceto onde for -->
-<!-- referido o contrario -->
-
-<!-- Na descricao abaixo, os simbolos utilizados tem o seguinte significado: -->
-    <!-- ii: integer value -->
-    <!-- ff: float value -->
-    <!-- ss: string value -->
-    <!-- cc: character "x" or "y" or "z" -->
-  <!-- tt: "0" or "1"  ith Boolean significance -->
 
 
 <dsx>
 
-
-    <!-- deve definir-se um objeto para raiz do grafo , assim -->
-    <!-- como o comprimento dos tres eixos (cilindros) -->
     <scene root="root" axis_length="10" />
 
 
     <views default="view1" >
-        <!-- declaracao obrigatoria de pelo menos uma vista; -->
-        <!-- se varias vistas declaradas, o default e' a -->
-        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
-        <!-- a vista muda para a proxima da lista; da -->
-        <!-- ultima vista da lista volta 'a primeira -->
         <perspective id="perspective1" near="0.1" far="500" angle="25">
-            <from x="12" y="5" z="20" />
+            <from x="25" y="5" z="25" />
             <to x="0" y="5" z="0" />
         </perspective>
 
 		 <perspective id="perspective2" near="0.1" far="500" angle="25">
-            <from x="7" y="4" z="9" />
-            <to  x="4.5" y="4.5" z="4.75" />
+            <from x="25" y="5" z="25" />
+            <to  x="0" y="0" z="20" />
+        </perspective>
+		
+		<perspective id="perspective3" near="0.1" far="500" angle="25">
+            <from x="-25" y="5" z="10" />
+            <to  x="0" y="0" z="10" />
         </perspective>
 
     </views>
@@ -48,9 +33,6 @@
 
 
     <lights>
-
-        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="luzPrincipal" enabled="1" >
             <location x="7" y="15" z="7" w="-90" />
             <ambient r="0.2" g="0.2" b="0.2" a="0.9" />
@@ -66,7 +48,6 @@
         </omni>
 
         <spot id="spot1" enabled="0" angle="35" exponent="1">
-            <!-- atencao, "target" e' diferente de "direction" -->
             <target x="0" y="5" z="5" />
             <location x="15" y="10" z="5" />
             <ambient r="0.1" g="0.1" b="0.1" a="0.5" />
@@ -75,7 +56,6 @@
         </spot>
 
 		<spot id="spot2" enabled="1" angle="35" exponent="1">
-            <!-- atencao, "target" e' diferente de "direction" -->
             <target x="7" y="4.5" z="5" />
             <location x="5" y="5" z="19" />
             <ambient r="0.2" g="0.2" b="0.2" a="0.5" />
@@ -87,14 +67,12 @@
 
 
     <textures>
-		<texture id="BolaTex" file="textures\\bolatex.jpg" length_s="1" length_t="1." />
+		<texture id="ParedeTex" file="textures\\paredetex.jpg" length_s="1" length_t="1." />
 	</textures>
 
 
     <materials>
 
-        <!-- Deve existir um ou mais blocos "material" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
 		<material id="materialTeste" >
           <emission r="0" g="0" b="0" a="0" />
           <ambient r="0.1" g="0.3" b="0.1" a="0.9" />
@@ -188,26 +166,19 @@
 
     <transformations>
 
-        <!-- Deve existir um ou mais blocos "transformation" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <transformation id="transf1">
-           <!-- instrucoes a usar sem limite nem ordem -->
-           <!-- deve existir pelo menos uma transformacao -->
            <translate x="1" y="1" z="1" />
            <rotate axis="x" angle="25" />
            <scale x="1" y="1" z="1" />
         </transformation>
 
 		 <transformation id="transf2">
-           <!-- instrucoes a usar sem limite nem ordem -->
-           <!-- deve existir pelo menos uma transformacao -->
            <translate x="0" y="2" z="2" />
         </transformation>
 
     </transformations>
 
 
-		<!-- novo bloco de animacao -->
 	<animations>
    <!-- podem existir zero ou mais nós "animation" -->
     <!-- span é o tempo, em segundos, que a animação deve -->
@@ -215,50 +186,32 @@
     <!-- o valor "linear" ou "circular"; na animacao circular -->
     <!-- os angulos sao expressos em graus  -->
 
-    	<animation id="linera1" span="10" type="linear">
-			<!-- pode ter mais que 1 control point  -->
+    	<animation id="anim1" span="10" type="linear">
         	<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="5" zz="5" />
+			<controlpoint xx="0" yy="-2" zz="10" />
         	<controlpoint xx="0" yy="0" zz="20" />
         </animation>
 
+		<animation id="anim2" span="10" type="linear">
+        	<controlpoint xx="0" yy="0" zz="20" />
+			<controlpoint xx="0" yy="0" zz="0" />
+        </animation>
 
 		<animation id="sobeDesce" span="10" type="linear">
         	<controlpoint xx="0" yy="0" zz="0" />
-        	<controlpoint xx="0" yy="0" zz="5" />
-			<controlpoint xx="0" yy="5" zz="10" />
-			<controlpoint xx="5" yy="0" zz="15" />
-        </animation>
-
-		<animation id="testean" span="10" type="linear">
-			<!-- pode ter mais que 1 control point  -->
-        	<controlpoint xx="0" yy="0" zz="0" />
-        	<controlpoint xx="0" yy="0" zz="1" />
-<controlpoint xx="0" yy="0" zz="0" />
-<controlpoint xx="0" yy="0" zz="1" />
-<controlpoint xx="0" yy="0" zz="0" />
-<controlpoint xx="0" yy="0" zz="1" />
-<controlpoint xx="0" yy="0" zz="0" />
-<controlpoint xx="0" yy="0" zz="1" />
-<controlpoint xx="0" yy="0" zz="0" />
-<controlpoint xx="0" yy="0" zz="1" />
-<controlpoint xx="0" yy="0" zz="0" />
+        	<controlpoint xx="5" yy="0" zz="5" />
+			<controlpoint xx="5" yy="5" zz="10" />
+			<controlpoint xx="0" yy="0" zz="15" />
         </animation>
 
 
-        <animation id="linera2" span="2" type="linear">
-			<!-- pode ter mais que 1 control point  -->
-        	<controlpoint xx="0" yy="0" zz="0" />
-        	<controlpoint xx="0" yy="0" zz="10" />
-        </animation>
-		<animation id="linera3" span="20" type="linear">
-			<!-- pode ter mais que 1 control point  -->
-        	<controlpoint xx="0" yy="0" zz="0" />
-        	<controlpoint xx="0" yy="0" zz="-5" />
-        </animation>
    
-		<animation id="circular1" span="5" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="-45" rotang="360" />
+		<animation id="rodaAnim" span="2" type="circular" centerx="0" centery="0" centerz="20" radius="0" startang="0" rotang="180" />
 
-		<animation id="heliceAnim" span="20" type="circularz" centerx="0" centery="0.5" centerz="0" radius="0" startang="0" rotang="36000" />
+		<animation id="rodaAnim2" span="2" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="180" rotang="135" />
+
+		<animation id="heliceAnim" span="40" type="circularz" centerx="0" centery="0.5" centerz="0" radius="0" startang="0" rotang="720000" />
 
 
 
@@ -357,7 +310,11 @@
             </transformation>
 
 			<animation>
-			<animationref id="circular1" />
+				<animationref id="anim1" />
+				<animationref id="rodaAnim" />
+				<animationref id="anim2" />
+				<animationref id="rodaAnim2" />
+				<animationref id="sobeDesce" />
        	    </animation>
 
             <materials>
