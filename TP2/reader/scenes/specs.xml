@@ -53,9 +53,9 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
         <omni id="luzPrincipal" enabled="1" >
             <location x="7" y="15" z="7" w="-90" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1" />
-            <diffuse r="1" g="1" b="1" a="1" />
-            <specular r="1" g="1" b="1" a="1" />
+            <ambient r="0.2" g="0.2" b="0.2" a="0.9" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
         </omni>
 
 		 <omni id="luz2" enabled="1" >
@@ -87,31 +87,7 @@
 
 
     <textures>
-
-        <!-- Deve existir um ou mais blocos "texture" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <!-- length_s e length_t sao fatores de escala de textura:-->
-        <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-        <!-- comprimento, deve cobrir um comprimento igual -->
-        <!-- a 3 unidades;  -->
-        <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-        <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
-        <!-- Transf. Geometr. do tipo escalamento sobre os -->
-        <!-- objetos respetivos podem a violar esta regra.         -->
-        <!-- Nao necessario aplicar fatores de escala em  -->
-        <!-- quadricas (esfera, ciclindro...) -->
-        <texture id="ParedeTex" file="textures\\paredetex.jpg" length_s="1" length_t="1" />
-        <texture id="RodaTex" file="textures\\rodatex.png" length_s="1" length_t="1" />
-        <texture id="TabelaTex" file="textures\\tabelatex.jpg" length_s="1" length_t="1" />
-		<texture id="RocketLeagueTex" file="textures\\rockettex.jpg" length_s="1" length_t="1." />
 		<texture id="BolaTex" file="textures\\bolatex.jpg" length_s="1" length_t="1." />
-		<texture id="AroTex" file="textures\\arotex.jpg" length_s="1" length_t="1." />
-		<texture id="ChaoTex" file="textures\\chaotex.jpg" length_s="1" length_t="1." />
-		<texture id="Carro1Tex" file="textures\\carro1tex.jpg" length_s="1" length_t="1." />
-		<texture id="Carro2Tex" file="textures\\carro2tex.jpg" length_s="1" length_t="1." />
-		<texture id="BoostTex" file="textures\\boosttex.jpg" length_s="1" length_t="1." />
-		<texture id="BoardTex" file="textures\\image02.jpg" length_s="1" length_t="1." />
-
 	</textures>
 
 
@@ -126,7 +102,7 @@
           <specular r="1" g="0.1" b="0.1" a="0.7" />
           <shininess value="0.9" />
         </material>
-		
+
 		<material id="materialTeste2" >
           <emission r="0" g="0" b="0" a="0" />
           <ambient r="0.1" g="0.3" b="0.4" a="0.9" />
@@ -134,7 +110,7 @@
           <specular r="0.1" g="0.1" b="0.9" a="0.7" />
           <shininess value="0.9" />
         </material>
-		
+
 		<material id="materialTeste3" >
           <emission r="1" g="0" b="0" a="0" />
           <ambient r="0.9" g="0.3" b="0.1" a="0.9" />
@@ -142,7 +118,7 @@
           <specular r="1" g="0.1" b="0.1" a="0.7" />
           <shininess value="0.9" />
         </material>
-		
+
 		<material id="materialBola" >
           <emission r="0" g="0" b="0" a="0" />
           <ambient r="0.1" g="0.1" b="0.1" a="0.9" />
@@ -230,7 +206,7 @@
 
     </transformations>
 
-	
+
 		<!-- novo bloco de animacao -->
 	<animations>
    <!-- podem existir zero ou mais nós "animation" -->
@@ -244,6 +220,31 @@
         	<controlpoint xx="0" yy="0" zz="0" />
         	<controlpoint xx="0" yy="0" zz="20" />
         </animation>
+
+
+		<animation id="sobeDesce" span="10" type="linear">
+        	<controlpoint xx="0" yy="0" zz="0" />
+        	<controlpoint xx="0" yy="0" zz="5" />
+			<controlpoint xx="0" yy="5" zz="10" />
+			<controlpoint xx="5" yy="0" zz="15" />
+        </animation>
+
+		<animation id="testean" span="10" type="linear">
+			<!-- pode ter mais que 1 control point  -->
+        	<controlpoint xx="0" yy="0" zz="0" />
+        	<controlpoint xx="0" yy="0" zz="1" />
+<controlpoint xx="0" yy="0" zz="0" />
+<controlpoint xx="0" yy="0" zz="1" />
+<controlpoint xx="0" yy="0" zz="0" />
+<controlpoint xx="0" yy="0" zz="1" />
+<controlpoint xx="0" yy="0" zz="0" />
+<controlpoint xx="0" yy="0" zz="1" />
+<controlpoint xx="0" yy="0" zz="0" />
+<controlpoint xx="0" yy="0" zz="1" />
+<controlpoint xx="0" yy="0" zz="0" />
+        </animation>
+
+
         <animation id="linera2" span="2" type="linear">
 			<!-- pode ter mais que 1 control point  -->
         	<controlpoint xx="0" yy="0" zz="0" />
@@ -254,22 +255,20 @@
         	<controlpoint xx="0" yy="0" zz="0" />
         	<controlpoint xx="0" yy="0" zz="-5" />
         </animation>
-    	
-		<animation id="circular1" span="20" type="circular" centerx="0" centery="0" centerz="0" radius="2" startang="0" rotang="360" />
+   
+		<animation id="circular1" span="5" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="-45" rotang="360" />
+
+		<animation id="heliceAnim" span="20" type="circularz" centerx="0" centery="0.5" centerz="0" radius="0" startang="0" rotang="36000" />
+
+
 
 	</animations>
 
 
-	
+
 
     <primitives>
-<!-- Deve existir um ou mais blocos "primitive" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
         <primitive id="rectangle">
-            <!-- apenas pode existir UMA das seguintes tags: -->
-            <!--     rectangle, triangle, cylinder, sphere, torus -->
-            <!-- os parametros devem ser interpretados, genericamente como-->
-            <!-- em OpenGL/GLUT; o cilindro deve adicionalmente ter tampas -->
             <rectangle x1="0" y1="0" x2="1" y2="1" />
 		</primitive>
 
@@ -296,9 +295,9 @@
         <primitive id="plane1">
             <plane dimX="2" dimY="3" partsX="4" partsY="5"/>
         </primitive>
-	
+
 		<primitive id="patch1">
-            <patch orderU="1" orderV="2" partsU="20" partsV="20" >    
+            <patch orderU="1" orderV="2" partsU="20" partsV="20" >
             	<controlpoint x="0" y="0" z="0" />
             	<controlpoint x="0" y="1" z="0" />
             	<controlpoint x="0" y="2" z="0" />
@@ -307,88 +306,89 @@
             	<controlpoint x="2" y="2" z="0" />
             </patch>
          </primitive>
+		 
          <primitive id="vehicle1">
           	<vehicle />
          </primitive>
+		 
          <primitive id= "chessboard1">
              <chessboard du="8" dv="8" textureref="BoardTex" su="2" sv="2">
              	<c1 r="1.0" g="0.0" b="0.0" a="1.0" />
              	<c2 r="0.0" g="0.0" b="1.0" a="1.0" />
              	<cs r="0.0" g="1.0" b="0.0" a="1.0" />
-           	 </chessboard>   
+           	 </chessboard>
          </primitive>
-  		
+
 
     </primitives>
 
 
-   
+
     <components>
 
         <component id="root">
 
-            <!-- bloco "transformation" obrigatorio -->
             <transformation>
-
-                <!-- deve conter uma referencia a uma das "transformation" -->
-                <!-- declaradas anteriormente -->
-                <!--  <transformationref id="ola" /> -->
-
-                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
-                <!-- usando zero ou mais das instrucoes seguintes, sem -->
-                <!-- limite nem ordem -->
-                <!-- ex: bloco transformation pode ficar sem conteudo -->
                  <translate x="0" y="0" z="0" />
-            </transformation>
-				<animation>
-
-       	    </animation>
-           
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
-            <materials>
-                <material id="materialParede" />
-            </materials>
-
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
-            <texture id="none" />
-
-            <!-- bloco "children" obrigatorio num "component" -->
-            <children>
-				
-				<componentref id="paraquedas"/>
-                <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                <!-- "primitiveref", identificando outros -->
-                <!-- componentes ou primitivas -->
-                
-            </children>
-
-        </component>
-
-   
-		<component id="paraquedas">
-
-            <!-- bloco "transformation" obrigatorio -->
-            <transformation>
-				<translate x="0" y="0" z="0" />
             </transformation>
 			
 			<animation>
        	    </animation>
+
            
+            <materials>
+                <material id="materialParede" />
+            </materials>
+
+            <texture id="none" />
+
+        
+            <children>
+				<componentref id="parapente"/>
+            </children>
+
+        </component>
+
+
+		
+		<component id="parapente">
+            <transformation>
+				<rotate axis="y" angle="-90" />
+            </transformation>
+
+			<animation>
+			<animationref id="circular1" />
+       	    </animation>
+
             <materials>
                 <material id="inherit" />
             </materials>
 
-            <texture id="RodaTex" />
+            <texture id="none" />
+
+            <children>
+                <componentref id="paraquedas"/>
+				<componentref id="ventoinha"/>
+            </children>
+
+        </component>
+
+
+
+
+
+		<component id="paraquedas">
+            <transformation>
+            </transformation>
+
+			<animation>
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
 
             <children>
                 <primitiveref id="vehicle1" />
@@ -396,11 +396,132 @@
 
         </component>
 
+		
+		
+		
+		
+		<component id="ventoinha">
+            <transformation>
+				<translate x="-0.47" y="0" z="-0.7" />
+            </transformation>
+
+			<animation>
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="BolaTex" />
+
+            <children>
+				<componentref id="helice1"/>
+				<componentref id="helice2"/>
+				<componentref id="helice3"/>
+				<componentref id="helice4"/>
+            </children>
+        </component>
+
+		
+		
+		<component id="helice1">
+            <transformation>
+				<translate x="0" y="0" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+				<animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+		<component id="helice2">
+            <transformation>
+				<translate x="0" y="0" z="-0.3" />
+				<rotate axis="z" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+			      <animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+		
+		<component id="helice3">
+            <transformation>
+				<translate x="0" y="0" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+				<animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+		<component id="helice4">
+            <transformation>
+				<translate x="0" y="-0.9" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+			      <animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
 
 
+		
+		
+		
 
     </components>
 
 
+	
 
 </dsx>

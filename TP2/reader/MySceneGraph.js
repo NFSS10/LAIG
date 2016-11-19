@@ -106,7 +106,7 @@ MySceneGraph.prototype.onXMLReady=function()
 		return;
 	}
 
-	
+
 	//Primitives
 	var primitivesError = this.parsePrimitives(rootElement);
 	if (primitivesError != null) {
@@ -597,16 +597,16 @@ MySceneGraph.prototype.parseAnimations = function(rootElement)
 	var animations = rootElement.getElementsByTagName('animations');
 	console.log("\n\n\n");
 	console.log("RUSSSSSSSSSSSSSSKIIIIIIIIIIIIIIIIIII");
-	
-	
+
+
 	if (animations == null  || animations.length==0){
 		return "animations element is missing.";
 	}
-	
+
 	var animation = animations[0];
 	console.log("\n\n Animations ......................");
-	
-	
+
+
 	var nnodes = animation.children.length;
 	for(var i = 0; i <nnodes ; i++)
 	{
@@ -621,7 +621,7 @@ MySceneGraph.prototype.parseAnimations = function(rootElement)
 			this.id = this.reader.getString(anim,'id');
 			this.span = this.reader.getString(anim,'span');
 			console.log(this.id + "  " + this.span);
-			
+
 			//controlpoints
 			var n_childrens = anim.children.length;
 			for(var j = 0; j < n_childrens ; j++)
@@ -648,18 +648,37 @@ MySceneGraph.prototype.parseAnimations = function(rootElement)
 			this.radius = this.reader.getFloat(anim,'radius');
 			this.startang = this.reader.getFloat(anim,'startang');
 			this.rotang = this.reader.getFloat(anim,'rotang');
-			
-			
+
+
 			console.log(this.id + "  " + this.span + "  " + this.centerx + "  " +this.centery + "  "+this.centerz + "  " + this.radius + "  " + this.startang + "  " + this.rotang);
 			centerPoint = new Ponto3(this.centerx,this.centery,this.centerz)
-			circularAnimation = new CircularAnimation(this.id,this.span,centerPoint,this.radius,this.startang,this.rotang);
+			circularAnimation = new CircularAnimation(this.id,this.span,centerPoint,this.radius,this.startang,this.rotang, this.type);
 			this.animation_info.push(circularAnimation);
 		}
+		//Extra...........
+		else if(this.type == "circularz") //Circular
+		{
+			this.id = this.reader.getString(anim,'id');
+			this.span = this.reader.getFloat(anim,'span');
+			this.centerx = this.reader.getFloat(anim,'centerx');
+			this.centery = this.reader.getFloat(anim,'centery');
+			this.centerz = this.reader.getFloat(anim,'centerz');
+			this.radius = this.reader.getFloat(anim,'radius');
+			this.startang = this.reader.getFloat(anim,'startang');
+			this.rotang = this.reader.getFloat(anim,'rotang');
+
+
+			console.log(this.id + "  " + this.span + "  " + this.centerx + "  " +this.centery + "  "+this.centerz + "  " + this.radius + "  " + this.startang + "  " + this.rotang);
+			centerPoint = new Ponto3(this.centerx,this.centery,this.centerz);
+			circularAnimation = new CircularAnimation(this.id,this.span,centerPoint,this.radius,this.startang,this.rotang, this.type);
+			this.animation_info.push(circularAnimation);
+		}
+		//ExtraFim...........
 		else
 			console.log("\n Error, Wrong type of animation");
 	}
-	
-	
+
+
 };
 
 
@@ -674,7 +693,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 
 	var  primitive = primitives[0];
 	console.log("Primitives .........");
-	
+
 	var nnodes = primitive.children.length;
 	for(var i = 0; i <nnodes ; i++)
 	{
@@ -771,8 +790,8 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.partsY = this.reader.getFloat(plane, 'partsY');
 
 				console.log("plane: "  +this.dimX + "  " + this.dimY + "  " + this.partsX + "  " + this.partsY+"\n");
-				
-				
+
+
 				plane_primitive= new Plane(this.scene, this.dimX, this.dimY,this.partsX,this.partsY);
 				this.primitives_info.primitives_list[i].realPrimitive=plane_primitive;
 			}
@@ -784,12 +803,12 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.orderV = this.reader.getFloat(patch, 'orderV');
 				this.partsU = this.reader.getFloat(patch, 'partsU');
 				this.partsV = this.reader.getFloat(patch, 'partsV');
-				
+
 				console.log("patch: "  +this.orderU + "  " + this.orderV + "  " + this.partsU + "  " + this.partsV+"\n");
-				
+
 				var npoints = patch.children.length;
-			
-				
+
+
 				for(var p = 0; p<npoints;p++)
 				{
 					var point = patch.children[p];
@@ -803,7 +822,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 					controlvertex= new Ponto3(this.pointX,this.pointY,this.pointZ);
 
 					controlpoints.push(controlvertex);
-					
+
 				}
 
 				patch_primitive= new Patch(this.scene, this.orderU, this.orderV,this.partsU,this.partsV,controlpoints);
@@ -823,27 +842,27 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.textureref = this.reader.getString(chessboard, 'textureref');
 				this.su = this.reader.getFloat(chessboard, 'su');
 				this.sv = this.reader.getFloat(chessboard, 'sv');
-				
+
 				console.log("patch: "  +this.orderU + "  " + this.orderV + "  " + this.partsU + "  " + this.partsV+"\n");
-				
+
 				//COR 1
 				var color1 = chessboard.children[0];
 				this.c1r = this.reader.getFloat(color1, 'r');
 				this.c1g = this.reader.getFloat(color1, 'g');
 				this.c1b = this.reader.getFloat(color1, 'b');
 				this.c1a = this.reader.getFloat(color1, 'a');
-				
+
 				c1= new Rgba(this.c1r,this.c1g,this.c1b,this.c1a);
-				
+
 				//COR 2
 				var color2 = chessboard.children[1];
 				this.c2r = this.reader.getFloat(color2, 'r');
 				this.c2g = this.reader.getFloat(color2, 'g');
 				this.c2b = this.reader.getFloat(color2, 'b');
 				this.c2a = this.reader.getFloat(color2, 'a');
-				
+
 				c2= new Rgba(this.c2r,this.c2g,this.c2b,this.c2a);
-				
+
 				//COR 3
 
 				var color3 = chessboard.children[2];
@@ -851,9 +870,9 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				this.c3g = this.reader.getFloat(color3, 'g');
 				this.c3b = this.reader.getFloat(color3, 'b');
 				this.c3a = this.reader.getFloat(color3, 'a');
-				
+
 				c3= new Rgba(this.c3r,this.c3g,this.c3b,this.c3a);
-				
+
 				console.log("cs: "+ this.c3r+ " " + this.c3g+ " "+ this.c3b+ "\n");
 				chessboard_primitive= new Chessboard(this.scene,this.du,this.dv,this.textureref,this.su,this.sv,c1,c2,c3);
 				this.primitives_info.primitives_list[i].realPrimitive=chessboard_primitive;
@@ -1031,13 +1050,13 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							if(this.animation_info[r] instanceof LinearAnimation)
 							{
 								animation = new LinearAnimation(this.animation_info[r].id,this.animation_info[r].span,this.animation_info[r].pontosControlo);
-		
+
 								component_obj.animations.push(animation);
 							}
-							else
+							else //Extra, adicionei o type
 							{
-								animation = new CircularAnimation(this.animation_info[r].id,this.animation_info[r].span,this.animation_info[r].centro,this.animation_info[r].raio,this.animation_info[r].startAng1,this.animation_info[r].rotAng1);
-		
+								animation = new CircularAnimation(this.animation_info[r].id,this.animation_info[r].span,this.animation_info[r].centro,this.animation_info[r].raio,this.animation_info[r].startAng1,this.animation_info[r].rotAng1, this.animation_info[r].type);
+
 								component_obj.animations.push(animation);
 							}
 						}
@@ -1089,7 +1108,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 				}
 				component_obj.texture = textures_obj;
 			}
-		
+
 			if(child.nodeName=="children")  //filhos
 			{
 				console.log("...Children...\n");
@@ -1162,7 +1181,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		transformation = mat4.create();
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
 		transformations_infoack.push(transformation);
-		
+
 
 		//material
 		var material_id = node.materials.materials_list[this.scene.indiceMaterial % node.materials.materials_list.length].id;
@@ -1213,9 +1232,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
 		if(node.animations.length>0)
 		{
-			
+
 			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
-		
+
 
 		}
 

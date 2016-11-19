@@ -2,6 +2,12 @@ function Vehicle(scene) {
      CGFobject.call(this, scene);
 
 	 this.scene=scene;
+	 
+	 this.tex =new CGFappearance(this.scene);
+	this.tex.setDiffuse(0.9,0.9,0.9,1);
+	this.tex.setSpecular(0.1,0.1,0.1,1);
+	this.tex.setShininess(10);
+	this.tex.loadTexture("./textures//paredetex.jpg");
 	
      this.controlvertexes = [];
 	 
@@ -53,6 +59,8 @@ Vehicle.prototype.constructor = Vehicle;
 
 Vehicle.prototype.display = function() {
 
+	this.tex.apply();
+	
 	this.scene.pushMatrix();
 	this.scene.translate(-1.75,3,3);
 	this.scene.rotate(-90*(Math.PI / 180.0),1,0,0);

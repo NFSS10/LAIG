@@ -1,13 +1,13 @@
 function FullAnimation(animations)
 {
 	this.animations=animations;
-	
+
 	this.index=0;
 };
 
 FullAnimation.prototype.getFullPos = function(id)
 {
-	
+
 	return this.animations[this.index].currentPosition;
 }
 
@@ -23,18 +23,18 @@ FullAnimation.prototype.getFullAng = function(id)
 FullAnimation.prototype.getFullMatrix = function(id)
 {
 
-	
+
 	if(this.animations[this.index].acabou==1 && this.index != this.animations.length -1)
 	{
-		
 
-		
+
+
 		newangle= this.getFullAng();
 		newposition= this.animations[this.index].currentPosition;
 
 		this.index++;
-		
-		
+
+
 
 		/*if(this.animations[this.index] instanceof LinearAnimation )
 		{
@@ -51,7 +51,7 @@ FullAnimation.prototype.getFullMatrix = function(id)
 		{
 			this.animations[this.index].startAngle= newangle;
 			this.animations[this.index].currentAngle= newangle;
-			
+
 			this.animations[this.index].currentPosition = newposition;
 
 			this.animations[this.index].centro.x+= newposition.x;
@@ -59,22 +59,28 @@ FullAnimation.prototype.getFullMatrix = function(id)
 			this.animations[this.index].centro.z+= newposition.z;
 		}*/
 		this.animations[this.index].start=1;
-		
-		
+
+
 	}
 	this.animations[0].start=1;
 	var matrix = mat4.create();
-	
+
 	tarray = [];
 	pos= this.getFullPos();
 	ang= this.getFullAng();
 	tarray[0]=pos.x;
 	tarray[1]=pos.y;
 	tarray[2]=pos.z;
-	
-	mat4.translate(matrix,matrix,tarray);
-	mat4.rotate(matrix,matrix,ang,[0,1,0]);
 
-	
+	mat4.translate(matrix,matrix,tarray);
+	//mat4.rotate(matrix,matrix,ang,[0,1,0]); //mudar aqui para mudar eixo por onde roda
+	//Extra.....
+	if(this.animations[this.index].type == "circularz")
+		mat4.rotate(matrix,matrix,ang,[0,0,1]);
+	else
+		mat4.rotate(matrix,matrix,ang,[0,1,0]);
+	//ExtraFim....
+//console.log("\n\n\n ANIMATIONaa:  " + this.animations[this.index].type+ "\n");
+
 	return matrix;
 }

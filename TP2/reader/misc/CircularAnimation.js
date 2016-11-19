@@ -1,5 +1,7 @@
-var CircularAnimation = function(id,span,centro,raio,startAng1,rotAng1) {
-   
+var CircularAnimation = function(id,span,centro,raio,startAng1,rotAng1, type) {
+
+  this.type = type;
+
     this.degToRad= Math.PI / 180.0;
     Animation.apply(this, arguments);
     this.id=id;
@@ -17,7 +19,7 @@ var CircularAnimation = function(id,span,centro,raio,startAng1,rotAng1) {
 	this.deltaDist= this.rotAng/this.span;
 
 	this.currentPosition = new Ponto3(this.centro.x+this.raio*Math.cos(this.startAng),this.centro.y,this.centro.z+this.raio*Math.sin(this.startAng));
-	
+
 	this.tempoDecorrido=0;
 
 	this.lastCurrTime = null;
@@ -42,25 +44,25 @@ CircularAnimation.prototype.update = function(currTime)
 
 	if(this.lastCurrTime!=null)
 	{
-		
+
 		deltaTemp= (currTime - this.lastCurrTime)/1000;
 		this.tempoDecorrido += deltaTemp;
 	}
-	
+
 	this.lastCurrTime= currTime;
 
-	
+
 
 	if (this.tempoDecorrido>=this.span)
 	{
-		
+
 
 		this.currentPosition.x= this.centro.x+this.raio * Math.cos(this.startAng + this.rotAng);
 		this.currentPosition.y= this.centro.y;
 		this.currentPosition.z= this.centro.z+this.raio * Math.sin(this.startAng + this.rotAng);
-		
+
 		this.acabou=1;
-		
+
 		return;
 	}
 
@@ -69,8 +71,9 @@ CircularAnimation.prototype.update = function(currTime)
 	this.currentPosition.x = this.centro.x + this.raio * Math.cos(this.currentAngle);
 	this.currentPosition.y = this.centro.y;
 	this.currentPosition.z = this.centro.z + this.raio * Math.sin(this.currentAngle);
-	
 
 
-	
+
+
+
 }
