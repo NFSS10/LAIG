@@ -22,6 +22,11 @@
             <from x="-25" y="5" z="10" />
             <to  x="0" y="0" z="10" />
         </perspective>
+		
+		 <perspective id="perspective4" near="0.1" far="500" angle="25">
+            <from x="5" y="15" z="25" />
+            <to x="-15" y="0" z="0" />
+        </perspective>
 
     </views>
 
@@ -69,6 +74,7 @@
     <textures>
 		<texture id="VentoinhaTex" file="textures\\paredetex.jpg" length_s="1" length_t="1" />
 		<texture id="PlaneTex" file="textures\\plane1tex.jpg" length_s="1" length_t="1" />
+		<texture id="BoardTex" file="textures\\boardtex.jpg" length_s="1" length_t="1" />
 	</textures>
 
 
@@ -198,7 +204,7 @@
              <chessboard du="8" dv="8" textureref="BoardTex" su="2" sv="2">
              	<c1 r="1.0" g="0.0" b="0.0" a="1.0" />
              	<c2 r="0.0" g="0.0" b="1.0" a="1.0" />
-             	<cs r="0.0" g="1.0" b="0.0" a="1.0" />
+             	<cs r="0.0" g="1.0" b="1.0" a="1.0" />
            	 </chessboard>
          </primitive>
 
@@ -226,6 +232,7 @@
             <children>
 				<componentref id="parapente"/>
 				<componentref id="chao"/>
+				<componentref id="tabuleiro"/>
             </children>
 
         </component>
@@ -297,6 +304,28 @@
 
             <children>
                 <primitiveref id="vehicle1" />
+            </children>
+
+        </component>
+		
+		
+		
+		<component id="tabuleiro">
+            <transformation>
+				<translate x="-15" y="0" z="0" />
+				<rotate axis="x" angle="-90" />
+				<scale x="3" y="3" z="3" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="chessboard1" />
             </children>
 
         </component>
