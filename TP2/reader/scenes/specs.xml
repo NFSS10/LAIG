@@ -215,9 +215,6 @@
                  <translate x="0" y="0" z="0" />
             </transformation>
 			
-			<animation>
-       	    </animation>
-
            
             <materials>
                 <material id="materialParede" />
@@ -228,20 +225,18 @@
         
             <children>
 				<componentref id="parapente"/>
-				<componentref id="plane"/>
+				<componentref id="chao"/>
             </children>
 
         </component>
 		
-		 <component id="plane">
+		 <component id="chao">
 
             <transformation>
                  <translate x="0" y="-20" z="0" />
 				 <rotate axis="x" angle="-90" />
             </transformation>
 			
-			<animation>
-       	    </animation>
 
            
             <materials>
@@ -293,8 +288,6 @@
             <transformation>
             </transformation>
 
-			<animation>
-       	    </animation>
 
             <materials>
                 <material id="inherit" />
@@ -317,8 +310,6 @@
 				<translate x="-0.47" y="0" z="-0.7" />
             </transformation>
 
-			<animation>
-       	    </animation>
 
             <materials>
                 <material id="inherit" />

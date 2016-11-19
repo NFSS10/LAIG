@@ -1209,6 +1209,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		{
 			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
 
+
 		}
 		}
 		this.scene.multMatrix(transformations_infoack.top());
@@ -1232,7 +1233,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
 		if(node.animations.length>0)
 		{
-
+			this.scene.pushMatrix();
 			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
 
 
@@ -1260,6 +1261,10 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		for(var i=0; i<node.children.children_list.length; i++)
 			this.displayComponents(node.children.children_list[i].idC, transformations_infoack, materialStack, textureStack);
 
+		if(node.animations.length>0)
+ 			this.scene.popMatrix();
+
+		
 		transformations_infoack.pop();
 		materialStack.pop();
 		textureStack.pop();
