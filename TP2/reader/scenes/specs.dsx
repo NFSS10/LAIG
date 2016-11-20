@@ -75,6 +75,7 @@
 		<texture id="VentoinhaTex" file="textures\\paredetex.jpg" length_s="1" length_t="1" />
 		<texture id="PlaneTex" file="textures\\plane1tex.jpg" length_s="1" length_t="1" />
 		<texture id="BoardTex" file="textures\\boardtex.jpg" length_s="1" length_t="1" />
+		<texture id="ChaoTex" file="textures\\chaotex.jpg" length_s="1" length_t="1" />
 	</textures>
 
 
@@ -209,7 +210,7 @@
          </primitive>
 		 
 		 <primitive id= "chessboard2">
-             <chessboard du="4" dv="4" textureref="BoardTex" su="0" sv="0">
+             <chessboard du="4" dv="4" textureref="ChaoTex" su="0" sv="0">
              	<c1 r="1.0" g="0.0" b="1.0" a="1.0" />
              	<c2 r="1.0" g="1.0" b="0.0" a="1.0" />
              	<cs r="0.5" g="0.7" b="1.0" a="1.0" />
