@@ -135,12 +135,14 @@ XMLscene.prototype.init_All_Lights = function ()
 
 
     this.lights[indice].setSpotExponent(light.exponent);
-    //TODO compor isto;
+
     this.lights[indice].setPosition(light.locations.x,light.locations.y,light.locations.z);
     this.lights[indice].setSpotDirection(spotDirectionx,spotDirectiony,spotDirectionz);
     this.lights[indice].setAmbient(light.ambient.r,light.ambient.g,light.ambient.b,light.ambient.a);
     this.lights[indice].setDiffuse(light.diffuse.r,light.diffuse.g,light.diffuse.b,light.diffuse.a);
     this.lights[indice].setSpecular(light.specular.r,light.specular.g,light.specular.b,light.specular.a);
+	this.lights[indice].setSpotCutOff((Math.PI / 180.0)*light.angle);
+
 
     if(light.enabled==1)
     {
