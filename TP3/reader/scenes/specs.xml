@@ -1,0 +1,489 @@
+<!-- Cena de um parapente a movimentar-se para primeira entrega de LAIG (Nuno Silva e Paulo Babo) -->
+
+
+
+<dsx>
+
+    <scene root="root" axis_length="10" />
+
+
+    <views default="view1" >
+        <perspective id="perspective1" near="0.1" far="500" angle="25">
+            <from x="25" y="5" z="25" />
+            <to x="0" y="5" z="0" />
+        </perspective>
+
+		 <perspective id="perspective2" near="0.1" far="500" angle="25">
+            <from x="25" y="5" z="25" />
+            <to  x="0" y="0" z="20" />
+        </perspective>
+		
+		<perspective id="perspective3" near="0.1" far="500" angle="25">
+            <from x="-25" y="5" z="10" />
+            <to  x="0" y="0" z="10" />
+        </perspective>
+		
+		 <perspective id="perspective4" near="0.1" far="500" angle="25">
+            <from x="5" y="15" z="25" />
+            <to x="-15" y="0" z="0" />
+        </perspective>
+
+    </views>
+
+
+    <illumination doublesided="1" local="1" >
+		<ambient r="0.4" g="0.4" b="0.4" a="0.8" />
+        <background r="0.1" g="0.1" b="0.1" a="0.95" />
+    </illumination>
+
+
+    <lights>
+        <omni id="luzPrincipal" enabled="1" >
+            <location x="7" y="15" z="7" w="-90" />
+            <ambient r="0.2" g="0.2" b="0.2" a="0.9" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
+        </omni>
+
+		 <omni id="luz2" enabled="1" >
+            <location x="10" y="10" z="5" w="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+        </omni>
+
+        <spot id="spot1" enabled="0" angle="35" exponent="1">
+            <target x="0" y="5" z="5" />
+            <location x="15" y="10" z="5" />
+            <ambient r="0.1" g="0.1" b="0.1" a="0.5" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="1" g="1" b="1" a="1" />
+        </spot>
+
+		<spot id="spot2" enabled="1" angle="35" exponent="1">
+            <target x="7" y="4.5" z="5" />
+            <location x="5" y="5" z="19" />
+            <ambient r="0.2" g="0.2" b="0.2" a="0.5" />
+            <diffuse r="0.7 " g="0.7" b="0.7" a="1" />
+            <specular r="0.6" g="0.6" b="0,6" a="1" />
+        </spot>
+
+    </lights>
+
+
+    <textures>
+		<texture id="VentoinhaTex" file="textures\\paredetex.jpg" length_s="1" length_t="1" />
+		<texture id="PlaneTex" file="textures\\plane1tex.jpg" length_s="1" length_t="1" />
+		<texture id="BoardTex" file="textures\\boardtex.jpg" length_s="1" length_t="1" />
+		<texture id="ChaoTex" file="textures\\chaotex.jpg" length_s="1" length_t="1" />
+	</textures>
+
+
+    <materials>
+
+		<material id="materialPlane" >
+          <emission r="0" g="0" b="0" a="0" />
+          <ambient r="0.1" g="0.3" b="0.1" a="0.9" />
+          <diffuse r="0.1" g="0.6" b="0.1" a="0.7" />
+          <specular r="0.1" g="0.1" b="0.1" a="0.7" />
+          <shininess value="0.9" />
+        </material>
+	
+
+		<material id="materialParede" >
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="0.1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.3" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+            <shininess value="0.1" />
+        </material>
+
+    </materials>
+
+
+    <transformations>
+
+        <transformation id="transf1">
+           <translate x="1" y="1" z="1" />
+           <rotate axis="x" angle="25" />
+           <scale x="1" y="1" z="1" />
+        </transformation>
+
+		 <transformation id="transf2">
+           <translate x="0" y="2" z="2" />
+        </transformation>
+
+    </transformations>
+
+
+	<animations>
+   <!-- podem existir zero ou mais nós "animation" -->
+    <!-- span é o tempo, em segundos, que a animação deve -->
+    <!-- demorar. Nesta versão do formato DSX, type pode ter -->
+    <!-- o valor "linear" ou "circular"; na animacao circular -->
+    <!-- os angulos sao expressos em graus  -->
+
+    	<animation id="anim1" span="10" type="linear">
+        	<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="5" zz="5" />
+			<controlpoint xx="0" yy="-2" zz="10" />
+        	<controlpoint xx="0" yy="0" zz="20" />
+        </animation>
+
+		<animation id="anim2" span="10" type="linear">
+        	<controlpoint xx="0" yy="0" zz="20" />
+			<controlpoint xx="0" yy="0" zz="0" />
+        </animation>
+
+		<animation id="sobeDesce" span="10" type="linear">
+        	<controlpoint xx="0" yy="0" zz="0" />
+        	<controlpoint xx="5" yy="0" zz="5" />
+			<controlpoint xx="5" yy="5" zz="10" />
+			<controlpoint xx="0" yy="0" zz="15" />
+        </animation>
+
+
+   
+		<animation id="rodaAnim" span="2" type="circular" centerx="0" centery="0" centerz="20" radius="0" startang="0" rotang="180" />
+
+		<animation id="rodaAnim2" span="2" type="circular" centerx="0" centery="0" centerz="0" radius="0" startang="180" rotang="135" />
+
+		<animation id="heliceAnim" span="40" type="circularz" centerx="0" centery="0.5" centerz="0" radius="0" startang="0" rotang="720000" />
+
+
+
+	</animations>
+
+
+
+
+    <primitives>
+        <primitive id="rectangle">
+            <rectangle x1="0" y1="0" x2="1" y2="1" />
+		</primitive>
+
+        <primitive id="triangle">
+			<triangle x1="2" y1="2" z1="0" x2="1" y2="1" z2="0" x3="2" y3="0" z3="0" />
+		</primitive>
+
+        <primitive id="cylinder">
+			<cylinder base="0.5" top="0.5" height="1" slices="20" stacks="20" />
+		</primitive>
+
+        <primitive id="sphere">
+			<sphere radius="0.5" slices="20" stacks="20" />
+		</primitive>
+
+        <primitive id="torus">
+			<torus inner="0.1" outer="1" slices="20" loops="10" />
+		</primitive>
+
+		<primitive id="cone">
+            <cylinder base="0" top="0.5" height="1" slices="50" stacks="10" />
+        </primitive>
+
+        <primitive id="plane1">
+            <plane dimX="50" dimY="50" partsX="100" partsY="100"/>
+        </primitive>
+
+		<primitive id="patch1">
+            <patch orderU="1" orderV="2" partsU="20" partsV="20" >
+            	<controlpoint x="0" y="0" z="0" />
+            	<controlpoint x="0" y="1" z="0" />
+            	<controlpoint x="0" y="2" z="0" />
+            	<controlpoint x="2" y="0" z="0" />
+            	<controlpoint x="2" y="1" z="3" />
+            	<controlpoint x="2" y="2" z="0" />
+            </patch>
+         </primitive>
+		 
+         <primitive id="vehicle1">
+          	<vehicle />
+         </primitive>
+		 
+         <primitive id= "chessboard1">
+             <chessboard du="8" dv="8" textureref="BoardTex" su="2" sv="2">
+             	<c1 r="1.0" g="0.0" b="0.0" a="1.0" />
+             	<c2 r="0.0" g="0.0" b="1.0" a="1.0" />
+             	<cs r="0.0" g="1.0" b="1.0" a="1.0" />
+           	 </chessboard>
+         </primitive>
+		 
+		 <primitive id= "chessboard2">
+             <chessboard du="4" dv="4" textureref="ChaoTex" su="0" sv="0">
+             	<c1 r="1.0" g="0.0" b="1.0" a="1.0" />
+             	<c2 r="1.0" g="1.0" b="0.0" a="1.0" />
+             	<cs r="0.5" g="0.7" b="1.0" a="1.0" />
+           	 </chessboard>
+         </primitive>
+
+
+    </primitives>
+
+
+
+    <components>
+
+        <component id="root">
+
+            <transformation>
+                 <translate x="0" y="0" z="0" />
+            </transformation>
+			
+           
+            <materials>
+                <material id="materialParede" />
+            </materials>
+
+            <texture id="none" />
+
+        
+            <children>
+				<componentref id="parapente"/>
+				<componentref id="chao"/>
+				<componentref id="tabuleiro"/>
+				<componentref id="tabuleiro2"/>
+            </children>
+
+        </component>
+		
+		 <component id="chao">
+
+            <transformation>
+                 <translate x="0" y="-20" z="0" />
+				 <rotate axis="x" angle="-90" />
+            </transformation>
+			
+
+           
+            <materials>
+                <material id="materialParede" />
+            </materials>
+
+            <texture id="PlaneTex" />
+
+        
+            <children>
+				<primitiveref id="plane1"/>
+            </children>
+
+        </component>
+
+
+		
+		<component id="parapente">
+            <transformation>
+				<rotate axis="y" angle="-90" />
+            </transformation>
+
+			<animation>
+				<animationref id="anim1" />
+				<animationref id="rodaAnim" />
+				<animationref id="anim2" />
+				<animationref id="rodaAnim2" />
+				<animationref id="sobeDesce" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="paraquedas"/>
+				<componentref id="ventoinha"/>
+            </children>
+
+        </component>
+
+
+
+
+
+		<component id="paraquedas">
+            <transformation>
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="vehicle1" />
+            </children>
+
+        </component>
+		
+		
+		
+		<component id="tabuleiro">
+            <transformation>
+				<translate x="-15" y="0" z="0" />
+				<rotate axis="x" angle="-90" />
+				<scale x="3" y="3" z="3" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="chessboard1" />
+            </children>
+
+        </component>
+		
+		<component id="tabuleiro2">
+            <transformation>
+				<translate x="-20" y="0" z="0" />
+				<rotate axis="x" angle="-90" />
+				<scale x="3" y="3" z="3" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="chessboard2" />
+            </children>
+
+        </component>
+
+		
+		
+		
+		
+		<component id="ventoinha">
+            <transformation>
+				<translate x="-0.47" y="0" z="-0.7" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="VentoinhaTex" />
+
+            <children>
+				<componentref id="helice1"/>
+				<componentref id="helice2"/>
+				<componentref id="helice3"/>
+				<componentref id="helice4"/>
+            </children>
+        </component>
+
+		
+		
+		<component id="helice1">
+            <transformation>
+				<translate x="0" y="0" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+				<animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+		<component id="helice2">
+            <transformation>
+				<translate x="0" y="0" z="-0.3" />
+				<rotate axis="z" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+			      <animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+		
+		<component id="helice3">
+            <transformation>
+				<translate x="0" y="0" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+				<animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+		<component id="helice4">
+            <transformation>
+				<translate x="0" y="-0.9" z="0.7" />
+				<rotate axis="z" angle="90" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.2" y="0.05" z="1" />
+            </transformation>
+
+			<animation>
+			      <animationref id="heliceAnim" />
+       	    </animation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" />
+
+            <children>
+			  <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+
+		
+		
+		
+
+    </components>
+
+
+	
+
+</dsx>
