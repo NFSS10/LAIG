@@ -31,6 +31,8 @@ XMLscene.prototype.init = function (application) {
   this.indice_View = 0; //Usado para mudar as views atraves da tecla 'V'
   this.indiceMaterial =0; //Usado para mudar os materiais atraves da tecla 'M'
 
+  
+  this.cameraDistancia = 0;
 
   this.setPickEnabled(true);
 
@@ -191,6 +193,44 @@ XMLscene.prototype.changeViews = function () {
   this.interface.setActiveCamera(this.camera);
 };
 
+//Igual a de cima ainda TODO----------------------------------
+//Vai incrementando a camera ate ficar a posisao que deve ficar
+XMLscene.prototype.changeSmoothViews = function (distancia) {
+  
+  if(distancia > 0)
+	  this.cameraDistancia = distancia;
+  if(this.cameraDistancia > 0)
+	  this.cameraDistancia = this.cameraDistancia-0.01;
+  if(this.cameraDistancia < 0 )
+	  this.cameraDistancia=0;
+  
+  //Passa a primeira view
+  this.indice_View++;
+
+  //Volta à primeira view
+  if(this.indice_View >= this.graph.views_info.perspectives_list.length)
+  this.indice_View = 0;
+
+  var perspectiveTemp = this.graph.views_info.perspectives_list[this.indice_View];
+  var degToRad= Math.PI / 180.0;
+
+  this.camera = new CGFcamera(perspectiveTemp.angle*degToRad
+    ,perspectiveTemp.near
+    ,perspectiveTemp.far
+    ,vec3.fromValues(this.cameraDistancia - perspectiveTemp.from.x,
+					this.cameraDistancia - perspectiveTemp.from.y,
+					this.cameraDistancia - perspectiveTemp.from.z)
+    ,vec3.fromValues(this.cameraDistancia - perspectiveTemp.to.x,
+					this.cameraDistancia - perspectiveTemp.to.y,
+					this.cameraDistancia - perspectiveTemp.to.z)
+  );
+
+  this.interface.setActiveCamera(this.camera);
+};
+
+
+
+
 /** Chamada quando se pressiona a tecla "M"
 Muda de material
 */
@@ -229,6 +269,7 @@ XMLscene.prototype.display = function () {
 	this.logPicking();
 	this.clearPickRegistration();
 	this.graph.pickID=-1;
+	this.changeSmoothViews();
     
 	this.updateLuzes();
     this.graph.displayScene();
