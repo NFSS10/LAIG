@@ -31,24 +31,9 @@ XMLscene.prototype.init = function (application) {
   this.indice_View = 0; //Usado para mudar as views atraves da tecla 'V'
   this.indiceMaterial =0; //Usado para mudar os materiais atraves da tecla 'M'
 
-  this.text = new CGFappearance(this);
-  this.text.loadTexture("./textures/rockettex.jpg");
-  this.setUpdatePeriod(30);
-  this.pontos=[];
-  ponto1= new Ponto3(0,0,0);
-  this.pontos.push(ponto1);
-  ponto2= new Ponto3(0,1,0);
-  this.pontos.push(ponto2);
-  ponto3= new Ponto3(0,2,0);
-  this.pontos.push(ponto3);
-  ponto4= new Ponto3(2,0,0);
-  this.pontos.push(ponto4);
-  ponto5= new Ponto3(2,1,2);
-  this.pontos.push(ponto5);
-  ponto6= new Ponto3(2,2,0);
-  this.pontos.push(ponto6);
 
-  this.plane = new Vehicle(this);
+  this.setPickEnabled(true);
+
 };
 
 XMLscene.prototype.setInterface = function (inter) {
@@ -241,13 +226,36 @@ XMLscene.prototype.display = function () {
   // This is one possible way to do it
   if (this.graph.loadedOk)
   {
-    this.updateLuzes();
+	this.logPicking();
+	this.clearPickRegistration();
+	this.graph.pickID=-1;
+    
+	this.updateLuzes();
     this.graph.displayScene();
-  };
+  }
 
   //this.plane.display();
 
 };
+
+XMLscene.prototype.logPicking = function ()
+{
+
+	if (this.pickMode == false)
+		{
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];				
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}		
+	}
+}
 
 XMLscene.prototype.update = function(currTime) {
   if (this.graph.loadedOk)
