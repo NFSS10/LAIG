@@ -33,9 +33,11 @@ XMLscene.prototype.init = function (application) {
 
 
   //....
-  this.distanciaPercorrida=0;
+  this.distanciaFromPercorrida=0;
+  this.distanciaToPercorrida=0;
   this.velocidade=0.1;
-  this.distanciaTotal = 0;
+  this.distanciaFromTotal = 0;
+  this.distanciaToTotal = 0;
   
 
   this.setPickEnabled(true);
@@ -184,6 +186,8 @@ XMLscene.prototype.changeViews = function () {
   var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View];
   
   this.changeSmoothViews(prevPerspective, nextPerspective, true);
+  
+  //this.changeSmoothViewslel(prevPerspective, true);
 
 
 };
@@ -246,42 +250,54 @@ XMLscene.prototype.changeSmoothViewslel = function (prevPerspective, inicio) {
   this.interface.setActiveCamera(this.camera);
 };
 
-XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspective, inicio) {
+XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspective) {
 
-	this.distanciaPercorrida+=this.velocidade;
+	this.distanciaFromPercorrida+=this.velocidade;
+	this.distanciaToPercorrida+=this.velocidade;
 
 	
-	deltaX = prevPerspective.from.x - nextPerspective.from.x;
-	deltaY = prevPerspective.from.y - nextPerspective.from.y;
-	deltaZ = prevPerspective.from.z - nextPerspective.from.z;
+	deltaFromX = prevPerspective.from.x - nextPerspective.from.x;
+	deltaFromY = prevPerspective.from.y - nextPerspective.from.y;
+	deltaFromZ = prevPerspective.from.z - nextPerspective.from.z;
 
-	if(inicio)
-		this.distanciaTotal = Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ);
+	deltaToX = prevPerspective.to.x - nextPerspective.to.x;
+	deltaToY = prevPerspective.to.y - nextPerspective.to.y;
+	deltaToZ = prevPerspective.to.z - nextPerspective.to.z;
+
+	this.distanciaFromTotal = Math.sqrt(deltaFromX*deltaFromX + deltaFromY*deltaFromY + deltaFromZ*deltaFromZ);
+	this.distanciaToTotal = Math.sqrt(deltaToX*deltaToX + deltaToY*deltaToY + deltaToZ*deltaToZ);
+
 	
-	if(this.distanciaPercorrida > this.distanciasTotal)
+	if(this.distanciaFromPercorrida > this.distanciaFromTotal)
 	{
 		console.log("entrou");
 		return;
 	}
-  var degToRad= Math.PI / 180.0;
+	
+	var degToRad= Math.PI / 180.0;
 
 
 
-    d = this.distanciaPercorrida / this.distanciaTotal;
-    this.currentPositionX = (nextPerspective.from.x * d) + ((1 - d) * prevPerspective.from.x);
-  	this.currentPositionY = (nextPerspective.from.y * d) + ((1 - d) * prevPerspective.from.y);
-    this.currentPositionZ = (nextPerspective.from.z * d) + ((1 - d) * prevPerspective.from.z);
-
+    dfrom = this.distanciaFromPercorrida / this.distanciaFromTotal;
+	dto = this.distanciaToPercorrida / this.distanciaToTotal;
+	
+    this.currentFromPositionX = (nextPerspective.from.x * dfrom) + ((1 - dfrom) * prevPerspective.from.x);
+  	this.currentFromPositionY = (nextPerspective.from.y * dfrom) + ((1 - dfrom) * prevPerspective.from.y);
+    this.currentFromPositionZ = (nextPerspective.from.z * dfrom) + ((1 - dfrom) * prevPerspective.from.z);
+	
+	this.currentToPositionX = (nextPerspective.to.x * dto) + ((1 - dto) * prevPerspective.to.x);
+  	this.currentToPositionY = (nextPerspective.to.y * dto) + ((1 - dto) * prevPerspective.to.y);
+    this.currentToPositionZ = (nextPerspective.to.z * dto) + ((1 - dto) * prevPerspective.to.z);
 	
 	  this.camera = new CGFcamera(nextPerspective.angle*degToRad
     ,nextPerspective.near
     ,nextPerspective.far
-    ,vec3.fromValues(this.currentPositionX,
-					this.currentPositionY,
-					this.currentPositionZ)
-    ,vec3.fromValues(nextPerspective.to.x,
-					nextPerspective.to.y,
-					nextPerspective.to.z)
+    ,vec3.fromValues(this.currentFromPositionX,
+					this.currentFromPositionY,
+					this.currentFromPositionZ)
+    ,vec3.fromValues(this.currentToPositionX,
+					this.currentToPositionY,
+					this.currentToPositionZ)
   );
 
   this.interface.setActiveCamera(this.camera);
@@ -332,12 +348,13 @@ XMLscene.prototype.display = function () {
 	this.graph.pickID=-1;
 	
 	
-	this.indice_View--;
-  var prevPerspective = this.graph.views_info.perspectives_list[this.indice_View];
-  this.indice_View++;
-  var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View];
+	
+	var prevPerspective = this.graph.views_info.perspectives_list[this.indice_View];
+    var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View+1];
+    this.changeSmoothViews(prevPerspective, nextPerspective);
   
-	this.changeSmoothViews(prevPerspective, nextPerspective);
+	
+	//this.changeSmoothViewslel();
     
 	this.updateLuzes();
     this.graph.displayScene();
@@ -381,5 +398,6 @@ XMLscene.prototype.update = function(currTime) {
       }
     }
   }
+ 
    
 }
