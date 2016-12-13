@@ -35,6 +35,8 @@ XMLscene.prototype.init = function (application) {
   //....
   this.distanciaPercorrida=0;
   this.velocidade=0.1;
+  this.distanciaTotal = 0;
+  
 
   this.setPickEnabled(true);
 
@@ -181,7 +183,7 @@ XMLscene.prototype.changeViews = function () {
   this.indice_View++;
   var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View];
   
-  this.changeSmoothViews(prevPerspective, nextPerspective);
+  this.changeSmoothViews(prevPerspective, nextPerspective, true);
 
 
 };
@@ -244,25 +246,28 @@ XMLscene.prototype.changeSmoothViewslel = function (prevPerspective, inicio) {
   this.interface.setActiveCamera(this.camera);
 };
 
-XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspective) {
+XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspective, inicio) {
 
 	this.distanciaPercorrida+=this.velocidade;
-
-	if(this.distanciaPercorrida>this.distanciasTotal)
-	{
-		//fica no final
-	 
-	}
 
 	
 	deltaX = prevPerspective.from.x - nextPerspective.from.x;
 	deltaY = prevPerspective.from.y - nextPerspective.from.y;
 	deltaZ = prevPerspective.from.z - nextPerspective.from.z;
 
-	distanciaTotal = Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ);
+	if(inicio)
+		this.distanciaTotal = Math.sqrt(deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ);
+	
+	if(this.distanciaPercorrida > this.distanciasTotal)
+	{
+		console.log("entrou");
+		return;
+	}
+  var degToRad= Math.PI / 180.0;
 
 
-    d = this.distanciaPercorrida / distanciaTotal;
+
+    d = this.distanciaPercorrida / this.distanciaTotal;
     this.currentPositionX = (nextPerspective.from.x * d) + ((1 - d) * prevPerspective.from.x);
   	this.currentPositionY = (nextPerspective.from.y * d) + ((1 - d) * prevPerspective.from.y);
     this.currentPositionZ = (nextPerspective.from.z * d) + ((1 - d) * prevPerspective.from.z);
