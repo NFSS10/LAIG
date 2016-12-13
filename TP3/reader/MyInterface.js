@@ -68,12 +68,10 @@ MyInterface.prototype.processKeyboard = function(event) {
 	switch (event.keyCode)
 	{
 		case(86):
-			//this.scene.changeViews();
-			this.scene.changeSmoothViews(10);
+			this.scene.changeViews();
 			break;
 		case(118):
-			//this.scene.changeViews();
-			this.scene.changeSmoothViews(10);
+			this.scene.changeViews();
 			break;
 		case(77):
 			this.scene.updateMaterial(10);
