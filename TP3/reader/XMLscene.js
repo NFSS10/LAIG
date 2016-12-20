@@ -40,6 +40,8 @@ XMLscene.prototype.init = function (application) {
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
   
+  this.jogo = new Otrio();
+  
 
   this.setPickEnabled(true);
 
@@ -383,6 +385,11 @@ XMLscene.prototype.logPicking = function ()
 				{
 					var customId = this.pickResults[i][1];				
 					console.log("Picked object: " + obj + ", with pick id " + customId);
+					
+					console.log("\n\n Board \n");
+					this.jogo.getPl_Board();
+					console.log(this.jogo.pl_board);
+					
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
