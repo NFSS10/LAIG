@@ -28,7 +28,8 @@ XMLscene.prototype.init = function (application) {
   this.axis=new CGFaxis(this);
 
   this.luzesEstado;
-  this.indice_View = 0; //Usado para mudar as views atraves da tecla 'V'
+  this.indice_View1 = 0;
+  this.indice_View2 = 1; //Usado para mudar as views atraves da tecla 'V'
   this.indiceMaterial =0; //Usado para mudar os materiais atraves da tecla 'M'
 
 
@@ -179,13 +180,13 @@ XMLscene.prototype.updateLuzes = function ()
 Muda de view
 */
 XMLscene.prototype.changeViews = function () {
- 
-  var prevPerspective = this.graph.views_info.perspectives_list[this.indice_View];
   
-  this.indice_View++;
-  var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View];
-  
-  this.changeSmoothViews(prevPerspective, nextPerspective, true);
+  this.indice_View1++;
+  this.indice_View2++;
+  this.distanciaFromPercorrida=0;
+  this.distanciaToPercorrida=0;
+  this.distanciaFromTotal = 0;
+  this.distanciaToTotal = 0;
   
   //this.changeSmoothViewslel(prevPerspective, true);
 
@@ -346,15 +347,21 @@ XMLscene.prototype.display = function () {
 	this.logPicking();
 	this.clearPickRegistration();
 	this.graph.pickID=-1;
+
+	if(this.indice_View1>bvthis.graph.views_info.perspectives_list.length-1)
+	{
+		this.indice_View1=0;
+	}
+
+	prevPerspective = this.graph.views_info.perspectives_list[this.indice_View1];
 	
-	
-	
-	var prevPerspective = this.graph.views_info.perspectives_list[this.indice_View];
-    var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View+1];
+	if(this.indice_View2>this.graph.views_info.perspectives_list.length-1)
+	{
+		this.indice_View2=0;
+	}
+    nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
     this.changeSmoothViews(prevPerspective, nextPerspective);
   
-	
-	//this.changeSmoothViewslel();
     
 	this.updateLuzes();
     this.graph.displayScene();
