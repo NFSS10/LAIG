@@ -348,7 +348,7 @@ XMLscene.prototype.display = function () {
 	this.clearPickRegistration();
 	this.graph.pickID=-1;
 
-	if(this.indice_View1>bvthis.graph.views_info.perspectives_list.length-1)
+	if(this.indice_View1 > this.graph.views_info.perspectives_list.length-1)
 	{
 		this.indice_View1=0;
 	}
