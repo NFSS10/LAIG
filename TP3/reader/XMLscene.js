@@ -273,7 +273,6 @@ XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspectiv
 	
 	if(this.distanciaFromPercorrida > this.distanciaFromTotal)
 	{
-		console.log("entrou");
 		return;
 	}
 	
