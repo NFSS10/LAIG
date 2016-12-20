@@ -36,7 +36,7 @@ XMLscene.prototype.init = function (application) {
   //....
   this.distanciaFromPercorrida=0;
   this.distanciaToPercorrida=0;
-  this.velocidade=0.5;
+  this.velocidade=0.6;
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
   
