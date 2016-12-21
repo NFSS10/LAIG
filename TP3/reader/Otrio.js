@@ -39,6 +39,8 @@ Otrio.prototype.fazJogada = function()
   {
     //TODO prolog
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n\n\n");
+    this.movPossivelVerm();
+
 
     this.changePlayer();
     this.reset_Seleccoes();
@@ -113,12 +115,20 @@ Otrio.prototype.getPl_Board = function(){
   this.client.getPrologRequest("board", function(data) {
     game.pl_board=data.target.responseText;
   });
+
 }
 
-Otrio.prototype.movePiece = function(){
-  var game=this;
+Otrio.prototype.movPossivelVerm = function()
+{
+ var res;
+ var str = "jogadaVermPossivel";
+ var strPiece;
 
-  this.client.getPrologRequest("board", function(data) {
-    game.pl_board=data.target.responseText;
+ 
+
+this.client.getPrologRequest("jogadaVermPossivel(r1)", function(data) {
+  res = data.target.responseText;
   });
+
+
 }

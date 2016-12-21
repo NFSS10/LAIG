@@ -103,5 +103,5 @@ print_header_line(_).
 
 % Require your Prolog Files here
 
-:- ensure_loaded('requests.pl').
+:- ensure_loaded('requests').
 	
