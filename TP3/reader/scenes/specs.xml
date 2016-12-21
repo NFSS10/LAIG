@@ -87,6 +87,14 @@
           <shininess value="1" />
         </material>
 
+        <material id="selected" >
+          <emission r="0" g="1" b="0" a="1" />
+          <ambient r="0" g="0" b="0" a="1" />
+          <diffuse r="0" g="0" b="0" a="1" />
+          <specular r="0" g="0" b="0" a="1" />
+          <shininess value="1" />
+        </material>
+
 
     </materials>
 
