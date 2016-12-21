@@ -387,17 +387,8 @@ XMLscene.prototype.logPicking = function ()
           //Seleciona o objecto
           console.log("Picked object: " + obj + ", with pick id " + customId);
 
-
           this.playerAction(customId)
 
-
-
-          //Apgar teste teste
-          console.log("\n\n");
-          console.log(this.jogo.selectedPiece);
-          console.log(this.jogo.posTomove);
-          console.log("\n\n");
-          //Apagart fiimmmmmmmmmmmmmmmm
 
 				}
 			}

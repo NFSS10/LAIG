@@ -27,6 +27,8 @@ this.minTabuleiro = 0;
 this.maxTabuleiro = 8;
 //........................
 
+this.engineResponse = null;
+
 }
 
 Otrio.prototype.constructor=Otrio;
@@ -38,9 +40,18 @@ Otrio.prototype.fazJogada = function()
   if(this.selectedPiece != null && this.posTomove != null)
   {
     //TODO prolog
-    console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n\n\n");
-    this.movPossivelVerm();
+    console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
+    if(this.playerTurn == 1)
+    {
+      res = this.possivelJogarVerm();
+      console.log("É possivel jogar vermelho" + res);
+    }
+    else if(this.playerTurn == 2)
+    {
+      res = this.possivelJogarAzul();
+      console.log("É possivel jogar Azul" + res);
+    }
 
     this.changePlayer();
     this.reset_Seleccoes();
@@ -118,17 +129,65 @@ Otrio.prototype.getPl_Board = function(){
 
 }
 
-Otrio.prototype.movPossivelVerm = function()
+Otrio.prototype.possivelJogarVerm = function()
 {
- var res;
- var str = "jogadaVermPossivel";
- var strPiece;
+   var game = this;
+   var res;
+   var str = "jogadaVermPossivel";
+   var strPiece;
 
- 
+  if(this.selectedPiece != null)
+  {
+    if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
+      strPiece = "(r3)";
+    else if(this.selectedPiece == 19 || this.selectedPiece == 22 || this.selectedPiece == 25)
+      strPiece = "(r2)";
+    else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
+      strPiece = "(r1)";
+  }
 
-this.client.getPrologRequest("jogadaVermPossivel(r1)", function(data) {
-  res = data.target.responseText;
-  });
+  str = str + strPiece;
+  console.log("Peca " + strPiece);
+
+  //Verifica se é possivel jogar a peca
+  this.client.getPrologRequest(str, function(data) {
+    game.engineResponse = data.target.responseText;
+    });
+
+res = this.engineResponse;
+this.engineResponse = null;
+
+return res;
+}
 
 
+Otrio.prototype.possivelJogarAzul = function()
+{
+   var game = this;
+   var res;
+   var str = "jogadaAzulPossivel";
+   var strPiece;
+
+  if(this.selectedPiece != null)
+  {
+    if(this.selectedPiece == 9 || this.selectedPiece == 12 || this.selectedPiece == 15)
+      strPiece = "(b3)";
+    else if(this.selectedPiece == 10 || this.selectedPiece == 13 || this.selectedPiece == 16)
+      strPiece = "(b2)";
+    else if(this.selectedPiece == 11 || this.selectedPiece == 14 || this.selectedPiece == 17)
+      strPiece = "(b1)";
+  }
+
+  str = str + strPiece;
+  console.log("Peca " + strPiece);
+
+  //Verifica se é possivel jogar a peca
+  this.client.getPrologRequest(str, function(data) {
+    game.engineResponse = data.target.responseText;
+    });
+
+res = this.engineResponse;
+this.engineResponse = null;
+
+return res;
 }
