@@ -31,18 +31,43 @@ this.maxTabuleiro = 8;
 
 Otrio.prototype.constructor=Otrio;
 
-//Usado para selecionar peca e posicao do tabuleiro
-//Return true se selecionar pela ordem correta, false caso contraio
+
+Otrio.prototype.fazJogada = function()
+{
+  //Fazer a jogada
+  if(this.selectedPiece != null && this.posTomove != null)
+  {
+    //TODO prolog
+    console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n\n\n");
+
+    this.changePlayer();
+    this.reset_Seleccoes();
+  }
+
+}
+
+
+//Reset das selecoes
 Otrio.prototype.reset_Seleccoes = function()
 {
-  this.selPiece = null;
+  this.selectedPiece = null;
   this.posTomove = null;
 }
+
+//Muda jogador
+Otrio.prototype.changePlayer = function()
+{
+  if(this.playerTurn == 1)
+    this.playerTurn = 2;
+  else if(this.playerTurn == 2)
+      this.playerTurn = 1;
+}
+
 
 //Usado para selecionar peca e posicao do tabuleiro
 Otrio.prototype.select_Obj = function(nSelected)
 {
-  this.reset_Seleccoes();
+  this.posTomove = null;
 
   //Peca............
   //So selectiona se for a vez do jogador correspondente
