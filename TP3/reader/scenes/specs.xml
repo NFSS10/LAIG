@@ -12,25 +12,25 @@
             <from x="0" y="31" z="0.01" />
             <to x="0" y="0" z="0" />
         </perspective>
-		
+
 		<perspective id="perspeSetVermelho" near="0.1" far="1000" angle="45">
             <from x="17" y="31" z="0.01" />
             <to x="17" y="0" z="0" />
         </perspective>
-		
-		
+
+
 		<perspective id="perspeCentro" near="0.1" far="1000" angle="45">
             <from x="0" y="31" z="0.01" />
             <to x="0" y="0" z="0" />
         </perspective>
-		
+
 		<perspective id="perspeSetAzul" near="0.1" far="1000" angle="45">
             <from x="-17" y="31" z="0.01" />
             <to x="-17" y="0" z="0" />
         </perspective>
 
     </views>
-	
+
 
     <illumination doublesided="1" local="1" >
 		<ambient r="0.4" g="0.4" b="0.4" a="0.8" />
@@ -46,9 +46,9 @@
             <specular r="0.9" g="0.9" b="0.9" a="0.9" />
         </omni>
 
-		
-		
-		 
+
+
+
 
     </lights>
 
@@ -68,8 +68,8 @@
           <specular r="1" g="1" b="1" a="1" />
           <shininess value="0.01" />
         </material>
-		
-		
+
+
 		<material id="materialPecaAzul" >
           <emission r="0.1" g="0.4" b="1" a="1" />
           <ambient r="0" g="0" b="0" a="1" />
@@ -77,8 +77,8 @@
           <specular r="0" g="0" b="0" a="1" />
           <shininess value="1" />
         </material>
-		
-		
+
+
 		<material id="materialPecaVermelha" >
           <emission r="1" g="0" b="0" a="1" />
           <ambient r="0" g="0" b="0" a="1" />
@@ -86,7 +86,7 @@
           <specular r="0" g="0" b="0" a="1" />
           <shininess value="1" />
         </material>
-	
+
 
     </materials>
 
@@ -145,15 +145,15 @@
             <transformation>
                  <translate x="0" y="0" z="0" />
             </transformation>
-			
-           
+
+
             <materials>
                 <material id="materialParede" />
             </materials>
 
             <texture id="none" />
 
-        
+
             <children>
 				<componentref id="tabuleiro"/>
 				<componentref id="setAzul"/>
@@ -161,10 +161,10 @@
             </children>
 
         </component>
-		
 
-		
-		
+
+
+
 		<component id="tabuleiro">
             <transformation>
 				<rotate axis="x" angle="-90" />
@@ -190,10 +190,10 @@
             </children>
 
         </component>
-		
-		
-		
-		
+
+
+
+
 		<component id="setAzul">
             <transformation>
 				<translate x="-17" y="0" z="-7.5" />
@@ -234,11 +234,11 @@
             </children>
 
         </component>
-		
-		
-		
-		
-		
+
+
+
+
+
 		<component id="bloco1">
             <transformation>
 				<translate x="0" y="0" z="0" />
@@ -296,11 +296,11 @@
             </children>
 
         </component>
-		
-		
-		
-		
-		
+
+
+
+
+
 		<component id="pecaGrande">
             <transformation>
 				<translate x="0" y="0" z="1.5" />
@@ -355,10 +355,10 @@
             </children>
 
         </component>
-		
-		
-		
-		
+
+
+
+
 		<component id="tabuleiropos1">
             <transformation>
 				<translate x="-8" y="8" z="0" />
@@ -480,7 +480,7 @@
         </component>
 		<component id="tabuleiropos9">
             <transformation>
-				<translate x="8" y="-8" z="0" />
+				          <translate x="8" y="-8" z="0" />
             </transformation>
 
             <materials>
@@ -493,27 +493,14 @@
                 <primitiveref id="tabuleiropos"/>
             </children>
         </component>
-            <transformation>
-				<translate x="-8" y="8" z="0" />
-            </transformation>
 
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
 
-            <texture id="tabuleiroTex" />
 
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		
-		
-		
+
 
     </components>
 
 
-	
+
 
 </dsx>
