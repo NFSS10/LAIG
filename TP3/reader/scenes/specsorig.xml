@@ -127,8 +127,8 @@
             <cylinder base="0" top="0.5" height="1" slices="50" stacks="10" />
         </primitive>
 
-        <primitive id="tabuleiropos">
-            <plane dimX="8" dimY="8" partsX="50" partsY="50"/>
+        <primitive id="tabuleiro">
+            <plane dimX="50" dimY="50" partsX="200" partsY="200"/>
         </primitive>
 
 
@@ -167,6 +167,7 @@
 		<component id="tabuleiro">
             <transformation>
 				<rotate axis="x" angle="-90" />
+				<scale x="0.5" y="0.5" z="0.5" />
             </transformation>
 
 
@@ -177,15 +178,7 @@
             <texture id="tabuleiroTex" />
 
             <children>
-                <componentref id="tabuleiropos1"/>
-				<componentref id="tabuleiropos2"/>
-				<componentref id="tabuleiropos3"/>
-				<componentref id="tabuleiropos4"/>
-				<componentref id="tabuleiropos5"/>
-				<componentref id="tabuleiropos6"/>
-				<componentref id="tabuleiropos7"/>
-				<componentref id="tabuleiropos8"/>
-				<componentref id="tabuleiropos9"/>
+                <primitiveref id="tabuleiro" />
             </children>
 
         </component>
@@ -355,157 +348,6 @@
 
         </component>
 		
-		
-		
-		
-		<component id="tabuleiropos1">
-            <transformation>
-				<translate x="-8" y="8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos2">
-            <transformation>
-				<translate x="0" y="8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos3">
-            <transformation>
-				<translate x="8" y="8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos4">
-            <transformation>
-				<translate x="-8" y="0" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos5">
-            <transformation>
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos6">
-            <transformation>
-				<translate x="8" y="0" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos7">
-            <transformation>
-				<translate x="-8" y="-8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos8">
-            <transformation>
-				<translate x="0" y="-8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-		<component id="tabuleiropos9">
-            <transformation>
-				<translate x="8" y="-8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
-            <transformation>
-				<translate x="-8" y="8" z="0" />
-            </transformation>
-
-            <materials>
-                <material id="materialTabuleiro" />
-            </materials>
-
-            <texture id="tabuleiroTex" />
-
-            <children>
-                <primitiveref id="tabuleiropos"/>
-            </children>
-        </component>
 		
 		
 		
