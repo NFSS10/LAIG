@@ -383,13 +383,21 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+
           //Seleciona o objecto
-          this.jogo.select_Obj(customId);
+          console.log("Picked object: " + obj + ", with pick id " + customId);
+
+
+          this.playerAction(customId)
+
+
+
+          //Apgar teste teste
           console.log("\n\n");
           console.log(this.jogo.selectedPiece);
           console.log(this.jogo.posTomove);
           console.log("\n\n");
+          //Apagart fiimmmmmmmmmmmmmmmm
 
 				}
 			}
@@ -397,6 +405,15 @@ XMLscene.prototype.logPicking = function ()
 		}
 	}
 }
+
+XMLscene.prototype.playerAction = function (selObjId)
+{
+  var changecambool = this.jogo.select_Obj(selObjId);
+  if(changecambool)
+    this.changeViews();
+}
+
+
 
 XMLscene.prototype.update = function(currTime) {
   if (this.graph.loadedOk)
