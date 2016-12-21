@@ -1227,10 +1227,20 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		this.pickID++;
 		this.scene.registerForPick(this.pickID, node.children.children_list[0].realPrimitive);
 		//console.log(node.children.children_list[0].realPrimitive);
+		if(this.scene.jogo.selectedPiece == this.pickID)
+		{
+				for(var z=0; z<this.materials_info.materials.length;z++)
+				{
+					if(this.materials_info.materials[z].id=="selected")
+					{
+						
+						this.materials_info.materials[z].realMaterial.apply();	
+						
+					}
+				}
+		}	
 		node.children.children_list[0].realPrimitive.display();
-
-
-
+			
 		this.scene.popMatrix();
 
 		transformations_infoack.pop();
