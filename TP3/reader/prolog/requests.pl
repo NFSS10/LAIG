@@ -21,7 +21,7 @@ parse_input(veriffazjogadaVermG(X, Y), Res):- Res is 1, append([X],[Y],Coords), 
 parse_input(veriffazjogadaVermG(X, Y), Res):- Res is 0.
 parse_input(veriffazjogadaVermM(X, Y), Res):- Res is 1, append([X],[Y],Coords), jogadapossivelmedia(ListaJogadas),!,member(Coords,ListaJogadas).
 parse_input(veriffazjogadaVermM(X, Y), Res):- Res is 0.
-parse_input(veriffazjogadaVermP(X, Y), Res):- Res is 1,append([X],[Y],Coords), jogadapossivelpequena(ListaJogadas),!,member(Coords,ListaJogadas).
+parse_input(veriffazjogadaVermP(X, Y), Res):- Res is 1, append([X],[Y],Coords), jogadapossivelpequena(ListaJogadas),!,member(Coords,ListaJogadas).
 parse_input(veriffazjogadaVermP(X, Y), Res):- Res is 0.
 
 parse_input(veriffazjogadaAzulG(X, Y), Res):- Res is 1, append([X],[Y],Coords), jogadapossivelgrande(ListaJogadas),!,member(Coords,ListaJogadas).
@@ -40,5 +40,3 @@ parse_input(fazjogadaVerm(X, Y, Peca), Res):-	Res is 0.
 
 parse_input(fazjogadaAzul(X, Y, Peca), Res):-	Res is 1, jogadajogador2(X,Y,Peca).
 parse_input(fazjogadaAzul(X, Y, Peca), Res):-	Res is 0.
-
-

@@ -102,6 +102,43 @@ Otrio.prototype.changePlayer = function()
       this.playerTurn = 1;
 }
 
+Otrio.prototype.getTranslatedPos = function(pos)
+{
+  var strPiece;
+  switch(pos)
+  {
+      case 0:
+         strPiece= "(0,0)";
+        break;
+      case 1:
+         strPiece= "(1,0)";
+        break;
+      case 2:
+         strPiece= "(2,0)";
+        break;
+      case 3:
+         strPiece= "(0,1)";
+        break;
+      case 4:
+         strPiece= "(1,1)";
+        break;
+      case 5:
+         strPiece= "(2,1)";
+        break;
+      case 6:
+         strPiece= "(0,2)";
+        break;
+      case 7:
+         strPiece= "(1,2)";
+        break;
+      case 8:
+         strPiece= "(2,2)";
+        break;
+
+  }
+return strPiece;
+}
+
 
 //Usado para selecionar peca e posicao do tabuleiro
 Otrio.prototype.select_Obj = function(nSelected)
@@ -181,7 +218,7 @@ Otrio.prototype.possivelJogarVerm = function()
       console.log("É possivel jogar essa peça");
     });
 
-res = this.engineResponse;
+console.log("\n\n\nTESTE TESTETESTETESTETESTETESTE");
 this.engineResponse = null;
 
 return res;
@@ -227,41 +264,11 @@ Otrio.prototype.veriffazjogadaVermG = function()
    var res;
    var str = "veriffazjogadaVermG";
    var strPiece;
+   var posTomove = this.posTomove;
+   var selectedP = this.selectedPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha grande verificada: " + strPiece);
@@ -269,7 +276,7 @@ Otrio.prototype.veriffazjogadaVermG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaVerm();
+      game.fazjogadaVerm(selectedP, posTomove);
     });
 
 res = this.engineResponse;
@@ -287,39 +294,7 @@ Otrio.prototype.veriffazjogadaVermM = function()
    var strPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha media verificada:  " + strPiece);
@@ -345,39 +320,7 @@ Otrio.prototype.veriffazjogadaVermP = function()
    var strPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha pequena verificada: " + strPiece);
@@ -404,39 +347,7 @@ Otrio.prototype.veriffazjogadaAzulG = function()
    var strPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul grande verificada: " + strPiece);
@@ -462,39 +373,7 @@ Otrio.prototype.veriffazjogadaAzulM = function()
    var strPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul media verificada: " + strPiece);
@@ -520,39 +399,7 @@ Otrio.prototype.veriffazjogadaAzulP = function()
    var strPiece;
 
    if(this.posTomove != null)
-   {
-      switch(this.posTomove)
-      {
-          case 0:
-             strPiece= "(0,0)";
-            break;
-          case 1:
-             strPiece= "(1,0)";
-            break;
-          case 2:
-             strPiece= "(2,0)";
-            break;
-          case 3:
-             strPiece= "(0,1)";
-            break;
-          case 4:
-             strPiece= "(1,1)";
-            break;
-          case 5:
-             strPiece= "(2,1)";
-            break;
-          case 6:
-             strPiece= "(0,2)";
-            break;
-          case 7:
-             strPiece= "(1,2)";
-            break;
-          case 8:
-             strPiece= "(2,2)";
-            break;
-
-      }
-   }
+     strPiece = this.getTranslatedPos(this.posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul pequena verificada: " + strPiece);
@@ -570,59 +417,67 @@ return res;
 }
 
 
-Otrio.prototype.fazjogadaVerm = function()
+Otrio.prototype.fazjogadaVerm = function(selectedP, posTomove)
 {
    var game = this;
    var res;
    var str = "fazjogadaVerm";
    var strPiece;
 
-   if(this.posTomove != null && this.selectedPiece !=null)
-   {
-      switch(this.posTomove)
+   console.log("\n\n\n\n mas esta aqui wtf: " + posTomove);
+
+      switch(posTomove)
       {
           case 0:
              strPiece= "(0,0,";
+             console.log("\n\nentra caracas");
             break;
           case 1:
              strPiece= "(1,0,";
+             console.log("\n\nentra caracas");
             break;
           case 2:
              strPiece= "(2,0,";
+             console.log("\n\nentra caracas");
             break;
           case 3:
              strPiece= "(0,1,";
+             console.log("\n\nentra caracas");
             break;
           case 4:
              strPiece= "(1,1,";
+             console.log("\n\nentra caracas");
             break;
           case 5:
              strPiece= "(2,1,";
+             console.log("\n\nentra caracas");
             break;
           case 6:
              strPiece= "(0,2,";
+             console.log("\n\nentra caracas");
             break;
           case 7:
              strPiece= "(1,2,";
+             console.log("\n\nentra caracas");
             break;
           case 8:
              strPiece= "(2,2,";
+             console.log("\n\nentra caracas");
             break;
 
       }
 
-      if(this.selectedPiece != null)
-      {
-        if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
+
+        if(selectedP == 18 || selectedP == 21 || selectedP == 24)
           strPiece = strPiece +  "r3)";
-        else if(this.selectedPiece == 19 || this.selectedPiece == 22 || this.selectedPiece == 25)
+        else if(selectedP == 19 || selectedP == 22 || selectedP == 25)
           strPiece = strPiece +  "r2)";
-        else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
+        else if(selectedP == 20 || selectedP == 23 || selectedP == 26)
           strPiece = strPiece +  "r1)";
-      }
 
-   }
 
+
+console.log("wtf===== " + posTomove);
   str = str + strPiece;
   console.log("Jogada vermelha: " + strPiece);
 
