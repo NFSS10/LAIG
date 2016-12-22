@@ -269,7 +269,7 @@ Otrio.prototype.veriffazjogadaVermG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaVerm();
+      game.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -327,7 +327,7 @@ Otrio.prototype.veriffazjogadaVermM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaVerm();
+      game.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -385,7 +385,7 @@ Otrio.prototype.veriffazjogadaVermP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaVerm();
+      game.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -444,7 +444,7 @@ Otrio.prototype.veriffazjogadaAzulG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaAzul();
+      game.fazjogadaAzul();
     });
 
 res = this.engineResponse;
@@ -502,7 +502,7 @@ Otrio.prototype.veriffazjogadaAzulM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaAzul();
+      game.fazjogadaAzul();
     });
 
 res = this.engineResponse;
@@ -560,7 +560,7 @@ Otrio.prototype.veriffazjogadaAzulP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      this.fazjogadaAzul();
+      game.fazjogadaAzul();
     });
 
 res = this.engineResponse;
