@@ -53,7 +53,7 @@ Otrio.prototype.fazJogada = function()
   if(this.selectedPiece != null && this.posTomove != null)
   {
     var permitida=0;
-   
+
     if(this.playerTurn == 1)
     {
       if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
@@ -66,7 +66,7 @@ Otrio.prototype.fazJogada = function()
       console.log("ENTROOWWWWWWWWW "+ permitida);
       if(permitida==1)
       {
-        
+
         this.fazjogadaVerm();
       }
     }
@@ -78,7 +78,7 @@ Otrio.prototype.fazJogada = function()
          permitida= this.veriffazjogadaAzulM();
       else if(this.selectedPiece == 11 || this.selectedPiece == 14 || this.selectedPiece == 17)
          permitida= this.veriffazjogadaAzulP();
-      
+
       console.log("ENTROOWWWWWWWWW "+ permitida);
       if(permitida==1)
       {
@@ -87,7 +87,7 @@ Otrio.prototype.fazJogada = function()
     }
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
-    
+
     this.changePlayer();
     this.reset_Seleccoes();
   }
@@ -186,7 +186,8 @@ Otrio.prototype.possivelJogarVerm = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -218,7 +219,8 @@ Otrio.prototype.possivelJogarAzul = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -237,7 +239,7 @@ Otrio.prototype.veriffazjogadaVermG = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -275,7 +277,8 @@ Otrio.prototype.veriffazjogadaVermG = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -294,7 +297,7 @@ Otrio.prototype.veriffazjogadaVermM = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -332,7 +335,8 @@ Otrio.prototype.veriffazjogadaVermM = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -351,7 +355,7 @@ Otrio.prototype.veriffazjogadaVermP = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -389,7 +393,8 @@ Otrio.prototype.veriffazjogadaVermP = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -409,7 +414,7 @@ Otrio.prototype.veriffazjogadaAzulG = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -447,7 +452,8 @@ Otrio.prototype.veriffazjogadaAzulG = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -466,7 +472,7 @@ Otrio.prototype.veriffazjogadaAzulM = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -504,7 +510,8 @@ Otrio.prototype.veriffazjogadaAzulM = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -523,7 +530,7 @@ Otrio.prototype.veriffazjogadaAzulP = function()
 
    if(this.posTomove != null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0)";
@@ -561,7 +568,8 @@ Otrio.prototype.veriffazjogadaAzulP = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -580,7 +588,7 @@ Otrio.prototype.fazjogadaVerm = function()
 
    if(this.posTomove != null && this.selectedPiece !=null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0,";
@@ -629,7 +637,8 @@ Otrio.prototype.fazjogadaVerm = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+  game.teste();
     });
 
 res = this.engineResponse;
@@ -649,7 +658,7 @@ Otrio.prototype.fazjogadaAzul = function()
 
    if(this.posTomove != null && this.selectedPiece !=null)
    {
-      switch(this.posTomove) 
+      switch(this.posTomove)
       {
           case 0:
              strPiece= "(0,0,";
@@ -680,7 +689,7 @@ Otrio.prototype.fazjogadaAzul = function()
             break;
 
       }
-      
+
       if(this.selectedPiece != null)
       {
         if(this.selectedPiece == 9 || this.selectedPiece == 12 || this.selectedPiece == 15)
@@ -698,7 +707,9 @@ Otrio.prototype.fazjogadaAzul = function()
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    game.engineResponse = data.target.responseText;
+    if(data.target.responseText == 1)
+      game.teste();
+
     });
 
 res = this.engineResponse;
@@ -707,3 +718,8 @@ this.engineResponse = null;
 return res;
 }
 
+Otrio.prototype.teste = function()
+{
+ console.log("\n\n Foi true");
+ console.log("a fazer cenas que era suposto fazer");
+}
