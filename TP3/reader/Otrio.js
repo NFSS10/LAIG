@@ -3,8 +3,10 @@ function Otrio(){
 this.client = new Client();
 
 this.pl_board = null;
+this.set1 = null;
+this.set2 = null;
 
-this.modoJogo = 1 //Modo de jogo 1 = PvP / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
+this.modoJogo = 1; //Modo de jogo 1 = PvP(predefinido) / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
 
 this.posIniciais =[];
 
@@ -32,9 +34,41 @@ this.maxTabuleiro = 8;
 this.engineResponse = null;
 this.initPosIniciais();
 
+this.gameStates = [];
+this.piecesThatMoved = []; //TODO ao mover Peca adicionar o id aqui, assim a ultima vai ser a mais recente, o que significa que é so desfazer a animation
+
+this.initGame(); //TODO remover daqui
+
 }
 
 Otrio.prototype.constructor=Otrio;
+
+//TODO init
+//TODO add state
+//TODO undo
+
+//O jogador no xmlscene vai selecionar o modo de jogo, e ele vai iniciar com esse modo de jogo, caso contrario inicia a 1
+Otrio.prototype.initGame = function(modoJogo)
+{
+
+  //TODO passar o que esta abaixo para o addstate
+  this.modoJogo = modoJogo || 1;
+
+  this.getPl_Board();
+  estadoJogo = new OtrioState();
+
+  estadoJogo.pl_board = this.pl_board;
+  console.log("\n\n\n\n\n\n\n\n\n\n\n\n");
+  console.log(estadoJogo.pl_board + "\n\n");
+}
+
+Otrio.prototype.declararVitoria = function()
+{
+  console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+  console.log("---------VITORIA--------");
+  console.log("Jogador" + this.playerTurn + "\n\n\n");
+}
+
 
 
 Otrio.prototype.fazJogada = function()
@@ -82,7 +116,7 @@ Otrio.prototype.fazJogada = function()
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
 
-    
+
   }
 
 }
@@ -266,7 +300,7 @@ Otrio.prototype.veriffazjogadaVermG = function(posTomove,selectedPiece)
    var res;
    var str = "veriffazjogadaVermG";
    var strPiece;
-  
+
 
    if(posTomove != null)
      strPiece = this.getTranslatedPos(posTomove);
@@ -515,7 +549,7 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
   game.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
     {
-      game.changePlayer();
+      game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
     }
@@ -590,7 +624,7 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
     {
-      game.changePlayer();
+      game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
     }
@@ -639,5 +673,19 @@ Otrio.prototype.initPosIniciais = function()
   this.posIniciais[24]=[17,0,7.5];
   this.posIniciais[25]=[17,0,7.5];
   this.posIniciais[26]=[17,0,7.5];
+
+}
+
+
+Otrio.prototype.verificaVitoria = function()
+{
+    var game=this;
+
+  this.client.getPrologRequest("verifVitoria", function(data) {
+      if(data.target.responseText == 1)
+        game.declararVitoria();
+      else if(data.target.responseText == 0)
+        game.changePlayer();
+    });
 
 }

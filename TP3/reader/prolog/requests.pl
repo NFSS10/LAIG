@@ -40,3 +40,8 @@ parse_input(fazjogadaVerm(X, Y, Peca), Res):-	Res is 0.
 
 parse_input(fazjogadaAzul(X, Y, Peca), Res):-	Res is 1, jogadajogador2(X,Y,Peca).
 parse_input(fazjogadaAzul(X, Y, Peca), Res):-	Res is 0.
+
+
+%Verifica se acabou (vitoria ou empate)
+parse_input(verifVitoria, Res):-	Res is 0, verSeGanhou.
+parse_input(verifVitoria, Res):-	Res is 1.
