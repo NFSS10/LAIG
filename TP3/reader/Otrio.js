@@ -3,8 +3,10 @@ function Otrio(){
 this.client = new Client();
 
 this.pl_board = null;
+this.set1 = null;
+this.set2 = null;
 
-this.modoJogo = 1 //Modo de jogo 1 = PvP / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
+this.modoJogo = 1; //Modo de jogo 1 = PvP(predefinido) / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
 
 //vez do jogador
 this.playerTurn = 1; //1-> jogador1, Vermelho / 2 -> jogador2, Azul
@@ -29,10 +31,32 @@ this.maxTabuleiro = 8;
 
 this.engineResponse = null;
 
+this.gameStates = [];
+this.piecesThatMoved = []; //TODO ao mover Peca adicionar o id aqui, assim a ultima vai ser a mais recente, o que significa que é so desfazer a animation
+
+this.initGame(); //TODO remover daqui
 }
 
 Otrio.prototype.constructor=Otrio;
 
+//TODO init
+//TODO add state
+//TODO undo
+
+//O jogador no xmlscene vai selecionar o modo de jogo, e ele vai iniciar com esse modo de jogo, caso contrario inicia a 1
+Otrio.prototype.initGame = function(modoJogo)
+{
+
+  //TODO passar o que esta abaixo para o addstate
+  this.modoJogo = modoJogo || 1;
+
+  this.getPl_Board();
+  estadoJogo = new OtrioState();
+
+  estadoJogo.pl_board = this.pl_board;
+  console.log("\n\n\n\n\n\n\n\n\n\n\n\n");
+  console.log(estadoJogo.pl_board + "\n\n");
+}
 
 Otrio.prototype.fazJogada = function()
 {

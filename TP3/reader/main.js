@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js','Otrio.js','Client.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js','Otrio.js','Client.js','OtrioState.js',
 './misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', './misc/Scene.js',
 './primitives/MyCylinder.js' , './primitives/MyCylinderBase.js' , './primitives/MyCylinderSurface.js' , './primitives/MyRectangle.js' , './primitives/MySphere.js' , './primitives/MyTorus.js' , './primitives/MyTriangle.js' ,
 './misc/Stack.js','./misc/Ponto3.js', './misc/Animation.js','./misc/LinearAnimation.js','./misc/CircularAnimation.js','./misc/FullAnimation.js','./primitives/Plane.js','./primitives/Patch.js','./primitives/Vehicle.js','./primitives/Chessboard.js','./misc/Rgba.js',
