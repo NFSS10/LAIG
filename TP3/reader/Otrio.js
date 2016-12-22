@@ -53,34 +53,33 @@ Otrio.prototype.fazJogada = function()
   if(this.selectedPiece != null && this.posTomove != null)
   {
     var permitida=0;
-
+    console.log("POSICAOOOOO" + this.posTomove);
     if(this.playerTurn == 1)
     {
       if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
-        this.veriffazjogadaVermG();
+        this.veriffazjogadaVermG(this.posTomove,this.selectedPiece);
       else if(this.selectedPiece == 19 || this.selectedPiece == 22 || this.selectedPiece == 25)
-        this.veriffazjogadaVermM();
+        this.veriffazjogadaVermM(this.posTomove,this.selectedPiece);
       else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
-        this.veriffazjogadaVermP();
+        this.veriffazjogadaVermP(this.posTomove,this.selectedPiece);
 
 
     }
     else if(this.playerTurn == 2)
     {
       if(this.selectedPiece == 9 || this.selectedPiece == 12 || this.selectedPiece == 15)
-         this.veriffazjogadaAzulG();
+         this.veriffazjogadaAzulG(this.posTomove,this.selectedPiece);
       else if(this.selectedPiece == 10 || this.selectedPiece == 13 || this.selectedPiece == 16)
-         this.veriffazjogadaAzulM();
+         this.veriffazjogadaAzulM(this.posTomove,this.selectedPiece);
       else if(this.selectedPiece == 11 || this.selectedPiece == 14 || this.selectedPiece == 17)
-         this.veriffazjogadaAzulP();
+         this.veriffazjogadaAzulP(this.posTomove,this.selectedPiece);
 
 
     }
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
 
-    this.changePlayer();
-    this.reset_Seleccoes();
+    
   }
 
 }
@@ -258,17 +257,16 @@ return res;
 }
 
 
-Otrio.prototype.veriffazjogadaVermG = function()
+Otrio.prototype.veriffazjogadaVermG = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaVermG";
    var strPiece;
-   var posTomove = this.posTomove;
-   var selectedP = this.selectedPiece;
+  
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha grande verificada: " + strPiece);
@@ -276,7 +274,9 @@ Otrio.prototype.veriffazjogadaVermG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaVerm(selectedP, posTomove);
+      game.fazjogadaVerm(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -286,15 +286,15 @@ return res;
 }
 
 
-Otrio.prototype.veriffazjogadaVermM = function()
+Otrio.prototype.veriffazjogadaVermM = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaVermM";
    var strPiece;
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha media verificada:  " + strPiece);
@@ -302,7 +302,9 @@ Otrio.prototype.veriffazjogadaVermM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaVerm();
+      game.fazjogadaVerm(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -312,15 +314,15 @@ return res;
 }
 
 
-Otrio.prototype.veriffazjogadaVermP = function()
+Otrio.prototype.veriffazjogadaVermP = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaVermP";
    var strPiece;
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada vermelha pequena verificada: " + strPiece);
@@ -328,7 +330,9 @@ Otrio.prototype.veriffazjogadaVermP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaVerm();
+      game.fazjogadaVerm(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -339,15 +343,15 @@ return res;
 
 
 
-Otrio.prototype.veriffazjogadaAzulG = function()
+Otrio.prototype.veriffazjogadaAzulG = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaAzulG";
    var strPiece;
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul grande verificada: " + strPiece);
@@ -355,7 +359,9 @@ Otrio.prototype.veriffazjogadaAzulG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaAzul();
+      game.fazjogadaAzul(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -365,15 +371,15 @@ return res;
 }
 
 
-Otrio.prototype.veriffazjogadaAzulM = function()
+Otrio.prototype.veriffazjogadaAzulM = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaAzulM";
    var strPiece;
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul media verificada: " + strPiece);
@@ -381,7 +387,9 @@ Otrio.prototype.veriffazjogadaAzulM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaAzul();
+      game.fazjogadaAzul(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -391,15 +399,15 @@ return res;
 }
 
 
-Otrio.prototype.veriffazjogadaAzulP = function()
+Otrio.prototype.veriffazjogadaAzulP = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "veriffazjogadaAzulP";
    var strPiece;
 
-   if(this.posTomove != null)
-     strPiece = this.getTranslatedPos(this.posTomove);
+   if(posTomove != null)
+     strPiece = this.getTranslatedPos(posTomove);
 
   str = str + strPiece;
   console.log("Jogada azul pequena verificada: " + strPiece);
@@ -407,7 +415,9 @@ Otrio.prototype.veriffazjogadaAzulP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.fazjogadaAzul();
+      game.fazjogadaAzul(posTomove,selectedPiece);
+    else if(data.target.responseText == 0)
+      console.log("posicao ocupada");
     });
 
 res = this.engineResponse;
@@ -417,14 +427,13 @@ return res;
 }
 
 
-Otrio.prototype.fazjogadaVerm = function(selectedP, posTomove)
+Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "fazjogadaVerm";
    var strPiece;
-
-   console.log("\n\n\n\n mas esta aqui wtf: " + posTomove);
+  var strPiece2;
 
       switch(posTomove)
       {
@@ -468,23 +477,24 @@ Otrio.prototype.fazjogadaVerm = function(selectedP, posTomove)
       }
 
 
-        if(selectedP == 18 || selectedP == 21 || selectedP == 24)
-          strPiece = strPiece +  "r3)";
-        else if(selectedP == 19 || selectedP == 22 || selectedP == 25)
-          strPiece = strPiece +  "r2)";
-        else if(selectedP == 20 || selectedP == 23 || selectedP == 26)
-          strPiece = strPiece +  "r1)";
+        if(selectedPiece== 18 || selectedPiece== 21 || selectedPiece == 24)
+          strPiece2 = strPiece +  "r3)";
+        else if(selectedPiece == 19 ||selectedPiece == 22 ||selectedPiece == 25)
+          strPiece2 = strPiece +  "r2)";
+        else if(selectedPiece == 20 ||selectedPiece == 23 ||selectedPiece == 26)
+          strPiece2 = strPiece +  "r1)";
 
 
 
-console.log("wtf===== " + posTomove);
-  str = str + strPiece;
-  console.log("Jogada vermelha: " + strPiece);
+  console.log("wtf===== " + posTomove);
+  str = str + strPiece2;
+  console.log("Jogada vermelha: " + strPiece2);
 
   //Verifica se é possivel jogar a peca
-  this.client.getPrologRequest(str, function(data) {
+  game.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+     game.changePlayer();
+     game.reset_Seleccoes();
     });
 
 res = this.engineResponse;
@@ -495,16 +505,17 @@ return res;
 
 
 
-Otrio.prototype.fazjogadaAzul = function()
+Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
 {
    var game = this;
    var res;
    var str = "fazjogadaAzul";
    var strPiece;
+   var strPiece2;
 
-   if(this.posTomove != null && this.selectedPiece !=null)
+   if(posTomove != null && selectedPiece !=null)
    {
-      switch(this.posTomove)
+      switch(posTomove)
       {
           case 0:
              strPiece= "(0,0,";
@@ -536,26 +547,26 @@ Otrio.prototype.fazjogadaAzul = function()
 
       }
 
-      if(this.selectedPiece != null)
+      if(selectedPiece != null)
       {
-        if(this.selectedPiece == 9 || this.selectedPiece == 12 || this.selectedPiece == 15)
-          strPiece = "(b3)";
-        else if(this.selectedPiece == 10 || this.selectedPiece == 13 || this.selectedPiece == 16)
-          strPiece = "(b2)";
-        else if(this.selectedPiece == 11 || this.selectedPiece == 14 || this.selectedPiece == 17)
-          strPiece = "(b1)";
+        if(selectedPiece == 9 || selectedPiece == 12 || this.selectedPiece == 15)
+          strPiece2 = strPiece+ "b3)";
+        else if(selectedPiece == 10 || selectedPiece == 13 || selectedPiece == 16)
+          strPiece2 = strPiece+"b2)";
+        else if(selectedPiece == 11 || selectedPiece == 14 || selectedPiece == 17)
+          strPiece2 = strPiece+ "b1)";
       }
 
    }
 
-  str = str + strPiece;
-  console.log("Jogada azul: " + strPiece);
+  str = str + strPiece2;
+  console.log("Jogada azul: " + strPiece2);
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-      game.teste();
-
+      game.changePlayer();
+      game.reset_Seleccoes();
     });
 
 res = this.engineResponse;
@@ -564,8 +575,3 @@ this.engineResponse = null;
 return res;
 }
 
-Otrio.prototype.teste = function()
-{
- console.log("\n\n Foi true");
- console.log("a fazer cenas que era suposto fazer");
-}
