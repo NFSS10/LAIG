@@ -21,9 +21,7 @@ var LinearAnimation = function(id,span,pontosControlo) {
 	
 	this.pontoControloAtual =0;
 	this.currentPosition = new Ponto3(pontosControlo[0].x, pontosControlo[0].y, pontosControlo[0].z);
-	
-	this.currentAngle =  Math.atan2(this.pontosControlo[1].x - this.pontosControlo[0].x,  this.pontosControlo[1].z -  this.pontosControlo[0].z);
-	
+	this.currentAngle = 0;
 	this.tempoDecorrido= null;
 	
 	this.start=0;
@@ -70,7 +68,6 @@ LinearAnimation.prototype.update = function(currTime) {
 		else
 		{
 			this.pontoControloAtual++;
-			this.currentAngle = Math.atan2(this.pontosControlo[this.pontoControloAtual+1].x - this.pontosControlo[this.pontoControloAtual].x,  this.pontosControlo[this.pontoControloAtual+1].z -  this.pontosControlo[this.pontoControloAtual].z);
 			this.distanciaPercorrida=0;
 		}
 

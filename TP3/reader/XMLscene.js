@@ -16,6 +16,8 @@ XMLscene.prototype.init = function (application) {
 
   this.initLights();
 
+  this.setUpdatePeriod(30);
+
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
 
@@ -411,14 +413,17 @@ XMLscene.prototype.playerAction = function (selObjId)
 
 
 XMLscene.prototype.update = function(currTime) {
+	
   if (this.graph.loadedOk)
   {
+  		
     for(var i =0; i< this.graph.components_info.components_list.length; i++)
     {
       if(this.graph.components_info.components_list[i].fullAnimation!=null)
       {
          for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
           {
+          	console.log("updateeeee");
            this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
           }
 
