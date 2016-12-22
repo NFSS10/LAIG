@@ -12,9 +12,10 @@ this.modoJogo = 1; //Modo de jogo 1 = PvP(predefinido) / 2 = PvC dif1  / 3 = PvC
 this.player1Wins = 0;
 this.player2Wins = 0;
 
-this.posIniciais =[];
+this.posIniciais =[]; //Nao muda
 
-
+this.gameStates = []; //Contem os estados das n jogadas
+this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
 
 //Selecao com rato
 this.selectedPiece = null;
@@ -36,10 +37,8 @@ this.maxTabuleiro = 8;
 
 this.initPosIniciais();
 
-this.gameStates = [];
-this.piecesThatMoved = []; //TODO ao mover Peca adicionar o id aqui, assim a ultima vai ser a mais recente, o que significa que é so desfazer a animation
 
-this.initGame(); //TODO remover daqui
+//this.initGame(); //.... remover daqui
 
 }
 
@@ -47,18 +46,49 @@ Otrio.prototype.constructor=Otrio;
 
 
 
+//Ao chamar, retoma ao estado anterior
+Otrio.prototype.undoMove = function()
+{
+  //TODO undo
+ 
+	//dar reset no prolog ao jogo
+	//dar reset das posicoes das pecas
+	
+	//ir buscar this.piecesThatMoved da ultima pos do array this.gameStates
+	//e percorrer fazendo as jogadas novamente ate this.piecesThatMoved.length - 1;
+	
+	//apagar o ultimo elemento de this.piecesThatMoved e this.piecesThatMoved.length
+  
+}
+
+//Adiciona o estado da jogada que se fez (por apos fazer jogada)
+Otrio.prototype.addGameState = function()
+{  
+	//TODO addState
+
+	//this.playerTurn;
+	//this.modoJogo;
+	//this.player1Wins;
+	//this.player2Wins;
+	
+	//this.jogada; ? paulo é que sabe como isto funciona
+	
+	//this.piecesThatMoved; 
+	
+	estadoJogo = new OtrioState();
+
+  
+}
 
 
 
-//TODO init
-//TODO add state
-//TODO undo
 
+/*
 //O jogador no xmlscene vai selecionar o modo de jogo, e ele vai iniciar com esse modo de jogo, caso contrario inicia a 1
 Otrio.prototype.initGame = function(modoJogo)
 {
 
-  //TODO passar o que esta abaixo para o addstate
+  // passar o que esta abaixo para o addstate
   this.modoJogo = modoJogo || 1;
 
   this.getPl_Board();
@@ -68,7 +98,7 @@ Otrio.prototype.initGame = function(modoJogo)
   console.log("\n\n\n\n\n\n\n\n\n\n\n\n");
   console.log(estadoJogo.pl_board + "\n\n");
 }
-
+*/
 
 
 
