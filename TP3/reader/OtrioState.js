@@ -1,13 +1,15 @@
 function OtrioState(){
 
-this.pl_board = null;
+//TODO meter so variaveis que interessam (sao estas se nao me enganei)
+	//this.playerTurn;
+	//this.modoJogo;
+	//this.player1Wins;
+	//this.player2Wins;
+	
+	//this.jogada; ? paulo é que sabe como isto funciona
+	
+	//this.piecesThatMoved; 
 
-this.modoJogo = null;
-
-this.playerTurn = null;
-
-this.selectedPiece = null;
-this.posTomove = null;
 
 }
 
