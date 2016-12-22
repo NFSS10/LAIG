@@ -79,7 +79,7 @@ Otrio.prototype.fazJogada = function()
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
 
-    
+
   }
 
 }
@@ -176,6 +176,13 @@ return false;
 }
 
 
+Otrio.prototype.declararVitoria = function()
+{
+  console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+  console.log("---------VITORIA--------");
+  console.log("Jogador" + this.playerTurn + "\n\n\n");
+}
+
 
 
 ///////////////////////////
@@ -263,7 +270,7 @@ Otrio.prototype.veriffazjogadaVermG = function(posTomove,selectedPiece)
    var res;
    var str = "veriffazjogadaVermG";
    var strPiece;
-  
+
 
    if(posTomove != null)
      strPiece = this.getTranslatedPos(posTomove);
@@ -492,9 +499,10 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
 
   //Verifica se é possivel jogar a peca
   game.client.getPrologRequest(str, function(data) {
-    if(data.target.responseText == 1)
-     game.changePlayer();
-     game.reset_Seleccoes();
+      if(data.target.responseText == 1)
+        game.verificaVitoria();
+
+      game.reset_Seleccoes();
     });
 
 res = this.engineResponse;
@@ -564,8 +572,9 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
 
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
-    if(data.target.responseText == 1)
-      game.changePlayer();
+      if(data.target.responseText == 1)
+        game.verificaVitoria();
+
       game.reset_Seleccoes();
     });
 
@@ -575,3 +584,15 @@ this.engineResponse = null;
 return res;
 }
 
+Otrio.prototype.verificaVitoria = function()
+{
+  var game=this;
+
+  this.client.getPrologRequest("verifVitoria", function(data) {
+      if(data.target.responseText == 1)
+        game.declararVitoria();
+      else if(data.target.responseText == 0)
+        game.changePlayer();
+    });
+
+}
