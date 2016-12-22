@@ -6,12 +6,15 @@ this.pl_board = null;
 this.set1 = null;
 this.set2 = null;
 
+//vez do jogador
+this.playerTurn = 1; //1-> jogador1, Vermelho / 2 -> jogador2, Azul
 this.modoJogo = 1; //Modo de jogo 1 = PvP(predefinido) / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
+this.player1Wins = 0;
+this.player2Wins = 0;
 
 this.posIniciais =[];
 
-//vez do jogador
-this.playerTurn = 1; //1-> jogador1, Vermelho / 2 -> jogador2, Azul
+
 
 //Selecao com rato
 this.selectedPiece = null;
