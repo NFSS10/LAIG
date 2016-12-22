@@ -40,13 +40,13 @@ Otrio.prototype.fazJogada = function()
   {
     if(this.playerTurn == 1)
     {
-      res = this.possivelJogarVerm();
-      console.log("É possivel jogar essa peça" + res);
+      this.possivelJogarVerm();
+
     }
     else if(this.playerTurn == 2)
     {
-      res = this.possivelJogarAzul();
-      console.log("É possivel jogar essa peça" + res);
+      this.possivelJogarAzul();
+
     }
 
   }
@@ -57,33 +57,24 @@ Otrio.prototype.fazJogada = function()
     if(this.playerTurn == 1)
     {
       if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
-        permitida=  this.veriffazjogadaVermG();
+        this.veriffazjogadaVermG();
       else if(this.selectedPiece == 19 || this.selectedPiece == 22 || this.selectedPiece == 25)
-        permitida=  this.veriffazjogadaVermM();
+        this.veriffazjogadaVermM();
       else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
-        permitida=  this.veriffazjogadaVermP();
+        this.veriffazjogadaVermP();
 
-      console.log("ENTROOWWWWWWWWW "+ permitida);
-      if(permitida==1)
-      {
 
-        this.fazjogadaVerm();
-      }
     }
     else if(this.playerTurn == 2)
     {
       if(this.selectedPiece == 9 || this.selectedPiece == 12 || this.selectedPiece == 15)
-         permitida= this.veriffazjogadaAzulG();
+         this.veriffazjogadaAzulG();
       else if(this.selectedPiece == 10 || this.selectedPiece == 13 || this.selectedPiece == 16)
-         permitida= this.veriffazjogadaAzulM();
+         this.veriffazjogadaAzulM();
       else if(this.selectedPiece == 11 || this.selectedPiece == 14 || this.selectedPiece == 17)
-         permitida= this.veriffazjogadaAzulP();
+         this.veriffazjogadaAzulP();
 
-      console.log("ENTROOWWWWWWWWW "+ permitida);
-      if(permitida==1)
-      {
-        this.fazjogadaAzul();
-      }
+
     }
     console.log("\nJogada:\n moveu peca:" + this.selectedPiece + " para pos: " + this.posTomove +"\n\n");
 
@@ -187,7 +178,7 @@ Otrio.prototype.possivelJogarVerm = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      console.log("É possivel jogar essa peça");
     });
 
 res = this.engineResponse;
@@ -220,7 +211,7 @@ Otrio.prototype.possivelJogarAzul = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+        console.log("É possivel jogar essa peça");
     });
 
 res = this.engineResponse;
@@ -278,7 +269,7 @@ Otrio.prototype.veriffazjogadaVermG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -336,7 +327,7 @@ Otrio.prototype.veriffazjogadaVermM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -394,7 +385,7 @@ Otrio.prototype.veriffazjogadaVermP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaVerm();
     });
 
 res = this.engineResponse;
@@ -453,7 +444,7 @@ Otrio.prototype.veriffazjogadaAzulG = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaAzul();
     });
 
 res = this.engineResponse;
@@ -511,7 +502,7 @@ Otrio.prototype.veriffazjogadaAzulM = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaAzul();
     });
 
 res = this.engineResponse;
@@ -569,7 +560,7 @@ Otrio.prototype.veriffazjogadaAzulP = function()
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-  game.teste();
+      this.fazjogadaAzul();
     });
 
 res = this.engineResponse;
