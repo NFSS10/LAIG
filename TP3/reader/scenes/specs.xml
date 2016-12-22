@@ -105,7 +105,10 @@
 
 
 	<animations>
-   
+   		<animation id="anim1" span="2" type="linear">
+        	<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="5" yy="0" zz="0" />
+        </animation>
 	</animations>
 
 
@@ -156,7 +159,7 @@
 
 
             <materials>
-                <material id="materialParede" />
+                <material id="materialPecaAzul" />
             </materials>
 
             <texture id="none" />
@@ -166,11 +169,12 @@
 				<componentref id="tabuleiro"/>
 				<componentref id="setAzul"/>
 				<componentref id="setVermelho"/>
+			
+
+
             </children>
 
         </component>
-
-
 
 
 		<component id="tabuleiro">
@@ -236,9 +240,9 @@
             <texture id="none" />
 
             <children>
-                <componentref id="bloco1"/>
-				<componentref id="bloco2"/>
-				<componentref id="bloco3"/>
+                <componentref id="bloco4"/>
+				<componentref id="bloco5"/>
+				<componentref id="bloco6"/>
             </children>
 
         </component>
@@ -260,9 +264,9 @@
             <texture id="none" />
 
             <children>
-                <componentref id="pecaGrande"/>
-				<componentref id="pecaMedia"/>
-				<componentref id="pecaPequena"/>
+                <componentref id="pecaGrande1"/>
+				<componentref id="pecaMedia1"/>
+				<componentref id="pecaPequena1"/>
             </children>
 
         </component>
@@ -279,9 +283,9 @@
             <texture id="none" />
 
             <children>
-                <componentref id="pecaGrande"/>
-				<componentref id="pecaMedia"/>
-				<componentref id="pecaPequena"/>
+                <componentref id="pecaGrande2"/>
+				<componentref id="pecaMedia2"/>
+				<componentref id="pecaPequena2"/>
             </children>
 
         </component>
@@ -298,9 +302,67 @@
             <texture id="none" />
 
             <children>
-                <componentref id="pecaGrande"/>
-				<componentref id="pecaMedia"/>
-				<componentref id="pecaPequena"/>
+                <componentref id="pecaGrande3"/>
+				<componentref id="pecaMedia3"/>
+				<componentref id="pecaPequena3"/>
+            </children>
+
+        </component>
+
+		<component id="bloco4">
+            <transformation>
+				<translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande4"/>
+				<componentref id="pecaMedia4"/>
+				<componentref id="pecaPequena4"/>
+            </children>
+
+        </component>
+		<component id="bloco5">
+            <transformation>
+				<translate x="0" y="-7.5" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande5"/>
+				<componentref id="pecaMedia5"/>
+				<componentref id="pecaPequena5"/>
+            </children>
+
+        </component>
+		<component id="bloco6">
+            <transformation>
+				<translate x="0" y="-15" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande6"/>
+				<componentref id="pecaMedia6"/>
+				<componentref id="pecaPequena6"/>
             </children>
 
         </component>
@@ -309,7 +371,7 @@
 
 
 
-		<component id="pecaGrande">
+		<component id="pecaGrande1">
             <transformation>
 				<translate x="0" y="0" z="1.5" />
 				<scale x="1" y="1" z="15" />
@@ -327,7 +389,7 @@
             </children>
 
         </component>
-		<component id="pecaMedia">
+		<component id="pecaMedia1">
             <transformation>
 				<translate x="0" y="0" z="2" />
 				<scale x="0.666" y="0.666" z="20" />
@@ -345,7 +407,7 @@
             </children>
 
         </component>
-		<component id="pecaPequena">
+		<component id="pecaPequena1">
             <transformation>
 				<translate x="0" y="0" z="2.5" />
 				<scale x="0.333" y="0.333" z="25" />
@@ -364,6 +426,280 @@
 
         </component>
 
+			<component id="pecaGrande2">
+            <transformation>
+				<translate x="0" y="0" z="1.5" />
+				<scale x="1" y="1" z="15" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaMedia2">
+            <transformation>
+				<translate x="0" y="0" z="2" />
+				<scale x="0.666" y="0.666" z="20" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaPequena2">
+            <transformation>
+				<translate x="0" y="0" z="2.5" />
+				<scale x="0.333" y="0.333" z="25" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande3">
+            <transformation>
+				<translate x="0" y="0" z="1.5" />
+				<scale x="1" y="1" z="15" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaMedia3">
+            <transformation>
+				<translate x="0" y="0" z="2" />
+				<scale x="0.666" y="0.666" z="20" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaPequena3">
+            <transformation>
+				<translate x="0" y="0" z="2.5" />
+				<scale x="0.333" y="0.333" z="25" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande4">
+            <transformation>
+				<translate x="0" y="0" z="1.5" />
+				<scale x="1" y="1" z="15" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaMedia4">
+            <transformation>
+				<translate x="0" y="0" z="2" />
+				<scale x="0.666" y="0.666" z="20" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaPequena4">
+            <transformation>
+				<translate x="0" y="0" z="2.5" />
+				<scale x="0.333" y="0.333" z="25" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande5">
+            <transformation>
+				<translate x="0" y="0" z="1.5" />
+				<scale x="1" y="1" z="15" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaMedia5">
+            <transformation>
+				<translate x="0" y="0" z="2" />
+				<scale x="0.666" y="0.666" z="20" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaPequena5">
+            <transformation>
+				<translate x="0" y="0" z="2.5" />
+				<scale x="0.333" y="0.333" z="25" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande6">
+            <transformation>
+				<translate x="0" y="0" z="1.5" />
+				<scale x="1" y="1" z="15" />
+            </transformation>
+
+			
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaMedia6">
+            <transformation>
+				<translate x="0" y="0" z="2" />
+				<scale x="0.666" y="0.666" z="20" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
+		<component id="pecaPequena6">
+            <transformation>
+				<translate x="0" y="0" z="2.5" />
+				<scale x="0.333" y="0.333" z="25" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="torus" />
+            </children>
+
+        </component>
 
 
 

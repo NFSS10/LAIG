@@ -6,6 +6,8 @@ this.pl_board = null;
 
 this.modoJogo = 1 //Modo de jogo 1 = PvP / 2 = PvC dif1  / 3 = PvC dif2 / 4 = CvC
 
+this.posIniciais =[];
+
 //vez do jogador
 this.playerTurn = 1; //1-> jogador1, Vermelho / 2 -> jogador2, Azul
 
@@ -13,7 +15,7 @@ this.playerTurn = 1; //1-> jogador1, Vermelho / 2 -> jogador2, Azul
 this.selectedPiece = null;
 this.posTomove = null;
 
-
+this.jogada=0;
 
 //Global
 //idObjectos.................
@@ -28,6 +30,7 @@ this.maxTabuleiro = 8;
 //........................
 
 this.engineResponse = null;
+this.initPosIniciais();
 
 }
 
@@ -274,7 +277,10 @@ Otrio.prototype.veriffazjogadaVermG = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaVerm(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -302,7 +308,10 @@ Otrio.prototype.veriffazjogadaVermM = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaVerm(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -330,7 +339,10 @@ Otrio.prototype.veriffazjogadaVermP = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaVerm(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -359,7 +371,10 @@ Otrio.prototype.veriffazjogadaAzulG = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaAzul(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -387,7 +402,10 @@ Otrio.prototype.veriffazjogadaAzulM = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaAzul(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -415,7 +433,10 @@ Otrio.prototype.veriffazjogadaAzulP = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.fazjogadaAzul(posTomove,selectedPiece);
+      game.jogada=1;
+    }
     else if(data.target.responseText == 0)
       console.log("posicao ocupada");
     });
@@ -493,8 +514,11 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   game.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
-     game.changePlayer();
-     game.reset_Seleccoes();
+    {
+      game.changePlayer();
+      game.reset_Seleccoes();
+      game.jogada=0;
+    }
     });
 
 res = this.engineResponse;
@@ -565,8 +589,11 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
   //Verifica se é possivel jogar a peca
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
+    {
       game.changePlayer();
       game.reset_Seleccoes();
+      game.jogada=0;
+    }
     });
 
 res = this.engineResponse;
@@ -575,3 +602,42 @@ this.engineResponse = null;
 return res;
 }
 
+Otrio.prototype.initPosIniciais = function()
+{
+  this.posIniciais[9]= [-17,0,-7.5];
+  this.posIniciais[10]=[-17,0,-7.5];
+  this.posIniciais[11]=[-17,0,-7.5];
+
+
+  this.posIniciais[12]=[-17,0,0];
+  this.posIniciais[13]=[-17,0,0];
+  this.posIniciais[14]=[-17,0,0];
+
+  this.posIniciais[15]=[-17,0,7.5];
+  this.posIniciais[16]=[-17,0,7.5];
+  this.posIniciais[17]=[-17,0,7.5];
+
+  this.posIniciais[0]=[-8,0,-8];
+  this.posIniciais[1]=[0,0,-8];
+  this.posIniciais[2]=[8,0,-8];
+  this.posIniciais[3]=[-8,0,0];
+  this.posIniciais[4]=[0,0,0];
+  this.posIniciais[5]=[8,0,0];
+  this.posIniciais[6]=[-8,0,8];
+  this.posIniciais[7]=[0,0,8];
+  this.posIniciais[8]=[8,0,8];
+
+  this.posIniciais[18]= [17,0,-7.5];
+  this.posIniciais[19]=[17,0,-7.5];
+  this.posIniciais[20]=[17,0,-7.5];
+
+
+  this.posIniciais[21]=[17,0,0];
+  this.posIniciais[22]=[17,0,0];
+  this.posIniciais[23]=[17,0,0];
+
+  this.posIniciais[24]=[17,0,7.5];
+  this.posIniciais[25]=[17,0,7.5];
+  this.posIniciais[26]=[17,0,7.5];
+
+}

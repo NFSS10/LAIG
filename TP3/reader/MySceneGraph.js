@@ -1209,15 +1209,14 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 
 		if(textureStack.top() != "none")
 			materialStack.top().setTexture(textureStack.top());
-
+		
 		this.scene.pushMatrix();
+		
 		if(node.fullAnimation!=null)
 		{
 		if(node.fullAnimation.animations.length>0)
 		{
 			this.scene.multMatrix(node.fullAnimation.getFullMatrix());
-
-
 		}
 		}
 		this.scene.multMatrix(transformations_infoack.top());
@@ -1227,6 +1226,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		this.pickID++;
 		this.scene.registerForPick(this.pickID, node.children.children_list[0].realPrimitive);
 		//console.log(node.children.children_list[0].realPrimitive);
+		
 		if(this.scene.jogo.selectedPiece == this.pickID)
 		{
 				for(var z=0; z<this.materials_info.materials.length;z++)
@@ -1238,10 +1238,33 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 						
 					}
 				}
+				if(this.scene.jogo.selectedPiece != null && this.scene.jogo.posTomove !=null && node.fullAnimation==null && this.scene.jogo.jogada==1)
+				{
+					var pontosControlo= [];
+					ponto1= new Ponto3(0,0,0);
+					ponto2= new Ponto3(0,5,0);
+					ponto3= new Ponto3(this.scene.jogo.posIniciais[this.scene.jogo.posTomove][0]-this.scene.jogo.posIniciais[this.scene.jogo.selectedPiece][0],5,this.scene.jogo.posIniciais[this.scene.jogo.posTomove][2]-this.scene.jogo.posIniciais[this.scene.jogo.selectedPiece][2]);
+					ponto4= new Ponto3(this.scene.jogo.posIniciais[this.scene.jogo.posTomove][0]-this.scene.jogo.posIniciais[this.scene.jogo.selectedPiece][0],0,this.scene.jogo.posIniciais[this.scene.jogo.posTomove][2]-this.scene.jogo.posIniciais[this.scene.jogo.selectedPiece][2]);
+
+					pontosControlo.push(ponto1);
+					pontosControlo.push(ponto2);
+					pontosControlo.push(ponto3);
+					pontosControlo.push(ponto4);
+					
+					animation= new LinearAnimation("Lanimation",2,pontosControlo);
+					
+					node.animations.push(animation);
+					node.fullAnimation= new FullAnimation(node.animations);
+					
+
+				}
+				
 		}	
-		node.children.children_list[0].realPrimitive.display();
 			
+		node.children.children_list[0].realPrimitive.display();
+		
 		this.scene.popMatrix();
+		
 
 		transformations_infoack.pop();
 		materialStack.pop()
