@@ -358,7 +358,7 @@ XMLscene.prototype.undoMove = function()
 {
   //TODO chamar this.jogo.undo();
   console.log("\n\n\n\n\n\n UNDO");
-
+	this.jogo.undoMove();
 }
 
 XMLscene.prototype.startGame = function()

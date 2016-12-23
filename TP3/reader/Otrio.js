@@ -49,6 +49,8 @@ Otrio.prototype.constructor=Otrio;
 //Ao chamar, retoma ao estado anterior
 Otrio.prototype.undoMove = function()
 {
+  if(this.gameStates.length>0)
+  {
     this.resetgame();
     for (var i=0; i<this.gameStates.length-1; i++)
     {
@@ -61,9 +63,10 @@ Otrio.prototype.undoMove = function()
           this.fazjogadaAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
       }
     }
+    this.playerTurn= this.gameStates[this.gameStates.length-1].playerTurn;
     this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
     this.gameStates.pop();
-  
+  }
 }
 
 //Adiciona o estado da jogada que se fez (por apos fazer jogada)
