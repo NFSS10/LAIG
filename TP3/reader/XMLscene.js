@@ -43,9 +43,9 @@ XMLscene.prototype.init = function (application) {
   this.distanciaToTotal = 0;
 
   //Texturas
-	this.ModoJogo = 1;
+  this.ModoJogo = 1;
 
-  this.jogo = new Otrio();
+  this.jogo = new Otrio(this);
 
 
   this.setPickEnabled(true);
@@ -361,11 +361,19 @@ XMLscene.prototype.undoMove = function()
 	this.jogo.undoMove();
 }
 
+XMLscene.prototype.quit = function()
+{
+  //chamar jogo reset, e por startGame=o;
+  console.log("\n\n\n\n\n QUIT");
+  this.jogo.quit();
+}
+
+
 XMLscene.prototype.startGame = function()
 {
   //TODO dar reset a tudo e começar com o modo de jogo selecionado
   console.log("\n\n\n\n\n\n startGame");
-
+  this.jogo.startGame();
 
 }
 

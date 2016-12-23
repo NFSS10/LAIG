@@ -136,6 +136,7 @@ jogadacomputadorX(Peca,Set,NewSet):-
 								nth0(0,Jogada,X,Resto2),
 								nth0(1,Jogada,Y,Resto3),
 								jogadaX(X,Y,Peca,Set,NewSet).								
+								
 %___________________3 tamanhos diferentes  ___________________
 								
 								

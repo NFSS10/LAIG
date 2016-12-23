@@ -1,6 +1,7 @@
-function Otrio(){
+function Otrio(scene){
 
 this.client = new Client();
+this.scene=scene;
 
 this.pl_board = null;
 this.set1 = null;
@@ -14,6 +15,15 @@ this.player2Wins = 0;
 this.undid=0;
 this.posIniciais =[]; //Nao muda
 
+this.pecasAzuisPequenas = [11,14,17];
+this.pecasAzuisMedias = [10,13,16];
+this.pecasAzuisGrandes =  [9,12,15];
+
+this.pecasVermelhasPequenas = [20,23,26];
+this.pecasVermelhasMedias = [19,22,25];
+this.pecasVermelhasGrandes =  [18,21,24];
+
+this.start=0;
 this.gameStates = []; //Contem os estados das n jogadas
 this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
 
@@ -94,13 +104,12 @@ Otrio.prototype.undoMove = function()
       }
     }
     this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
-  
+    this.piecesThatMoved[this.undidpiece] = null;
     
     this.changePlayer();
     this.undid=1;
     this.gameStates.pop();
   }
-  console.log("HEEEEEEEEEEEEREEEEEEE "+this.playerTurn);
 }
 
 //Adiciona o estado da jogada que se fez (por apos fazer jogada)
@@ -117,6 +126,27 @@ Otrio.prototype.addGameState = function(selectedPiece,posTomove)
     this.gameStates.push(estadoJogo);
   
 }
+
+Otrio.prototype.quit = function()
+{  
+    this.resetgame();
+	this.gameStates = [];
+	this.piecesThatMoved =[];
+	for(var i=0; i<this.scene.graph.components_info.components_list.length;i++)
+	{
+	  this.scene.graph.components_info.components_list[i].fullAnimation=null;
+	}
+    this.start=0;
+}
+
+Otrio.prototype.startGame = function()
+{  
+    this.quit();
+    this.start=1;
+    this.modoJogo=this.scene.ModoJogo;
+    this.playerTurn=1;
+}
+
 
 Otrio.prototype.tristeVerm = function(selectedPiece,posTomove)
 {
@@ -156,7 +186,10 @@ Otrio.prototype.declararVitoria = function()
 {
   console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n");
   console.log("---------VITORIA--------");
-  console.log("Jogador" + this.playerTurn + "\n\n\n");
+  if(this.playerTurn==1)
+  console.log("Jogador" + 2 + "\n\n\n");
+  else
+  console.log("Jogador" + 1 + "\n\n\n");
 }
 
 
@@ -172,7 +205,7 @@ Otrio.prototype.fazJogada = function()
       this.possivelJogarAzul();
 
   }
-  if(this.selectedPiece != null && this.posTomove != null)
+  if(this.selectedPiece != null && this.posTomove != null && this.modoJogo==1)
   {
     if(this.playerTurn == 1)
     {
@@ -195,7 +228,23 @@ Otrio.prototype.fazJogada = function()
 
     }
   }
+  if(this.selectedPiece != null && this.posTomove != null && this.modoJogo==2)
+  {
+    if(this.playerTurn == 1)
+    {
+      if(this.selectedPiece == 18 || this.selectedPiece == 21 || this.selectedPiece == 24)
+        this.veriffazjogadaVermG(this.posTomove,this.selectedPiece);
+      else if(this.selectedPiece == 19 || this.selectedPiece == 22 || this.selectedPiece == 25)
+        this.veriffazjogadaVermM(this.posTomove,this.selectedPiece);
+      else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
+        this.veriffazjogadaVermP(this.posTomove,this.selectedPiece);
 
+    }
+    if(this.playerTurn ==2)
+    {
+
+    }
+  }
 }
 
 
@@ -265,32 +314,55 @@ Otrio.prototype.getTranslatedPos = function(pos)
 Otrio.prototype.select_Obj = function(nSelected)
 {
   this.posTomove = null;
-
-  //Peca............
-  //So selectiona se for a vez do jogador correspondente
-  //Se for a vez do azul e ele selecionar azul
-  if (this.playerTurn == 1 && nSelected >= this.minPvermelhoPick && nSelected <= this.maxPvermelhoPick)
+  if(this.start==1)
   {
-    this.selectedPiece = nSelected;
-    return true;
+    if(this.modoJogo==1)
+    {
+        if (this.playerTurn == 1 && nSelected >= this.minPvermelhoPick && nSelected <= this.maxPvermelhoPick && this.piecesThatMoved[nSelected]==null)
+        {
+          this.selectedPiece = nSelected;
+          return true;
+        }
+
+        else if(this.playerTurn == 2 && nSelected >= this.minPazulPick && nSelected <= this.maxPazulPick  && this.piecesThatMoved[nSelected]==null)
+        {
+          this.selectedPiece = nSelected;
+          return true;
+        }
+
+        if (this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
+        {
+          this.posTomove = nSelected;
+          return true;
+        }
+         return false;
+    }
+    else if(this.modoJogo==2)
+    {
+         if (this.playerTurn == 1 && nSelected >= this.minPvermelhoPick && nSelected <= this.maxPvermelhoPick && this.piecesThatMoved[nSelected]==null)
+        {
+          this.selectedPiece = nSelected;
+          return true;
+        }
+
+        else if(this.playerTurn == 2)
+        {
+          this.escolhePecaAzul();
+          return true;
+        }
+
+        if (this.playerTurn == 1 && this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
+        {
+          this.posTomove = nSelected;
+          return true;
+        }
+        else if (this.playerTurn == 1 && this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
+        {
+          return true;
+        }
+         return false;
+    }
   }
-
-  //Se for a vez do azul e ele selecionar azul
-  else if(this.playerTurn == 2 && nSelected >= this.minPazulPick && nSelected <= this.maxPazulPick)
-  {
-    this.selectedPiece = nSelected;
-    return true;
-  }
-
-
-  //tabuleiro
-  //So atribui valor do tabuleiro caso ja tenha peca selecionada
-  if (this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
-  {
-    this.posTomove = nSelected;
-    return true;
-  }
-
  return false;
 }
 
@@ -436,6 +508,7 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
     if(data.target.responseText == 1)
     {
       game.addGameState(selectedPiece,posTomove);
+      game.piecesThatMoved[selectedPiece]=selectedPiece;
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
@@ -505,6 +578,7 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
     if(data.target.responseText == 1)
     {
       game.addGameState(selectedPiece,posTomove);
+      game.piecesThatMoved[selectedPiece]=selectedPiece;
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
