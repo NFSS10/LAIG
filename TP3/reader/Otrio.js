@@ -808,6 +808,11 @@ Otrio.prototype.veriffazjogadaAzulP = function(posTomove,selectedPiece)
 
 Otrio.prototype.possivelJogarVerm = function()
 {
+  if(this.selectedPiece >= this.minPazulPick && this.selectedPiece <= this.maxPazulPick) //Corrige bug jogadaPC causado por delay do prolog
+  {
+        this.reset_Seleccoes();
+        return;
+  }
    var game = this;
    var str = "jogadaVermPossivel";
    var strPiece;
@@ -822,6 +827,8 @@ Otrio.prototype.possivelJogarVerm = function()
       strPiece = "(r1)";
   }
 
+
+
   str = str + strPiece;
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
@@ -834,6 +841,11 @@ Otrio.prototype.possivelJogarVerm = function()
 
 Otrio.prototype.possivelJogarAzul = function()
 {
+  if(this.selectedPiece >= this.minPvermelhoPick && this.selectedPiece <= this.maxPvermelhoPick) //Corrige bug jogadaPC causado por delay do prolog
+  {
+        this.reset_Seleccoes();
+        return;
+  }
    var game = this;
    var str = "jogadaAzulPossivel";
    var strPiece;
