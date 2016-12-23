@@ -56,7 +56,7 @@ parse_input(escolhePecaAzul, Peca):- p2Set(Set), escolherPeca(Set,Peca).
 
 parse_input(escolhePecaVermelha, Peca):- p2Set(Set), escolherPeca(Set,Peca).
 
-parse_input(jogadaComputador1(Peca), Coords):-	p2Set(Set),!,jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard),!, retract(p2Set(Set)) ,asserta(p2Set(NewSet)),!,asserta(board(Newboard)), append([X],[Y],Coords),!.
+parse_input(jogadaComputador1(Peca), Coords):-	p2Set(Set), jogadacomputadorB(Peca,Set,X,Y), append([X],[Y],Coords).
 
 %fazjogadacomputador
 

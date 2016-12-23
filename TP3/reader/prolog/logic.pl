@@ -7,7 +7,7 @@
 %Set: Set antes de remover peca
 %NewSet: Set depois de removida peca
 %___________________3 tamanhos diferentes  ___________________
-jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
+jogadaX(X,Y,Peca,Set,NewSet):-getsize(Peca,Size),
 									Size='1',!,
 									board(Board),!,
 									verificapeca(Set,Peca,2),!,
@@ -17,7 +17,7 @@ jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
 									asserta(board(Newboard)).
 								
 						 
-jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
+jogadaX(X,Y,Peca,Set,NewSet):-getsize(Peca,Size),
 									Size='2',!,
 									board(Board),!,
 									verificapeca(Set,Peca,1),!,
@@ -27,7 +27,7 @@ jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
 									asserta(board(Newboard)).
 							
 						 
-jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
+jogadaX(X,Y,Peca,Set,NewSet):-getsize(Peca,Size),
 									Size='3',!,
 									board(Board),!,
 									verificapeca(Set,Peca,0),!,
@@ -46,12 +46,12 @@ jogadaX(X,Y,Peca,Set,NewSet,Newboard):-getsize(Peca,Size),
 %Y: coord y
 %Peca: Peca a ser jogada
 jogadajogador1(X,Y,Peca):-	p1Set(Set),!,
-							jogadaX(X,Y,Peca,Set,NewSet,Newboard),
+							jogadaX(X,Y,Peca,Set,NewSet),
 							retract(p1Set(Set)),
 							asserta(p1Set(NewSet)).
 													
 jogadajogador2(X,Y,Peca):-	p2Set(Set),!,
-							jogadaX(X,Y,Peca,Set,NewSet,Newboard),
+							jogadaX(X,Y,Peca,Set,NewSet),
 							retract(p2Set(Set)),
 							asserta(p2Set(NewSet)).
 											
@@ -104,7 +104,7 @@ escolherPeca(Set,Peca):- nth0(0,Set,RealSet,Resto1),
 %Set: Set antes de remover peca
 %NewSet: Set depois de removida peca
 %___________________3 tamanhos diferentes  ___________________												
-jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='3',!,
 								jogadapossivelgrande(ListaJogadas),
@@ -113,9 +113,9 @@ jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):-
 								nth0(Nrandom,ListaJogadas,Jogada,Resto1),
 								nth0(0,Jogada,X,Resto2),
 								nth0(1,Jogada,Y,Resto3),
-								jogadaX(X,Y,Peca,Set,NewSet,Newboard).
+								jogadaX(X,Y,Peca,Set,NewSet).
 
-jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='2',!,
 								jogadapossivelmedia(ListaJogadas),
@@ -124,9 +124,9 @@ jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):-
 								nth0(Nrandom,ListaJogadas,Jogada,Resto1),
 								nth0(0,Jogada,X,Resto2),
 								nth0(1,Jogada,Y,Resto3),
-								jogadaX(X,Y,Peca,Set,NewSet,Newboard).
+								jogadaX(X,Y,Peca,Set,NewSet).
 
-jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='1',!,
 								jogadapossivelpequena(ListaJogadas),
@@ -135,7 +135,7 @@ jogadacomputadorX(Peca,Set,NewSet,X,Y,Newboard):-
 								nth0(Nrandom,ListaJogadas,Jogada,Resto1),
 								nth0(0,Jogada,X,Resto2),
 								nth0(1,Jogada,Y,Resto3),
-								jogadaX(X,Y,Peca,Set,NewSet,Newboard).								
+								jogadaX(X,Y,Peca,Set,NewSet).								
 								
 %___________________3 tamanhos diferentes  ___________________
 								
@@ -146,8 +146,8 @@ jogadacomputadorA(Peca,Set):-
 							 retract(p1Set(Set)),
 							 asserta(p1Set(NewSet)),!.
                       
-jogadacomputadorB(Peca,Set):- 
-					         jogadacomputadorX(Peca,Set,NewSet),
+jogadacomputadorB(Peca,Set,X,Y):- 
+					         jogadacomputadorX(Peca,Set,NewSet,X,Y),
 							 retract(p2Set(Set)),
 							 asserta(p2Set(NewSet)),!.					  
 				  
