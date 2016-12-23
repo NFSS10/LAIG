@@ -52,18 +52,19 @@ Otrio.prototype.undoMove = function()
   if(this.gameStates.length>0)
   {
     this.resetgame();
-    for (var i=0; i<this.gameStates.length-1; i++)
+    for (var i=0; i<this.gameStates.length-2; i++)
     {
       if(this.gameStates[i].playerTurn==1)
       {
-          this.fazjogadaVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+          this.fazjogadaVerm(this.gameStates[i].movedPlace,this.gameStates[i].movedPiece);
+          this.playerTurn=1;
       }
       else
       {
-          this.fazjogadaAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+          this.fazjogadaAzul(this.gameStates[i].movedPlace,this.gameStates[i].movedPiece);
+          this.playerTurn=2;
       }
     }
-    this.playerTurn= this.gameStates[this.gameStates.length-1].playerTurn;
     this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
     this.gameStates.pop();
   }
@@ -383,6 +384,10 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
         else if(selectedPiece == 20 ||selectedPiece == 23 ||selectedPiece == 26)
           strPiece2 = strPiece +  "r1)";
 
+
+  console.log("YOOHHHHHHHH1 "+ posTomove);
+  console.log("YOOHHHHHHHH2 "+ selectedPiece);
+  console.log("YOHHHHHHHHH3 "+ strPiece2);
   str = str + strPiece2;
   game.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
