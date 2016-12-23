@@ -23,6 +23,9 @@ this.pecasVermelhasPequenas = [20,23,26];
 this.pecasVermelhasMedias = [19,22,25];
 this.pecasVermelhasGrandes =  [18,21,24];
 
+this.selectedPiecePC = null;
+this.posTomovePC = null;
+
 this.start=0;
 this.gameStates = []; //Contem os estados das n jogadas
 this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
@@ -130,6 +133,7 @@ Otrio.prototype.addGameState = function(selectedPiece,posTomove)
 Otrio.prototype.quit = function()
 {  
     this.resetgame();
+    this.reset_Seleccoes();
 	this.gameStates = [];
 	this.piecesThatMoved =[];
 	for(var i=0; i<this.scene.graph.components_info.components_list.length;i++)
@@ -238,12 +242,11 @@ Otrio.prototype.fazJogada = function()
         this.veriffazjogadaVermM(this.posTomove,this.selectedPiece);
       else if(this.selectedPiece == 20 || this.selectedPiece == 23 || this.selectedPiece == 26)
         this.veriffazjogadaVermP(this.posTomove,this.selectedPiece);
-
+        
+     
+   
     }
-    if(this.playerTurn ==2)
-    {
-
-    }
+    
   }
 }
 
@@ -339,32 +342,35 @@ Otrio.prototype.select_Obj = function(nSelected)
     }
     else if(this.modoJogo==2)
     {
+      if(this.selectedPiece==11 || this.selectedPiece==14 || this.selectedPiece==17 || 
+      this.selectedPiece==10 || this.selectedPiece==13 || this.selectedPiece==16 ||
+      this.selectedPiece==9 || this.selectedPiece==12 || this.selectedPiece==15)
+      {
+        console.log("ENTRAAAAAAA");
+        this.reset_Seleccoes();
+        this.jogada=0;
+        this.changePlayer();
+      }
          if (this.playerTurn == 1 && nSelected >= this.minPvermelhoPick && nSelected <= this.maxPvermelhoPick && this.piecesThatMoved[nSelected]==null)
         {
           this.selectedPiece = nSelected;
           return true;
         }
 
-        else if(this.playerTurn == 2)
-        {
-          this.escolhePecaAzul();
-          return true;
-        }
-
+    
         if (this.playerTurn == 1 && this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
         {
           this.posTomove = nSelected;
           return true;
         }
-        else if (this.playerTurn == 1 && this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
-        {
-          return true;
-        }
+      
          return false;
     }
   }
  return false;
 }
+
+
 
 Otrio.prototype.initPosIniciais = function()
 {
@@ -412,6 +418,57 @@ Otrio.prototype.initPosIniciais = function()
 ////                            Prolog                            ////
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
+
+Otrio.prototype.escolhePecaAzul = function()
+{
+    var game=this;
+
+  this.client.getPrologRequest("escolhePecaAzul", function(data) {
+      pecaEscolhida = data.target.responseText
+      console.log("entrouuuuuu");
+      if(pecaEscolhida== "b1")
+      {
+        game.selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
+        game.pecasAzuisPequenas.pop();
+      }
+      if(pecaEscolhida== "b2")
+      {
+        game.selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
+        game.pecasAzuisMedias.pop();
+      }
+      if(pecaEscolhida== "b3")
+      {
+        game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
+        game.pecasAzuisGrandes.pop();
+      }
+      game.fazjogadaPc(pecaEscolhida);
+      
+  
+    });
+
+}
+
+
+Otrio.prototype.fazjogadaPc = function(Piece)
+{
+  var game = this;
+  var str;
+  
+  str = "jogadaComputador1("+Piece+")";
+   
+    this.client.getPrologRequest(str, function(data) {
+      console.log("HEREEEEEE: "+data.target.responseText);
+      game.jogada=1;
+      game.posTomove= parsePos(data.target.responseText);
+      console.log("HEREEEEEE2: "+game.posTomove);
+
+     // game.reset_Seleccoes();
+      
+        
+    });
+}
+
+
 
 Otrio.prototype.getPl_Board = function(){
   var game=this;
@@ -512,6 +569,12 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
+
+      if(game.modoJogo==2)
+      {
+        game.escolhePecaAzul();
+      }
+       
     }
     });
 }
@@ -582,6 +645,8 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
+
+      
     }
     });
 }
@@ -792,14 +857,40 @@ Otrio.prototype.possivelJogarAzul = function()
     });
 }
 
-function remove_duplicates(arr) {
-    var obj = {};
-    var ret_arr = [];
-    for (var i = 0; i < arr.length; i++) {
-        obj[arr[i]] = true;
-    }
-    for (var key in obj) {
-        ret_arr.push(key);
-    }
-    return ret_arr;
+function parsePos(pos) 
+{
+  var parsedPos;
+  
+  switch(pos)
+  {
+      case "[0,0]":
+         parsedPos= 0;
+        break;
+      case "[0,1]":
+         parsedPos= 1;
+        break;
+      case "[0,2]":
+         parsedPos= 2;
+        break;
+      case "[1,0]":
+         parsedPos= 3;
+        break;
+      case "[1,1]":
+         parsedPos= 4;
+        break;
+      case "[1,2]":
+         parsedPos= 5;
+        break;
+      case "[2,0]":
+         parsedPos= 6;
+        break;
+      case "[2,1]":
+         parsedPos= 7;
+        break;
+      case "[2,2]":
+         parsedPos= 8;
+        break;
+
+  }
+  return parsedPos;
 }

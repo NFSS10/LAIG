@@ -104,7 +104,7 @@ escolherPeca(Set,Peca):- nth0(0,Set,RealSet,Resto1),
 %Set: Set antes de remover peca
 %NewSet: Set depois de removida peca
 %___________________3 tamanhos diferentes  ___________________												
-jogadacomputadorX(Peca,Set,NewSet):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='3',!,
 								jogadapossivelgrande(ListaJogadas),
@@ -115,7 +115,7 @@ jogadacomputadorX(Peca,Set,NewSet):-
 								nth0(1,Jogada,Y,Resto3),
 								jogadaX(X,Y,Peca,Set,NewSet).
 
-jogadacomputadorX(Peca,Set,NewSet):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='2',!,
 								jogadapossivelmedia(ListaJogadas),
@@ -126,7 +126,7 @@ jogadacomputadorX(Peca,Set,NewSet):-
 								nth0(1,Jogada,Y,Resto3),
 								jogadaX(X,Y,Peca,Set,NewSet).
 
-jogadacomputadorX(Peca,Set,NewSet):- 
+jogadacomputadorX(Peca,Set,NewSet,X,Y):- 
 								getsize(Peca,Size),
 								Size='1',!,
 								jogadapossivelpequena(ListaJogadas),
