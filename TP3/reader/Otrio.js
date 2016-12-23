@@ -20,7 +20,7 @@ this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
 //Selecao com rato
 this.selectedPiece = null;
 this.posTomove = null;
-
+this.undidpiece = null;
 this.jogada=0;
 
 //Global
@@ -49,34 +49,35 @@ Otrio.prototype.constructor=Otrio;
 //Ao chamar, retoma ao estado anterior
 Otrio.prototype.undoMove = function()
 {
-  //TODO undo
- 
-	//dar reset no prolog ao jogo
-	//dar reset das posicoes das pecas
-	
-	//ir buscar this.piecesThatMoved da ultima pos do array this.gameStates
-	//e percorrer fazendo as jogadas novamente ate this.piecesThatMoved.length - 1;
-	
-	//apagar o ultimo elemento de this.piecesThatMoved e this.piecesThatMoved.length
+    this.resetgame();
+    for (var i=0; i<this.gameStates.length-1; i++)
+    {
+      if(this.gameStates[i].playerTurn==1)
+      {
+          this.fazjogadaVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+      }
+      else
+      {
+          this.fazjogadaAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+      }
+    }
+    this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
+    this.gameStates.pop();
   
 }
 
 //Adiciona o estado da jogada que se fez (por apos fazer jogada)
-Otrio.prototype.addGameState = function()
+Otrio.prototype.addGameState = function(selectedPiece,posTomove)
 {  
-	//TODO addState
 
-	//this.playerTurn;
-	//this.modoJogo;
-	//this.player1Wins;
-	//this.player2Wins;
 	
-	//this.jogada; ? paulo é que sabe como isto funciona
-	
-	//this.piecesThatMoved; 
-	
-	estadoJogo = new OtrioState();
-
+	estadoJogo = new OtrioState(selectedPiece,posTomove);
+	estadoJogo.playerTurn= this.playerTurn;
+    estadoJogo.modoJogo=this.modoJogo;
+    estadoJogo.player1Wins=this.player1Wins;
+    estadoJogo.player2Wins=this.player2Wins;
+  
+    this.gameStates.push(estadoJogo);
   
 }
 
@@ -318,7 +319,16 @@ Otrio.prototype.verificaVitoria = function()
 
 }
 
+Otrio.prototype.resetgame = function()
+{
+    var game=this;
 
+  this.client.getPrologRequest("resetgame", function(data) {
+      if(data.target.responseText == 1)
+      console.log("Reseted");
+    });
+
+}
 
 
 
@@ -374,6 +384,7 @@ Otrio.prototype.fazjogadaVerm = function(posTomove,selectedPiece)
   game.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
     {
+      game.addGameState(selectedPiece,posTomove);
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;
@@ -439,6 +450,7 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
     {
+      game.addGameState(selectedPiece,posTomove);
       game.verificaVitoria();
       game.reset_Seleccoes();
       game.jogada=0;

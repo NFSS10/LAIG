@@ -1,15 +1,13 @@
-function OtrioState(){
+function OtrioState(selectedPiece,posTomove){
 
-//TODO meter so variaveis que interessam (sao estas se nao me enganei)
-	//this.playerTurn;
-	//this.modoJogo;
-	//this.player1Wins;
-	//this.player2Wins;
-	
-	//this.jogada; ? paulo é que sabe como isto funciona
-	
-	//this.piecesThatMoved; 
 
+this.playerTurn;
+this.modoJogo;
+this.player1Wins;
+this.player2Wins;
+
+this.movedPiece=selectedPiece; 
+this.movedPlace=posTomove;
 
 }
 
