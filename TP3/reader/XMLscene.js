@@ -42,6 +42,9 @@ XMLscene.prototype.init = function (application) {
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
 
+  //Texturas
+	this.ModoJogo = 1;
+
   this.jogo = new Otrio();
 
 
@@ -192,68 +195,8 @@ XMLscene.prototype.changeViews = function () {
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
 
-  //this.changeSmoothViewslel(prevPerspective, true);
-
-
 };
 
-//Igual a de cima ainda TODO----------------------------------
-//Vai incrementando a camera ate ficar a posisao que deve ficar
-XMLscene.prototype.changeSmoothViewslel = function (prevPerspective, inicio) {
-
-  //Volta à primeira view
-  if(this.indice_View >= this.graph.views_info.perspectives_list.length)
-	this.indice_View = 0;
-
-  var nextPerspective = this.graph.views_info.perspectives_list[this.indice_View];
-
-
-  if(inicio)
-  {
-	  this.cameraDistanciaX = prevPerspective.from.x - nextPerspective.from.x;
-	  this.cameraDistanciaY = prevPerspective.from.y - nextPerspective.from.y;
-	  this.cameraDistanciaZ = prevPerspective.from.z - nextPerspective.from.z;
-	  console.log(this.cameraDistanciaX + " " +this.cameraDistanciaY + " " +this.cameraDistanciaZ)
-  }
-
-
-
-
-
-   if(this.cameraDistanciaX > 0)
-	 this.cameraDistanciaX = this.cameraDistanciaX-0.1;
-   if(this.cameraDistanciaY > 0)
-	 this.cameraDistanciaY = this.cameraDistanciaY-0.1;
-   if(this.cameraDistanciaZ > 0)
-	 this.cameraDistanciaZ = this.cameraDistanciaZ-0.1;
-
-  if(this.cameraDistanciaX < 0 )
-	  this.cameraDistanciaX = 0;
-  if(this.cameraDistanciaY < 0 )
-	  this.cameraDistanciaY = 0;
-  if(this.cameraDistanciaZ < 0 )
-	  this.cameraDistanciaZ = 0;
-
-
-
-
-  var degToRad= Math.PI / 180.0;
-
-
-
-  this.camera = new CGFcamera(nextPerspective.angle*degToRad
-    ,nextPerspective.near
-    ,nextPerspective.far
-    ,vec3.fromValues(this.cameraDistanciaX + nextPerspective.from.x,
-					this.cameraDistanciaY + nextPerspective.from.y,
-					this.cameraDistanciaZ + nextPerspective.from.z)
-    ,vec3.fromValues(this.cameraDistanciaX + nextPerspective.to.x,
-					this.cameraDistanciaY + nextPerspective.to.y,
-					this.cameraDistanciaZ + nextPerspective.to.z)
-  );
-
-  this.interface.setActiveCamera(this.camera);
-};
 
 XMLscene.prototype.changeSmoothViews = function (prevPerspective, nextPerspective) {
 
@@ -410,6 +353,21 @@ XMLscene.prototype.playerAction = function (selObjId)
 
 }
 
+
+XMLscene.prototype.undoMove = function()
+{
+  //TODO chamar this.jogo.undo();
+  console.log("\n\n\n\n\n\n UNDO");
+
+}
+
+XMLscene.prototype.startGame = function()
+{
+  //TODO dar reset a tudo e começar com o modo de jogo selecionado
+  console.log("\n\n\n\n\n\n startGame");
+
+
+}
 
 
 XMLscene.prototype.update = function(currTime) {

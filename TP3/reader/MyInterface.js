@@ -31,7 +31,15 @@ MyInterface.prototype.init = function(application) {
 	// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
 	// add a group of controls (and open/expand by defult)
 
+
+
+
+
+	this.gui.add(this.scene, 'ModoJogo', {'PvP':1,'PvC':2,'CvC':3})
+	this.gui.add(this.scene, 'startGame');
 	this.group=this.gui.addFolder("Luzes");
+	this.gui.add(this.scene, 'undoMove');
+
 	this.group.open();
 
 
