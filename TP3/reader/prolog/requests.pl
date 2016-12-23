@@ -45,3 +45,11 @@ parse_input(fazjogadaAzul(X, Y, Peca), Res):-	Res is 0.
 %Verifica se acabou (vitoria ou empate)
 parse_input(verifVitoria, Res):-	Res is 0, verSeGanhou.
 parse_input(verifVitoria, Res):-	Res is 1.
+
+
+%Verifica se acabou (vitoria ou empate)
+parse_input(verifVitoria, Res):-	Res is 0, verSeGanhou.
+parse_input(verifVitoria, Res):-	Res is 1.
+
+%reseta o tabuleiro e os sets.
+parse_input(resetgame,Res):- Res is 1, resetgame.
