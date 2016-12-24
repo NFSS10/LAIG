@@ -374,6 +374,23 @@ Otrio.prototype.select_Obj = function(nSelected)
 
          return false;
     }
+    else if(this.modoJogo == 3)
+    {
+
+        if (this.playerTurn == 1)
+        {
+          this.escolhePecaVerm();
+          return true;
+        }
+
+        if (this.playerTurn == 2)
+        {
+          this.escolhePecaAzul();
+          return true;
+        }
+         return false;
+    }
+
   }
  return false;
 }
@@ -427,6 +444,38 @@ Otrio.prototype.initPosIniciais = function()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+
+Otrio.prototype.escolhePecaVerm = function()
+{
+    var game=this;
+
+  this.client.getPrologRequest("escolhePecaVermelha", function(data) {
+      pecaEscolhida = data.target.responseText
+
+      if(pecaEscolhida== "r1")
+      {
+        game.selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
+        game.pecasAzuisPequenas.pop();
+      }
+      if(pecaEscolhida== "r2")
+      {
+        game.selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
+        game.pecasAzuisMedias.pop();
+      }
+      if(pecaEscolhida== "r3")
+      {
+        game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
+        game.pecasAzuisGrandes.pop();
+      }
+      game.fazjogadaPc1(pecaEscolhida);
+
+
+
+    });
+
+}
+
+
 Otrio.prototype.escolhePecaAzul = function()
 {
     var game=this;
@@ -449,7 +498,7 @@ Otrio.prototype.escolhePecaAzul = function()
         game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
         game.pecasAzuisGrandes.pop();
       }
-      game.fazjogadaPc(pecaEscolhida);
+      game.fazjogadaPc2(pecaEscolhida);
 
 
 
@@ -458,10 +507,12 @@ Otrio.prototype.escolhePecaAzul = function()
 }
 
 
-Otrio.prototype.fazjogadaPc = function(Piece)
+Otrio.prototype.fazjogadaPc1 = function(Piece)
 {
   var game = this;
   var str;
+
+
 
   str = "jogadaComputador1("+Piece+")";
 
@@ -469,11 +520,21 @@ Otrio.prototype.fazjogadaPc = function(Piece)
       game.jogada=1;
       game.posTomove= parsePos(data.target.responseText);
       game.changePlayer();
+    });
 
+}
 
-     // game.reset_Seleccoes();
+Otrio.prototype.fazjogadaPc2 = function(Piece)
+{
+  var game = this;
+  var str;
 
+  str = "jogadaComputador2("+Piece+")";
 
+    this.client.getPrologRequest(str, function(data) {
+      game.jogada=1;
+      game.posTomove= parsePos(data.target.responseText);
+      game.changePlayer();
     });
 
 }

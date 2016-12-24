@@ -52,11 +52,12 @@ parse_input(verifVitoria, Res):-	Res is 1.
 parse_input(resetgame,Res):- Res is 1, resetgame.
 
 %escolhe peca do set para jogar
+parse_input(escolhePecaVermelha, Peca):- p1Set(Set), escolherPeca(Set,Peca).
 parse_input(escolhePecaAzul, Peca):- p2Set(Set), escolherPeca(Set,Peca).
 
-parse_input(escolhePecaVermelha, Peca):- p2Set(Set), escolherPeca(Set,Peca).
 
-parse_input(jogadaComputador1(Peca), Coords):-	p2Set(Set), tentaMelhorJogadaB, jogadacomputadorB(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador1(Peca), Coords):-	p1Set(Set), tentaMelhorJogadaR, jogadacomputadorA(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador2(Peca), Coords):-	p2Set(Set), tentaMelhorJogadaB, jogadacomputadorB(Peca,Set,X,Y), append([Y],[X],Coords).
 
 %fazjogadacomputador
 
