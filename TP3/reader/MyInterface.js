@@ -33,7 +33,7 @@ MyInterface.prototype.init = function(application) {
 
 
 
-	
+	this.gui.add(this.scene,'score').listen();
 	this.gui.add(this.scene,'message').listen();
 	this.gui.add(this.scene, 'ModoJogo', {'PvP':1,'PvC':2,'CvC':3});
 	this.gui.add(this.scene, 'startGame');

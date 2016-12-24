@@ -21,7 +21,7 @@ XMLscene.prototype.init = function (application) {
 
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-
+  this.score="SCORE";
 
   this.gl.clearDepth(100.0);
   this.gl.enable(this.gl.DEPTH_TEST);
@@ -315,7 +315,7 @@ XMLscene.prototype.display = function () {
     	else
     	this.message= "Player 2 a jogar."
     }
-
+	this.score="        P1: "+this.jogo.player1Wins+" - "+this.jogo.player2Wins+" :P2";
 	this.updateLuzes();
     this.graph.displayScene();
   }

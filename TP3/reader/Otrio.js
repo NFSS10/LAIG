@@ -390,13 +390,16 @@ Otrio.prototype.declararVitoria = function()
   
   if(this.playerTurn==1)
   {
+  this.player2Wins++;
   str= "Player 2 ganhou!!"   
   }
   else
   {
+  this.player1Wins++;
   str= "Player 1 ganhou!!"
   }
-
+  
+  
   this.scene.message= str;
 }
 
@@ -1192,6 +1195,12 @@ function parsePos(posarr, game)
       game.pecasAzuisGrandes.pop();
     }
     game.scene.message= "Player "+game.playerTurn+" ganhou!!"
+    
+    if(game.playerTurn==1)
+    game.player1Wins++;
+    else if(game.playerTurn==2)
+    game.player2Wins++;
+
     game.start=0;
     
 
