@@ -15,7 +15,8 @@ XMLscene.prototype.init = function (application) {
   this.initCameras();
 
   this.initLights();
-
+  
+  this.message = "Prima startGame ";
   this.setUpdatePeriod(30);
 
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -307,7 +308,13 @@ XMLscene.prototype.display = function () {
 	}
     nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
     this.changeSmoothViews(prevPerspective, nextPerspective);
-
+    if(this.jogo.start==1)
+    {
+    	if(this.jogo.playerTurn==1)
+    	this.message= "Player 1 a jogar."
+    	else
+    	this.message= "Player 2 a jogar."
+    }
 
 	this.updateLuzes();
     this.graph.displayScene();

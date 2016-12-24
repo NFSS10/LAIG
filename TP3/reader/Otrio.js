@@ -337,7 +337,7 @@ Otrio.prototype.quit = function()
 	{
 	  this.scene.graph.components_info.components_list[i].fullAnimation=null;
 	}
-
+    this.scene.message= "Prima startGame"; 
     this.start=0;
 }
 
@@ -386,12 +386,18 @@ Otrio.prototype.initGame = function(modoJogo)
 
 Otrio.prototype.declararVitoria = function()
 {
-  console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-  console.log("---------VITORIA--------");
+  var str;
+  
   if(this.playerTurn==1)
-  console.log("Jogador" + 2 + "\n\n\n");
+  {
+  str= "Jogador 2 ganhou!!"   
+  }
   else
-  console.log("Jogador" + 1 + "\n\n\n");
+  {
+  str= "Jogador 1 ganhou!!"
+  }
+
+  this.scene.message= str;
 }
 
 
@@ -1185,6 +1191,7 @@ function parsePos(posarr, game)
       game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
       game.pecasAzuisGrandes.pop();
     }
+    game.scene.message= "Jogador "+game.playerTurn+" ganhou!!"
     game.start=0;
     
 
@@ -1225,4 +1232,13 @@ function parsePos(posarr, game)
 
   }
   return parsedPos;
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }
