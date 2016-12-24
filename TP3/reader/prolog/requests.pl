@@ -56,8 +56,11 @@ parse_input(escolhePecaVermelha, Peca):- p1Set(Set), escolherPeca(Set,Peca).
 parse_input(escolhePecaAzul, Peca):- p2Set(Set), escolherPeca(Set,Peca).
 
 
-parse_input(jogadaComputador1(Peca), Coords):-	p1Set(Set), tentaMelhorJogadaR, jogadacomputadorA(Peca,Set,X,Y), append([Y],[X],Coords).
-parse_input(jogadaComputador2(Peca), Coords):-	p2Set(Set), tentaMelhorJogadaB, jogadacomputadorB(Peca,Set,X,Y), append([Y],[X],Coords).
+
+parse_input(jogadaComputador1(Peca), [Coords, Res, PecaF]):-	Res is 1, p1Set(Set), tentaMelhorJogadaR, jogadacomputadorA(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador1(Peca), [Coords, Res, PecaF]):-	Res is 0, lastmove(X,Y), append([Y],[X],Coords), pecafinal(PecaF).
+parse_input(jogadaComputador2(Peca), [Coords, Res, PecaF]):-	Res is 1, p2Set(Set), tentaMelhorJogadaB, jogadacomputadorB(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador2(Peca), [Coords, Res, PecaF]):-	Res is 0, lastmove(X,Y), append([Y],[X],Coords), pecafinal(PecaF).
 
 %fazjogadacomputador
 

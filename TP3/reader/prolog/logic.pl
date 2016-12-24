@@ -1,5 +1,11 @@
 :- ensure_loaded(util).
 
+:-dynamic(lastmove/2).
+:-dynamic(pecafinal/1).
+
+lastmove(-1,-1).
+pecafinal(pecaaaa).
+
 %Faz jogada do jogador X
 %X: coord x
 %Y: coord y
@@ -141,7 +147,7 @@ jogadacomputadorX(Peca,Set,NewSet,X,Y):-
 
 
 %Funcao aux para jogada random
-jogadacomputadorA(Peca,Set,X,Y):- 
+jogadacomputadorA(Peca,Set,X,Y):-
 					         jogadacomputadorX(Peca,Set,NewSet,X,Y),
 							 retract(p1Set(Set)),
 							 asserta(p1Set(NewSet)),!.
@@ -334,11 +340,11 @@ percorreListaJog([Elem|Rest], Peca):-
 	percorreListaJog(Rest, Peca).
 
 %Testa a jogada
-testaJogada([], Peac).
+testaJogada([], Peac, X, Y).
 testaJogada([Elem|Rest], Peca):- nth0(0,[Elem|Rest],Par),
 							nth0(0,Par,X),
 							nth0(1,Par,Y),
 							melhJog(X,Y,Peca, LastBoard, NewBoard),
-							verSeGanhou,
+							verSeGanhou2(X,Y, LastBoard, NewBoard, Peca),!,
 							retract(board(NewBoard)),
-							assert(board(LastBoard)).
+							asserta(board(LastBoard)).

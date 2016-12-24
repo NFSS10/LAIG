@@ -34,7 +34,7 @@ this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
 this.selectedPiece = null;
 this.posTomove = null;
 this.undidpiece = null;
-this.undidpiece2 = null; 
+this.undidpiece2 = null;
 
 this.jogada=0;
 
@@ -161,7 +161,7 @@ Otrio.prototype.undoMove = function()
         this.jogada=0;
         this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
         this.undidpiece2 = this.gameStates[this.gameStates.length-2].movedPiece;
-        
+
         this.piecesThatMoved[this.undidpiece] = null;
         this.piecesThatMoved[this.undidpiece2] = null;
 
@@ -199,7 +199,7 @@ Otrio.prototype.quit = function()
 	{
 	  this.scene.graph.components_info.components_list[i].fullAnimation=null;
 	}
-	
+
     this.start=0;
 }
 
@@ -574,7 +574,7 @@ Otrio.prototype.fazjogadaPc1 = function(Piece)
 
     this.client.getPrologRequest(str, function(data) {
       game.jogada=1;
-      game.posTomove= parsePos(data.target.responseText);
+      game.posTomove= parsePos(data.target.responseText, game);
       game.changePlayer();
     });
 
@@ -589,8 +589,8 @@ Otrio.prototype.fazjogadaPc2 = function(Piece,selectedPiece)
 
     this.client.getPrologRequest(str, function(data) {
       game.jogada=1;
-      game.posTomove= parsePos(data.target.responseText);
-      game.addGameState(selectedPiece,parsePos(data.target.responseText));
+      game.posTomove= parsePos(data.target.responseText, game);
+      game.addGameState(selectedPiece,parsePos(data.target.responseText, game));
       game.changePlayer();
     });
 
@@ -635,12 +635,12 @@ Otrio.prototype.resetgame = function()
     this.pecasVermelhasPequenas = [20,23,26];
     this.pecasVermelhasMedias = [19,22,25];
     this.pecasVermelhasGrandes =  [18,21,24];
-    
+
   this.client.getPrologRequest("resetgame", function(data) {
       if(data.target.responseText == 1)
       console.log("Reseted");
     });
-    
+
 }
 
 
@@ -998,9 +998,54 @@ Otrio.prototype.possivelJogarAzul = function()
     });
 }
 
-function parsePos(pos)
+function parsePos(posarr, game)
 {
+  var pos = posarr.substring(1, 6);
+  var Res = posarr.charAt(7);
+
+  if(Res == "0")
+  {
+    var PecaFinal = posarr.substring(9, 11);
+    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\nPECA FINAL");
+    console.log("-----------------PECA FINAL-----------");
+    console.log(PecaFinal);
+    console.log("\n");
+    if(PecaFinal== "r1")
+    {
+      game.selectedPiece=game.pecasVermelhasPequenas[game.pecasVermelhasPequenas.length-1];
+      game.pecasVermelhasPequenas.pop();
+    }
+    else if(PecaFinal== "r2")
+    {
+      game.selectedPiece=game.pecasVermelhasMedias[game.pecasVermelhasMedias.length-1];
+      game.pecasVermelhasMedias.pop();
+    }
+    else if(PecaFinal== "r3")
+    {
+      game.selectedPiece=game.pecasVermelhasGrandes[game.pecasVermelhasGrandes.length-1];
+      game.pecasVermelhasGrandes.pop();
+    }
+    else if(PecaFinal== "b1")
+    {
+      game.selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
+      game.pecasAzuisPequenas.pop();
+    }
+    else if(PecaFinal== "b2")
+    {
+      game.selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
+      game.pecasAzuisMedias.pop();
+    }
+    else if(PecaFinal== "b3")
+    {
+      game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
+      game.pecasAzuisGrandes.pop();
+    }
+
+
+  }
+
   var parsedPos;
+
 
   switch(pos)
   {
