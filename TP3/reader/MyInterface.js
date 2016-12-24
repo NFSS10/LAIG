@@ -39,6 +39,7 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'startGame');
 	this.group=this.gui.addFolder("Luzes");
 	this.gui.add(this.scene, 'undoMove');
+	this.gui.add(this.scene, 'quit');
 
 	this.group.open();
 

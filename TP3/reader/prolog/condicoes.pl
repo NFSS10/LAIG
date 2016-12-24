@@ -30,9 +30,9 @@ condEmpate([
 	[n1,n1,n1]]
 	]).
 
-	
-	
-	
+
+
+
 %Verifica se ganhou e termina o jogo caso alguem ganhe
 verSeGanhou :- 	verConcentrica,
 				verLinhaDifH,
@@ -41,15 +41,26 @@ verSeGanhou :- 	verConcentrica,
 				verLinhaIgualV,
 				verLinhaDiag,
 				verEmpate.
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+verSeGanhou2(X, Y, LastBoard, NewBoard, PecaFinal) :- verConcentrica,
+								verLinhaDifH,
+								verLinhaIgualH,
+								verLinhaDifV,
+								verLinhaIgualV,
+								verLinhaDiag,
+								verEmpate.
+verSeGanhou2(X, Y, LastBoard, NewBoard, PecaFinal) :- retract(board(NewBoard)),	assert(board(LastBoard)),
+																											retract(lastmove(-1,-1)), asserta(lastmove(X,Y)),
+																											retract(pecafinal(pecaaaa)), asserta(pecafinal(PecaFinal)),
+																											fail.
+
+
+
+
+
+
+
 
 
 
@@ -61,7 +72,7 @@ selectLinhaporTamHor(Tam, Lin, PiecesList) :- escolhebloco(BlocoLinha,Lin), nth0
 getPiece(Tam, Lin, Col, Piece) :- escolhebloco(BlocoLinha, Lin),
 									nth0(Tam,BlocoLinha,PiecesList),
 									nth0(Col,PiecesList,Piece).
-											
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,11 +81,11 @@ getPiece(Tam, Lin, Col, Piece) :- escolhebloco(BlocoLinha, Lin),
 msgVitoria(L):-nl, nl, write('    ********    VITORIA!    ********'),nl,
 							write(L),
 							fail.
-							
+
 msgEmpate :-nl, write('---- Empate ---'), nl,
 							fail.
 %:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-											
+
 
 
 
@@ -88,11 +99,11 @@ msgEmpate :-nl, write('---- Empate ---'), nl,
 selectLinhaporTamDListA(Tam, Res) :-  getPiece(Tam, 0,0, Piece), append([],[Piece],List),
 								getPiece(Tam, 1,1, Piece2), append(List,[Piece2],List2),
 								getPiece(Tam, 2,2, Piece3), append(List2,[Piece3],Res).
-%Res e lista com as pecas, por tam selecionado na diagonal (dir. para esq.)	
+%Res e lista com as pecas, por tam selecionado na diagonal (dir. para esq.)
 selectLinhaporTamDListB(Tam, Res) :-  getPiece(Tam, 0,2, Piece), append([],[Piece],List),
 								getPiece(Tam, 1,1, Piece2), append(List,[Piece2],List2),
 								getPiece(Tam, 2,0, Piece3), append(List2,[Piece3],Res).
-			
+
 
 
 %-------- Tamanho diferente -----------
@@ -105,7 +116,7 @@ winCondLinhaMesmoTamD(Tam):- selectLinhaporTamDListB(Tam, Res),
 							condVitoria(Res),
 							!,
 							msgVitoria(Res).
-				
+
 winCondLinhaMesmoTamD(Tam).
 %:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -125,7 +136,7 @@ winCondConcentrica(Lin) :- escolhebloco(BlocoLinha,Lin),
 							condVitoria(BlocoLinha),
 							!,
 							msgVitoria(BlocoLinha).
-winCondConcentrica(Lin).							
+winCondConcentrica(Lin).
 %:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -214,7 +225,7 @@ empate :-  empS1,  empS2, !.
 %Ve se ha empate
 verEmpate :- empate, !,	msgEmpate.
 verEmpate.
-					
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Verificam as varias condicoes
@@ -228,8 +239,8 @@ verLinhaIgualV :-	winCondLinhaMesmoTamV(0,0),
 					winCondLinhaMesmoTamV(1,2),
 					winCondLinhaMesmoTamV(2,0),
 					winCondLinhaMesmoTamV(2,1),
-					winCondLinhaMesmoTamV(2,2).	
-					
+					winCondLinhaMesmoTamV(2,2).
+
 verLinhaDifV :- winCondLinhaDifV(0),
 				winCondLinhaDifV(1),
 				winCondLinhaDifV(2),
@@ -237,7 +248,7 @@ verLinhaDifV :- winCondLinhaDifV(0),
 				winCondLinhaDifV(1),
 				winCondLinhaDifV(2).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-				
+
 verLinhaIgualH :-	winCondLinhaMesmoTamH(0,0),
 					winCondLinhaMesmoTamH(0,1),
 					winCondLinhaMesmoTamH(0,2),
@@ -259,24 +270,11 @@ verLinhaDifH :- winCondLinhaDifHB(0),
 verConcentrica :- winCondConcentrica(0),
 					winCondConcentrica(1),
 					winCondConcentrica(2).
-					
-					
+
+
 verLinhaDiag :- winCondLinhaMesmoTamD(0),
 				winCondLinhaMesmoTamD(1),
 				winCondLinhaMesmoTamD(2).
-				
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-
-
-
-
-
-
-

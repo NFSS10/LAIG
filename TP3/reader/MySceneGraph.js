@@ -1233,6 +1233,12 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 			    node.fullAnimation= null;
 			    this.scene.jogo.undidpiece=null;
 		}
+		if(this.scene.jogo.undidpiece2 ==this.pickID)
+		{
+				node.animations.pop();
+			    node.fullAnimation= null;
+			    this.scene.jogo.undidpiece2=null;
+		}
 		if(this.scene.jogo.selectedPiece == this.pickID)
 		{
 				for(var z=0; z<this.materials_info.materials.length;z++)

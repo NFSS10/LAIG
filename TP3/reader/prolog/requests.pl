@@ -50,3 +50,20 @@ parse_input(verifVitoria, Res):-	Res is 1.
 
 %reseta o tabuleiro e os sets.
 parse_input(resetgame,Res):- Res is 1, resetgame.
+
+%escolhe peca do set para jogar
+parse_input(escolhePecaVermelha, Peca):- p1Set(Set), escolherPeca(Set,Peca).
+parse_input(escolhePecaAzul, Peca):- p2Set(Set), escolherPeca(Set,Peca).
+
+
+
+parse_input(jogadaComputador1(Peca), [Coords, Res, PecaF]):-	Res is 1, p1Set(Set), tentaMelhorJogadaR, jogadacomputadorA(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador1(Peca), [Coords, Res, PecaF]):-	Res is 0, lastmove(X,Y), append([Y],[X],Coords), pecafinal(PecaF).
+parse_input(jogadaComputador2(Peca), [Coords, Res, PecaF]):-	Res is 1, p2Set(Set), tentaMelhorJogadaB, jogadacomputadorB(Peca,Set,X,Y), append([Y],[X],Coords).
+parse_input(jogadaComputador2(Peca), [Coords, Res, PecaF]):-	Res is 0, lastmove(X,Y), append([Y],[X],Coords), pecafinal(PecaF).
+
+%fazjogadacomputador
+
+
+
+%, jogadaComputadorX(Peca,Set,NewSet,X,Y), append([X,],[Y],coords).
