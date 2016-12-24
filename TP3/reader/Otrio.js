@@ -551,6 +551,7 @@ Otrio.prototype.escolhePecaAzul = function()
       {
         game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
         selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
+        console.log ("YOHHHHHHOH"+selectedPiece);
         game.pecasAzuisGrandes.pop();
       }
       game.fazjogadaPc2(pecaEscolhida,selectedPiece);
