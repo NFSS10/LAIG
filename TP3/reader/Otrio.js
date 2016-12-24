@@ -454,18 +454,18 @@ Otrio.prototype.escolhePecaVerm = function()
 
       if(pecaEscolhida== "r1")
       {
-        game.selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
-        game.pecasAzuisPequenas.pop();
+        game.selectedPiece=game.pecasVermelhasPequenas[game.pecasVermelhasPequenas.length-1];
+        game.pecasVermelhasPequenas.pop();
       }
       if(pecaEscolhida== "r2")
       {
-        game.selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
-        game.pecasAzuisMedias.pop();
+        game.selectedPiece=game.pecasVermelhasMedias[game.pecasVermelhasMedias.length-1];
+        game.pecasVermelhasMedias.pop();
       }
       if(pecaEscolhida== "r3")
       {
-        game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
-        game.pecasAzuisGrandes.pop();
+        game.selectedPiece=game.pecasVermelhasGrandes[game.pecasVermelhasGrandes.length-1];
+        game.pecasVermelhasGrandes.pop();
       }
       game.fazjogadaPc1(pecaEscolhida);
 
