@@ -66,7 +66,7 @@ Otrio.prototype.undoMove = function()
 {
 
 
-  if(this.gameStates.length>0)
+  if(this.gameStates.length>0 && this.start==1)
   {
     if(this.modoJogo==1)
     {
@@ -153,6 +153,22 @@ Otrio.prototype.undoMove = function()
               {
                   console.log("Peca "+this.gameStates[i].movedPiece);
                   this.tristeAzul(parseInt(this.gameStates[i].movedPiece),parseInt(this.gameStates[i].movedPlace));
+
+                   if(parseInt(this.gameStates[i].movedPiece)==11 || parseInt(this.gameStates[i].movedPiece) == 14 || parseInt(this.gameStates[i].movedPiece) == 17 )
+                  {
+                    console.log("entrou");
+                    this.pecasAzuisPequenas.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 10 || parseInt(this.gameStates[i].movedPiece) == 13 || parseInt(this.gameStates[i].movedPiece) == 16 )
+                  {
+                    console.log("entrou");
+                    this.pecasAzuisMedias.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 9 || parseInt(this.gameStates[i].movedPiece) == 12 || parseInt(this.gameStates[i].movedPiece) == 15 )
+                  {
+                    console.log("entrou");
+                    this.pecasAzuisGrandes.pop();
+                  }
                  
                   console.log("LENGTH2: "+this.gameStates.length);
 
@@ -219,6 +235,78 @@ Otrio.prototype.undoMove = function()
             this.gameStates.pop();
 
         }
+    }
+    else if(this.modoJogo ==3)
+    {
+
+        for(var j=0; j<this.gameStates.length; j++)
+        {
+          for(var z=0; z<this.gameStates.length; z++)
+          {
+            if(z==j)
+            {}
+            else
+            {
+               if(this.gameStates[j].movedPiece==this.gameStates[z].movedPiece)
+               {
+                 this.gameStates.splice(z, 1);
+                 z--;
+               }
+            }
+          }
+        }
+
+
+        console.log("LENGTH: "+this.gameStates.length);
+        this.resetgame();
+        for (var i=0; i<this.gameStates.length-1; i++)
+        {
+          if(i % 2==0)
+          {
+              this.tristeVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+                  
+                  if(parseInt(this.gameStates[i].movedPiece)==11 || parseInt(this.gameStates[i].movedPiece) == 14 || parseInt(this.gameStates[i].movedPiece) == 17 )
+                  {
+                    this.pecasAzuisPequenas.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 10 || parseInt(this.gameStates[i].movedPiece) == 13 || parseInt(this.gameStates[i].movedPiece) == 16 )
+                  {
+                    this.pecasAzuisMedias.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 9 || parseInt(this.gameStates[i].movedPiece) == 12 || parseInt(this.gameStates[i].movedPiece) == 15 )
+                  {
+                    this.pecasAzuisGrandes.pop();
+                  }
+
+              
+
+
+          }
+          else if(i % 2==1)
+          {
+              this.tristeAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+              
+                  if(parseInt(this.gameStates[i].movedPiece)==11 || parseInt(this.gameStates[i].movedPiece) == 14 || parseInt(this.gameStates[i].movedPiece) == 17 )
+                  {
+                    this.pecasAzuisPequenas.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 10 || parseInt(this.gameStates[i].movedPiece) == 13 || parseInt(this.gameStates[i].movedPiece) == 16 )
+                  {
+                    this.pecasAzuisMedias.pop();
+                  }
+                  if(parseInt(this.gameStates[i].movedPiece) == 9 || parseInt(this.gameStates[i].movedPiece) == 12 || parseInt(this.gameStates[i].movedPiece) == 15 )
+                  {
+                    this.pecasAzuisGrandes.pop();
+                  }
+
+          }
+        }
+        this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
+        this.piecesThatMoved[this.undidpiece] = null;
+
+        this.changePlayer();
+        this.undid=1;
+        this.gameStates.pop();
     }
   }
 }
@@ -1092,7 +1180,7 @@ function parsePos(posarr, game)
       game.pecasAzuisGrandes.pop();
     }
     game.start=0;
-    game.scene.changeSmoothViews(game.scene.graph.views_info.perspectives_list[game.scene.indice_View1], game.scene.graph.views_info.perspectives_list[2]);
+    
 
   }
 
