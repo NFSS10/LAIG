@@ -464,6 +464,7 @@ Otrio.prototype.select_Obj = function(nSelected)
         if (this.playerTurn == 2)
         {
           this.escolhePecaAzul();
+          this.verificaVitoria();
           return true;
         }
         if (this.playerTurn == 1 && this.selectedPiece != null && nSelected >= this.minTabuleiro && nSelected <= this.maxTabuleiro)
@@ -638,8 +639,9 @@ Otrio.prototype.fazjogadaPc2 = function(Piece,selectedPiece)
 
     this.client.getPrologRequest(str, function(data) {
       game.jogada=1;
-      game.posTomove= parsePos(data.target.responseText, game);
-      game.addGameState(selectedPiece,parsePos(data.target.responseText, game));
+      posTomove= parsePos(data.target.responseText, game);
+      game.posTomove=posTomove;
+      game.addGameState(selectedPiece,posTomove);
       game.changePlayer();
     });
 
@@ -667,6 +669,7 @@ Otrio.prototype.verificaVitoria = function()
       if(data.target.responseText == 1)
       {
         game.declararVitoria();
+        game.start=0;
       }
     });
 
@@ -1088,7 +1091,8 @@ function parsePos(posarr, game)
       game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
       game.pecasAzuisGrandes.pop();
     }
-
+    game.start=0;
+    game.scene.changeSmoothViews(game.scene.graph.views_info.perspectives_list[game.scene.indice_View1], game.scene.graph.views_info.perspectives_list[2]);
 
   }
 
