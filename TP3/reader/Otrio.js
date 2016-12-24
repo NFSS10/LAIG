@@ -34,6 +34,8 @@ this.piecesThatMoved = [];  //Contem as jogadas por ordem ate ao momento
 this.selectedPiece = null;
 this.posTomove = null;
 this.undidpiece = null;
+this.undidpiece2 = null; 
+
 this.jogada=0;
 
 //Global
@@ -66,51 +68,109 @@ Otrio.prototype.undoMove = function()
 
   if(this.gameStates.length>0)
   {
-
-
-    for(var j=0; j<this.gameStates.length; j++)
+    if(this.modoJogo==1)
     {
-      for(var z=0; z<this.gameStates.length; z++)
-      {
-        if(z==j)
-        {}
-        else
+
+        for(var j=0; j<this.gameStates.length; j++)
         {
-           if(this.gameStates[j].movedPiece==this.gameStates[z].movedPiece)
-           {
-             this.gameStates.splice(z, 1);
-             z--;
-           }
+          for(var z=0; z<this.gameStates.length; z++)
+          {
+            if(z==j)
+            {}
+            else
+            {
+               if(this.gameStates[j].movedPiece==this.gameStates[z].movedPiece)
+               {
+                 this.gameStates.splice(z, 1);
+                 z--;
+               }
+            }
+          }
         }
-      }
+
+
+        console.log("LENGTH: "+this.gameStates.length);
+        this.resetgame();
+        for (var i=0; i<this.gameStates.length-1; i++)
+        {
+          if(this.gameStates[i].playerTurn==2)
+          {
+              this.tristeVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+              //this.gameStates.pop();
+              console.log("LENGTH2: "+this.gameStates.length);
+
+          }
+          else if(this.gameStates[i].playerTurn==1)
+          {
+              this.tristeAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+              //this.gameStates.pop();
+              console.log("LENGTH2: "+this.gameStates.length);
+
+          }
+        }
+        this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
+        this.piecesThatMoved[this.undidpiece] = null;
+
+        this.changePlayer();
+        this.undid=1;
+        this.gameStates.pop();
     }
-
-
-    console.log("LENGTH: "+this.gameStates.length);
-    this.resetgame();
-    for (var i=0; i<this.gameStates.length-1; i++)
+    else if(this.modoJogo==2)
     {
-      if(this.gameStates[i].playerTurn==2)
-      {
-          this.tristeVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
-          //this.gameStates.pop();
-          console.log("LENGTH2: "+this.gameStates.length);
 
-      }
-      else if(this.gameStates[i].playerTurn==1)
-      {
-          this.tristeAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
-          //this.gameStates.pop();
-          console.log("LENGTH2: "+this.gameStates.length);
+        for(var j=0; j<this.gameStates.length; j++)
+        {
+          for(var z=0; z<this.gameStates.length; z++)
+          {
+            if(z==j)
+            {}
+            else
+            {
+               if(this.gameStates[j].movedPiece==this.gameStates[z].movedPiece)
+               {
+                 this.gameStates.splice(z, 1);
+                 z--;
+               }
+            }
+          }
+        }
 
-      }
+
+        console.log("LENGTH: "+this.gameStates.length);
+        this.resetgame();
+        if(this.gameStates.length %2 ==0)
+        {
+        for (var i=0; i<this.gameStates.length-2; i++)
+        {
+          if(i % 2==0)
+          {
+              this.tristeVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
+              //this.gameStates.pop();
+              console.log("LENGTH2: "+this.gameStates.length);
+
+          }
+          else if(i%2==1)
+          {
+              console.log("Peca "+this.gameStates[i].movedPiece);
+              this.tristeAzul(parseInt(this.gameStates[i].movedPiece),parseInt(this.gameStates[i].movedPlace));
+              //this.gameStates.pop();
+              console.log("LENGTH2: "+this.gameStates.length);
+
+          }
+        }
+        this.jogada=0;
+        this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
+        this.undidpiece2 = this.gameStates[this.gameStates.length-2].movedPiece;
+        
+        this.piecesThatMoved[this.undidpiece] = null;
+        this.piecesThatMoved[this.undidpiece2] = null;
+
+        this.undid=1;
+        this.gameStates.pop();
+        this.gameStates.pop();
+
+        }
     }
-    this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
-    this.piecesThatMoved[this.undidpiece] = null;
-
-    this.changePlayer();
-    this.undid=1;
-    this.gameStates.pop();
   }
 }
 
@@ -139,6 +199,7 @@ Otrio.prototype.quit = function()
 	{
 	  this.scene.graph.components_info.components_list[i].fullAnimation=null;
 	}
+	
     this.start=0;
 }
 
@@ -345,16 +406,6 @@ Otrio.prototype.select_Obj = function(nSelected)
     }
     else if(this.modoJogo==2)
     {
-      /*
-      if(this.selectedPiece==11 || this.selectedPiece==14 || this.selectedPiece==17 ||
-      this.selectedPiece==10 || this.selectedPiece==13 || this.selectedPiece==16 ||
-      this.selectedPiece==9 || this.selectedPiece==12 || this.selectedPiece==15)
-      {
-        console.log("ENTRAAAAAAA");
-        this.reset_Seleccoes();
-        this.jogada=0;
-        this.changePlayer();
-      }*/
          if (this.playerTurn == 1 && nSelected >= this.minPvermelhoPick && nSelected <= this.maxPvermelhoPick && this.piecesThatMoved[nSelected]==null)
         {
           this.selectedPiece = nSelected;
@@ -482,23 +533,27 @@ Otrio.prototype.escolhePecaAzul = function()
 
   this.client.getPrologRequest("escolhePecaAzul", function(data) {
       pecaEscolhida = data.target.responseText
+      var selectedPiece;
 
       if(pecaEscolhida== "b1")
       {
         game.selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
+        selectedPiece=game.pecasAzuisPequenas[game.pecasAzuisPequenas.length-1];
         game.pecasAzuisPequenas.pop();
       }
       if(pecaEscolhida== "b2")
       {
         game.selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
+        selectedPiece=game.pecasAzuisMedias[game.pecasAzuisMedias.length-1];
         game.pecasAzuisMedias.pop();
       }
       if(pecaEscolhida== "b3")
       {
         game.selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
+        selectedPiece=game.pecasAzuisGrandes[game.pecasAzuisGrandes.length-1];
         game.pecasAzuisGrandes.pop();
       }
-      game.fazjogadaPc2(pecaEscolhida);
+      game.fazjogadaPc2(pecaEscolhida,selectedPiece);
 
 
 
@@ -524,7 +579,7 @@ Otrio.prototype.fazjogadaPc1 = function(Piece)
 
 }
 
-Otrio.prototype.fazjogadaPc2 = function(Piece)
+Otrio.prototype.fazjogadaPc2 = function(Piece,selectedPiece)
 {
   var game = this;
   var str;
@@ -534,6 +589,7 @@ Otrio.prototype.fazjogadaPc2 = function(Piece)
     this.client.getPrologRequest(str, function(data) {
       game.jogada=1;
       game.posTomove= parsePos(data.target.responseText);
+      game.addGameState(selectedPiece,parsePos(data.target.responseText));
       game.changePlayer();
     });
 
@@ -559,9 +615,10 @@ Otrio.prototype.verificaVitoria = function()
 
   this.client.getPrologRequest("verifVitoria", function(data) {
       if(data.target.responseText == 1)
+      {
         game.declararVitoria();
-
-
+        game.start=0;
+      }
     });
 
 }
@@ -570,11 +627,19 @@ Otrio.prototype.resetgame = function()
 {
     var game=this;
 
+    this.pecasAzuisPequenas = [11,14,17];
+    this.pecasAzuisMedias = [10,13,16];
+    this.pecasAzuisGrandes =  [9,12,15];
+
+    this.pecasVermelhasPequenas = [20,23,26];
+    this.pecasVermelhasMedias = [19,22,25];
+    this.pecasVermelhasGrandes =  [18,21,24];
+    
   this.client.getPrologRequest("resetgame", function(data) {
       if(data.target.responseText == 1)
       console.log("Reseted");
     });
-
+    
 }
 
 
@@ -686,7 +751,7 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
 
       if(selectedPiece != null)
       {
-        if(selectedPiece == 9 || selectedPiece == 12 || this.selectedPiece == 15)
+        if(selectedPiece == 9 || selectedPiece == 12 || this.selectedPiece == 15 || this.selectedPiece=="15")
           strPiece2 = strPiece+ "b3)";
         else if(selectedPiece == 10 || selectedPiece == 13 || selectedPiece == 16)
           strPiece2 = strPiece+"b2)";
@@ -698,6 +763,8 @@ Otrio.prototype.fazjogadaAzul = function(posTomove,selectedPiece)
 
 
   str = str + strPiece2;
+  console.log("AQUIIIIIIIII: "+ selectedPiece);
+  console.log("AQUIIIIIIIII: "+ str);
   this.client.getPrologRequest(str, function(data) {
     if(data.target.responseText == 1)
     {
