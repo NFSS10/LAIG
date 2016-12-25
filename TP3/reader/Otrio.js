@@ -331,6 +331,10 @@ Otrio.prototype.quit = function()
 {
     this.resetgame();
     this.reset_Seleccoes();
+    this.scene.clockAux=0;
+	this.scene.clockseconds1=0;
+	this.scene.clockseconds2=0;
+	this.scene.clockMinutes=0;
 	this.gameStates = [];
 	this.piecesThatMoved =[];
 	for(var i=0; i<this.scene.graph.components_info.components_list.length;i++)
@@ -482,6 +486,11 @@ Otrio.prototype.changePlayer = function()
     this.playerTurn = 2;
   else if(this.playerTurn == 2)
     this.playerTurn = 1;
+
+    this.scene.clockAux=0;
+	this.scene.clockseconds1=0;
+	this.scene.clockseconds2=0;
+	this.scene.clockMinutes=0;
 }
 
 

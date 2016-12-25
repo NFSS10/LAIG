@@ -54,7 +54,16 @@
 
 
     <textures>
-		<texture id="tabuleiroTex" file="textures\\boardv1.png" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex1" file="textures\\tron1.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex2" file="textures\\tron2.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex3" file="textures\\tron3.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex4" file="textures\\tron4.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex5" file="textures\\tron5.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex6" file="textures\\tron6.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex7" file="textures\\tron7.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex8" file="textures\\tron8.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex9" file="textures\\tron9.jpeg" length_s="1" length_t="1" />
+		<texture id="risca" file="textures\\risca.png" length_s="1" length_t="1" />
 		<texture id="azulTex" file="textures\\azul.png" length_s="1" length_t="1" />
 	</textures>
 
@@ -71,7 +80,7 @@
 
 
 		<material id="materialPecaAzul" >
-          <emission r="0.1" g="0.4" b="1" a="1" />
+          <emission r="0.11" g="0.72" b="0.98" a="1" />
           <ambient r="0" g="0" b="0" a="1" />
           <diffuse r="0" g="0" b="0" a="1" />
           <specular r="0" g="0" b="0" a="1" />
@@ -80,7 +89,7 @@
 
 
 		<material id="materialPecaVermelha" >
-          <emission r="1" g="0" b="0" a="1" />
+          <emission r="1" g="0.5" b="0" a="1" />
           <ambient r="0" g="0" b="0" a="1" />
           <diffuse r="0" g="0" b="0" a="1" />
           <specular r="0" g="0" b="0" a="1" />
@@ -400,7 +409,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" />
+            <texture id="risca" />
 
             <children>
                 <primitiveref id="torus" />
@@ -712,7 +721,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex7" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -727,7 +736,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex8" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -742,7 +751,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex9" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -757,7 +766,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex4" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -771,7 +780,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex5" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -786,7 +795,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex6" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -801,7 +810,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex1" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -816,7 +825,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex2" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>
@@ -831,7 +840,7 @@
                 <material id="materialTabuleiro" />
             </materials>
 
-            <texture id="tabuleiroTex" />
+            <texture id="tabuleiroTex3" />
 
             <children>
                 <primitiveref id="tabuleiropos"/>

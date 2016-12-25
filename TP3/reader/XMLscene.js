@@ -16,6 +16,11 @@ XMLscene.prototype.init = function (application) {
 
   this.initLights();
   
+  this.clock="              0:00";
+  this.clockMinutes=0;
+  this.clockseconds1=0;
+  this.clockseconds2=0;
+  this.clockAux=0;
   this.message = "Prima startGame ";
   this.setUpdatePeriod(30);
 
@@ -265,6 +270,46 @@ XMLscene.prototype.updateMaterial = function () {
 
 };
 
+
+XMLscene.prototype.updateClock = function(currTime)
+{
+	if(this.jogo.modoJogo==1 && this.jogo.start==1)
+	{
+		this.clockAux+=1/30;
+		console.log("entrou");
+		
+		if(this.clockAux>=1)
+		{
+			this.clockseconds1++;
+			this.clockAux=0;
+		}
+		if(this.clockseconds1>=10)
+		{
+			this.clockseconds2++;
+			this.clockseconds1=0;
+		}
+		if(this.clockseconds2>=6)
+		{
+			this.clockMinutes++;
+			this.clockseconds2=0;
+		}
+		if(this.clockMinutes>=1)
+		{
+			this.clockAux=0;
+			this.clockseconds1=0;
+			this.clockseconds2=0;
+			this.clockMinutes=0;
+			this.jogo.reset_Seleccoes();
+			this.jogo.changePlayer();
+		}
+		this.clock= "              "+this.clockMinutes+":"+this.clockseconds2+this.clockseconds1;
+	}
+	else
+	{
+		this.clock="              0:00";
+	}
+}
+
 XMLscene.prototype.display = function () {
   // ---- BEGIN Background, camera and axis setup
 
@@ -404,5 +449,6 @@ XMLscene.prototype.update = function(currTime) {
     }
   }
 
+	this.updateClock(currTime);
 
 }
