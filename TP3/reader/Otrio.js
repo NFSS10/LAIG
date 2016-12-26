@@ -60,12 +60,16 @@ this.initPosIniciais();
 Otrio.prototype.constructor=Otrio;
 
 
+Otrio.prototype.filme = function()
+{
+
+
+}
+
 
 //Ao chamar, retoma ao estado anterior
 Otrio.prototype.undoMove = function()
 {
-
-
   if(this.gameStates.length>0 && this.start==1)
   {
     if(this.modoJogo==1)
@@ -115,6 +119,11 @@ Otrio.prototype.undoMove = function()
         this.undid=1;
         this.gameStates.pop();
     }
+
+
+
+
+
     else if(this.modoJogo==2)
     {
 
@@ -169,7 +178,7 @@ Otrio.prototype.undoMove = function()
                     console.log("entrou");
                     this.pecasAzuisGrandes.pop();
                   }
-                 
+
                   console.log("LENGTH2: "+this.gameStates.length);
 
               }
@@ -184,7 +193,7 @@ Otrio.prototype.undoMove = function()
             this.undid=1;
             this.gameStates.pop();
             this.gameStates.pop();
-            
+
 
         }
         else if(this.gameStates.length %2 ==1)
@@ -202,7 +211,7 @@ Otrio.prototype.undoMove = function()
               {
                   console.log("Peca "+this.gameStates[i].movedPiece);
                   this.tristeAzul(parseInt(this.gameStates[i].movedPiece),parseInt(this.gameStates[i].movedPlace));
-                   
+
 
                   if(parseInt(this.gameStates[i].movedPiece)==11 || parseInt(this.gameStates[i].movedPiece) == 14 || parseInt(this.gameStates[i].movedPiece) == 17 )
                   {
@@ -225,17 +234,25 @@ Otrio.prototype.undoMove = function()
             }
             this.jogada=0;
             this.undidpiece = this.gameStates[this.gameStates.length-1].movedPiece;
-          
+
 
             this.piecesThatMoved[this.undidpiece] = null;
             this.playerTurn=1;
 
             this.undid=1;
-            
+
             this.gameStates.pop();
 
         }
     }
+
+
+
+
+
+
+
+
     else if(this.modoJogo ==3)
     {
 
@@ -264,7 +281,7 @@ Otrio.prototype.undoMove = function()
           if(i % 2==0)
           {
               this.tristeVerm(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
-                  
+
                   if(parseInt(this.gameStates[i].movedPiece)==20 || parseInt(this.gameStates[i].movedPiece) == 23 || parseInt(this.gameStates[i].movedPiece) == 26 )
                   {
                     this.pecasVermelhasPequenas.pop();
@@ -278,14 +295,14 @@ Otrio.prototype.undoMove = function()
                     this.pecasVermelhasGrandes.pop();
                   }
 
-              
+
 
 
           }
           else if(i % 2==1)
           {
               this.tristeAzul(this.gameStates[i].movedPiece,this.gameStates[i].movedPlace);
-              
+
                   if(parseInt(this.gameStates[i].movedPiece)==11 || parseInt(this.gameStates[i].movedPiece) == 14 || parseInt(this.gameStates[i].movedPiece) == 17 )
                   {
                     this.pecasAzuisPequenas.pop();
@@ -309,6 +326,9 @@ Otrio.prototype.undoMove = function()
         this.undid=1;
         this.gameStates.pop();
     }
+
+
+
   }
 }
 
@@ -341,7 +361,7 @@ Otrio.prototype.quit = function()
 	{
 	  this.scene.graph.components_info.components_list[i].fullAnimation=null;
 	}
-    this.scene.message= "Prima startGame"; 
+    this.scene.message= "Prima startGame";
     this.start=0;
 }
 
@@ -391,19 +411,19 @@ Otrio.prototype.initGame = function(modoJogo)
 Otrio.prototype.declararVitoria = function()
 {
   var str;
-  
+
   if(this.playerTurn==1)
   {
   this.player2Wins++;
-  str= "Player 2 ganhou!!"   
+  str= "Player 2 ganhou!!"
   }
   else
   {
   this.player1Wins++;
   str= "Player 1 ganhou!!"
   }
-  
-  
+
+
   this.scene.message= str;
 }
 
@@ -1204,14 +1224,14 @@ function parsePos(posarr, game)
       game.pecasAzuisGrandes.pop();
     }
     game.scene.message= "Player "+game.playerTurn+" ganhou!!"
-    
+
     if(game.playerTurn==1)
     game.player1Wins++;
     else if(game.playerTurn==2)
     game.player2Wins++;
 
     game.start=0;
-    
+
 
   }
 

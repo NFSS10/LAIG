@@ -15,7 +15,7 @@ XMLscene.prototype.init = function (application) {
   this.initCameras();
 
   this.initLights();
-  
+
   this.clock="              0:00";
   this.clockMinutes=0;
   this.clockseconds1=0;
@@ -279,7 +279,7 @@ XMLscene.prototype.updateClock = function(currTime)
 	{
 		this.clockAux+=1/30;
 		console.log("entrou");
-		
+
 		if(this.clockAux>=1)
 		{
 			this.clockseconds1++;
@@ -408,16 +408,22 @@ XMLscene.prototype.playerAction = function (selObjId)
 }
 
 
+
+XMLscene.prototype.replayMoves = function()
+{
+  console.log("\n\n\n\n\n\n Filme");
+  this.jogo.filme();
+
+}
+
 XMLscene.prototype.undoMove = function()
 {
-  //TODO chamar this.jogo.undo();
   console.log("\n\n\n\n\n\n UNDO");
 	this.jogo.undoMove();
 }
 
 XMLscene.prototype.quit = function()
 {
-  //chamar jogo reset, e por startGame=o;
   console.log("\n\n\n\n\n QUIT");
   this.jogo.quit();
 }
@@ -430,7 +436,6 @@ XMLscene.prototype.changeVisual = function()
 
 XMLscene.prototype.startGame = function()
 {
-  //TODO dar reset a tudo e começar com o modo de jogo selecionado
   console.log("\n\n\n\n\n\n startGame");
   this.jogo.startGame();
 

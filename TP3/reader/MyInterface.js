@@ -37,6 +37,7 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene,'clock').listen();
 	this.gui.add(this.scene,'message').listen();
 	this.gui.add(this.scene, 'ModoJogo', {'PvP':1,'PvC':2,'CvC':3});
+	this.gui.add(this.scene, 'replayMoves');
 	this.gui.add(this.scene, 'startGame');
 	this.gui.add(this.scene, 'undoMove');
 	this.gui.add(this.scene, 'quit');
