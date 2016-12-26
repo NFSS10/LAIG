@@ -18,7 +18,10 @@ function MySceneGraph(filename, scene) {
 	this.primitives_info = new Primitives();
 	this.components_info = new Components();
 	this.animation_info= []; //contem as animaçoes;
-
+	this.changed=1;
+	this.fileActual=filename;
+	this.filename1=filename;
+	this.filename2="specs2.xml";
 	//graus para radianos
 	this.degToRad = Math.PI / 180.0;
 
@@ -1169,6 +1172,52 @@ MySceneGraph.prototype.displayScene = function()
 	var root = this.components_info.components_list[0].id;
 	transformations_infoack.push(mat4.create());
 	this.displayComponents(root,transformations_infoack,materialStack,textureStack);
+	if(this.changed==0)
+  	{
+  		var r = confirm("This will reset your game. Ok to continue");
+		if (r == true)
+  		{
+			this.loadedOk=null;
+			this.scene_info=new Scene();
+			this.views_info = new Views();
+			this.illumination_info = new Illumination();
+			this.lights_info= new Lights();
+			this.textures_info = new Textures();
+			this.materials_info= new Materials();
+			this.transformations_info = new Transformations();
+			this.primitives_info = new Primitives();
+			this.components_info = new Components();
+			this.animation_info= []; //contem as animaçoes;
+			console.log("aquiiiiii: "+ this.scene.lights.length);
+			for(var z=0; z<this.scene.lightsGUI.length;z++)
+			{
+				this.scene.interface.group.remove(this.scene.lightsGUI[z]);
+			
+			}
+			this.scene.lightsGUI =[];
+			this.degToRad = Math.PI / 180.0;
+
+			this.pickID = -1;
+
+			if(this.fileActual==this.filename1)
+			{
+				this.scene.jogo.quit();
+				this.fileActual=this.filename2;
+				this.reader = new CGFXMLreader();
+				this.reader.open('scenes/'+this.filename2, this);
+
+			}
+			else
+			{
+				this.scene.jogo.quit();
+				this.fileActual=this.filename1;
+				this.reader = new CGFXMLreader();
+				this.reader.open('scenes/'+this.filename1, this);
+			}
+  		}
+
+  		this.changed=1;
+  	}
 }
 
 MySceneGraph.prototype.displayComponents = function(rootElement, transformations_infoack, materialStack, textureStack)

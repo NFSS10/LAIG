@@ -46,6 +46,10 @@
             <specular r="0.9" g="0.9" b="0.9" a="0.9" />
         </omni>
 
+
+
+
+
     </lights>
 
 
@@ -406,7 +410,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="azulTex" />
+            <texture id="none" />
 
             <children>
                 <primitiveref id="torus" />

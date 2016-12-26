@@ -23,7 +23,7 @@ XMLscene.prototype.init = function (application) {
   this.clockAux=0;
   this.message = "Prima startGame ";
   this.setUpdatePeriod(30);
-
+  this.lightsGUI = [];
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
   this.score="SCORE";
@@ -34,6 +34,8 @@ XMLscene.prototype.init = function (application) {
   this.gl.depthFunc(this.gl.LEQUAL);
 
   this.axis=new CGFaxis(this);
+
+
 
   this.luzesEstado;
   this.indice_View1 = 0;
@@ -418,6 +420,11 @@ XMLscene.prototype.quit = function()
   //chamar jogo reset, e por startGame=o;
   console.log("\n\n\n\n\n QUIT");
   this.jogo.quit();
+}
+
+XMLscene.prototype.changeVisual = function()
+{
+  this.graph.changed=0;
 }
 
 
