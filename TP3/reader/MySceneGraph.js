@@ -26,7 +26,7 @@ function MySceneGraph(filename, scene) {
 	this.degToRad = Math.PI / 180.0;
 
 	this.pickID = -1;
-	
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -1145,7 +1145,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							if(this.idP==this.primitives_info.primitives_list[z].id)
 								childsref.realPrimitive=this.primitives_info.primitives_list[z].realPrimitive;
 						}
-						
+
 					}
 					childrens_obj.children_list.push(childsref);
 				}
@@ -1192,7 +1192,7 @@ MySceneGraph.prototype.displayScene = function()
 			for(var z=0; z<this.scene.lightsGUI.length;z++)
 			{
 				this.scene.interface.group.remove(this.scene.lightsGUI[z]);
-			
+
 			}
 			this.scene.lightsGUI =[];
 			this.degToRad = Math.PI / 180.0;
@@ -1224,7 +1224,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 {
 
 
-	
+
 	var node;
 	for(var i=0 ; i<this.components_info.components_list.length; i++)
 	{
@@ -1233,7 +1233,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 	}
 	if (node.children.children_list[0].idP!=null)// se a children for primitiva desenha;
 	{
-		
+
 		//Transformaçao
 		transformation = mat4.create();
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
@@ -1258,9 +1258,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 
 		if(textureStack.top() != "none")
 			materialStack.top().setTexture(textureStack.top());
-		
+
 		this.scene.pushMatrix();
-		
+
 		if(node.fullAnimation!=null)
 		{
 		if(node.fullAnimation.animations.length>0)
@@ -1274,8 +1274,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		materialStack.top().apply();
 		this.pickID++;
 		this.scene.registerForPick(this.pickID, node.children.children_list[0].realPrimitive);
+		node.replayID = this.pickID;
 		//console.log(node.children.children_list[0].realPrimitive);
-		
+
 		if(this.scene.jogo.undidpiece ==this.pickID)
 		{
 				node.animations.pop();
@@ -1294,9 +1295,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 				{
 					if(this.materials_info.materials[z].id=="selected")
 					{
-						
-						this.materials_info.materials[z].realMaterial.apply();	
-						
+
+						this.materials_info.materials[z].realMaterial.apply();
+
 					}
 				}
 				if(this.scene.jogo.selectedPiece != null && this.scene.jogo.posTomove !=null && node.fullAnimation==null && this.scene.jogo.jogada==1)
@@ -1311,21 +1312,22 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 					pontosControlo.push(ponto2);
 					pontosControlo.push(ponto3);
 					pontosControlo.push(ponto4);
-					
+
 					animation= new LinearAnimation("Lanimation",2,pontosControlo);
-					
+
 					node.animations.push(animation);
 					node.fullAnimation= new FullAnimation(node.animations);
-					
+
 
 				}
-				
-		}	
-			
+
+		}
+
+
 		node.children.children_list[0].realPrimitive.display();
-		
+
 		this.scene.popMatrix();
-		
+
 
 		transformations_infoack.pop();
 		materialStack.pop()
@@ -1370,7 +1372,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		if(node.animations.length>0)
  			this.scene.popMatrix();
 
-		
+
 		transformations_infoack.pop();
 		materialStack.pop();
 		textureStack.pop();

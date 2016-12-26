@@ -52,6 +52,7 @@ XMLscene.prototype.init = function (application) {
 
   //Texturas
   this.ModoJogo = 1;
+  this.replay = false;
 
   this.jogo = new Otrio(this);
 
@@ -278,7 +279,7 @@ XMLscene.prototype.updateClock = function(currTime)
 	if(this.jogo.modoJogo==1 && this.jogo.start==1)
 	{
 		this.clockAux+=1/30;
-		console.log("entrou");
+
 
 		if(this.clockAux>=1)
 		{
@@ -338,33 +339,36 @@ XMLscene.prototype.display = function () {
   // This is one possible way to do it
   if (this.graph.loadedOk)
   {
-	this.logPicking();
-	this.clearPickRegistration();
-	this.graph.pickID=-1;
+  	this.logPicking();
+  	this.clearPickRegistration();
+  	this.graph.pickID=-1;
 
-	if(this.indice_View1 > this.graph.views_info.perspectives_list.length-1)
-	{
-		this.indice_View1=0;
-	}
+  	if(this.indice_View1 > this.graph.views_info.perspectives_list.length-1)
+  	{
+  		this.indice_View1=0;
+  	}
 
-	prevPerspective = this.graph.views_info.perspectives_list[this.indice_View1];
+  	prevPerspective = this.graph.views_info.perspectives_list[this.indice_View1];
 
-	if(this.indice_View2>this.graph.views_info.perspectives_list.length-1)
-	{
-		this.indice_View2=0;
-	}
-    nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
-    this.changeSmoothViews(prevPerspective, nextPerspective);
-    if(this.jogo.start==1)
-    {
-    	if(this.jogo.playerTurn==1)
-    	this.message= "Player 1 a jogar."
-    	else
-    	this.message= "Player 2 a jogar."
-    }
-	this.score="        P1: "+this.jogo.player1Wins+" - "+this.jogo.player2Wins+" :P2";
-	this.updateLuzes();
-    this.graph.displayScene();
+  	if(this.indice_View2>this.graph.views_info.perspectives_list.length-1)
+  	{
+  		this.indice_View2=0;
+  	}
+      nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
+      this.changeSmoothViews(prevPerspective, nextPerspective);
+      if(this.jogo.start==1)
+      {
+      	if(this.jogo.playerTurn==1)
+      	this.message= "Player 1 a jogar."
+      	else
+      	this.message= "Player 2 a jogar."
+      }
+  	this.score="        P1: "+this.jogo.player1Wins+" - "+this.jogo.player2Wins+" :P2";
+
+
+
+  	this.updateLuzes();
+      this.graph.displayScene();
   }
 
   //this.plane.display();
@@ -411,8 +415,46 @@ XMLscene.prototype.playerAction = function (selObjId)
 
 XMLscene.prototype.replayMoves = function()
 {
-  console.log("\n\n\n\n\n\n Filme");
-  this.jogo.filme();
+
+this.replay = true;
+
+//Limpa
+  for(var i=0; i<this.graph.components_info.components_list.length; i++)
+    this.graph.components_info.components_list[i].fullAnimation=null;
+
+
+//Passar por todos os components que foram jogados e meter a animacao para o setPosition
+for (var k = 0; k < this.jogo.gameStates.length; k++)
+  for(var j=0; j<this.graph.components_info.components_list.length; j++)
+  {
+    if(this.jogo.gameStates[k].movedPiece == this.graph.components_info.components_list[j].replayID)
+    {
+      var pontosControlo= [];
+      ponto1= new Ponto3(0,0,0);
+      ponto2= new Ponto3(0,5,0);
+      ponto3= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],5,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+      ponto4= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],0,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+
+      pontosControlo.push(ponto1);
+      pontosControlo.push(ponto2);
+      pontosControlo.push(ponto3);
+      pontosControlo.push(ponto4);
+
+      animation= new LinearAnimation("Lanimation",2,pontosControlo);
+
+      this.graph.components_info.components_list[j].animations.push(animation);
+      this.graph.components_info.components_list[j].fullAnimation= new FullAnimation(this.graph.components_info.components_list[j].animations);
+
+
+    }
+  }
+
+//if(this.replay==0)
+  //this.jogo.resetgame();
+
+//this.jogo.filme();
+//this.replay++;
+
 
 }
 
@@ -460,6 +502,7 @@ XMLscene.prototype.update = function(currTime) {
       }
     }
   }
+
 
 	this.updateClock(currTime);
 

@@ -13,6 +13,7 @@ function Component()
 	this.children = null;
 	this.animations = [];
 	this.fullAnimation = null;
+	this.replayID = null;
 }
 
 
