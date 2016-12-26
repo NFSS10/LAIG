@@ -3,6 +3,8 @@ function FullAnimation(animations)
 	this.animations=animations;
 
 	this.index=0;
+
+
 };
 
 FullAnimation.prototype.getFullPos = function(id)

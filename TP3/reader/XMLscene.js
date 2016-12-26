@@ -50,9 +50,10 @@ XMLscene.prototype.init = function (application) {
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
 
-  //Texturas
-  this.ModoJogo = 1;
   this.replay = false;
+  this.currReplays = [];
+  this.ModoJogo = 1;
+
 
   this.jogo = new Otrio(this);
 
@@ -415,48 +416,41 @@ XMLscene.prototype.playerAction = function (selObjId)
 
 XMLscene.prototype.replayMoves = function()
 {
-
-this.replay = true;
-
-//Limpa
-  for(var i=0; i<this.graph.components_info.components_list.length; i++)
-    this.graph.components_info.components_list[i].fullAnimation=null;
+    this.replay = true;
+    //Limpa
+    for(var i=0; i<this.graph.components_info.components_list.length; i++)
+      this.graph.components_info.components_list[i].fullAnimation=null;
 
 
-//Passar por todos os components que foram jogados e meter a animacao para o setPosition
-for (var k = 0; k < this.jogo.gameStates.length; k++)
-  for(var j=0; j<this.graph.components_info.components_list.length; j++)
-  {
-    if(this.jogo.gameStates[k].movedPiece == this.graph.components_info.components_list[j].replayID)
-    {
-      var pontosControlo= [];
-      ponto1= new Ponto3(0,0,0);
-      ponto2= new Ponto3(0,5,0);
-      ponto3= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],5,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
-      ponto4= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],0,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+      //Passar por todos os components que foram jogados e meter a animacao de novo
+      for (var k = 0; k < this.jogo.gameStates.length; k++)
+      {
+        this.currReplays.push(this.jogo.gameStates[k].movedPiece);
 
-      pontosControlo.push(ponto1);
-      pontosControlo.push(ponto2);
-      pontosControlo.push(ponto3);
-      pontosControlo.push(ponto4);
+        for(var j=0; j<this.graph.components_info.components_list.length; j++)
+        {
+          if(this.jogo.gameStates[k].movedPiece == this.graph.components_info.components_list[j].replayID)
+          {
+            var pontosControlo= [];
+            ponto1= new Ponto3(0,0,0);
+            ponto2= new Ponto3(0,5,0);
+            ponto3= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],5,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+            ponto4= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],0,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
 
-      animation= new LinearAnimation("Lanimation",2,pontosControlo);
+            pontosControlo.push(ponto1);
+            pontosControlo.push(ponto2);
+            pontosControlo.push(ponto3);
+            pontosControlo.push(ponto4);
 
-      this.graph.components_info.components_list[j].animations.push(animation);
-      this.graph.components_info.components_list[j].fullAnimation= new FullAnimation(this.graph.components_info.components_list[j].animations);
+            animation= new LinearAnimation("Lanimation",2,pontosControlo, this.jogo.gameStates[k].movedPiece);
 
-
-    }
-  }
-
-//if(this.replay==0)
-  //this.jogo.resetgame();
-
-//this.jogo.filme();
-//this.replay++;
-
-
+            this.graph.components_info.components_list[j].animations.push(animation);
+            this.graph.components_info.components_list[j].fullAnimation= new FullAnimation(this.graph.components_info.components_list[j].animations);
+          }
+        }
+      }
 }
+
 
 XMLscene.prototype.undoMove = function()
 {
@@ -489,14 +483,32 @@ XMLscene.prototype.update = function(currTime) {
   if (this.graph.loadedOk)
   {
 
+    if(this.currReplays.length == 0 || this.currReplays == null)
+      {
+        this.replay = false;
+      }
+
     for(var i =0; i< this.graph.components_info.components_list.length; i++)
     {
       if(this.graph.components_info.components_list[i].fullAnimation!=null)
       {
          for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
           {
-          	//console.log("updateeeee");
-           this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+              if(!this.replay)
+                this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+              else
+              {
+                if(this.graph.components_info.components_list[i].fullAnimation.animations[v].acabou == 0 && this.currReplays != null && this.graph.components_info.components_list[i].fullAnimation.animations[v].idReplay != null)
+                   if(this.graph.components_info.components_list[i].fullAnimation.animations[v].idReplay == this.currReplays[0])
+                   {
+                     this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+
+                     if(this.graph.components_info.components_list[i].fullAnimation.animations[v].acabou == 1)
+                      this.currReplays.shift();
+                    }
+              }
+
+
           }
 
       }
