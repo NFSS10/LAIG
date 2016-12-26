@@ -399,8 +399,8 @@ XMLscene.prototype.logPicking = function ()
 XMLscene.prototype.playerAction = function (selObjId)
 {
   var changecambool = this.jogo.select_Obj(selObjId);
-  if(changecambool)
-    this.changeViews();
+  //if(changecambool)
+    //this.changeViews();
 
   this.jogo.fazJogada();
 
