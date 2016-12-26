@@ -64,7 +64,8 @@
 		<texture id="tabuleiroTex8" file="textures\\tron8.jpeg" length_s="1" length_t="1" />
 		<texture id="tabuleiroTex9" file="textures\\tron9.jpeg" length_s="1" length_t="1" />
 		<texture id="risca" file="textures\\risca.png" length_s="1" length_t="1" />
-		<texture id="azulTex" file="textures\\azul.png" length_s="1" length_t="1" />
+		<texture id="azulTex" file="textures\\textazul1.png" length_s="1" length_t="1" />
+		<texture id="laranjaTex" file="textures\\textLaranja1.png" length_s="1" length_t="1" />
 	</textures>
 
 
@@ -409,7 +410,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="risca" />
+            <texture id="azulTex" />
 
             <children>
                 <primitiveref id="torus" />
@@ -556,7 +557,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" />
+            <texture id="laranjaTex" />
 
             <children>
                 <primitiveref id="torus" />
