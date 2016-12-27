@@ -1,0 +1,1081 @@
+<!-- Cena de um parapente a movimentar-se para primeira entrega de LAIG (Nuno Silva e Paulo Babo) -->
+
+
+
+<dsx>
+
+    <scene root="root" axis_length="10" />
+
+
+    <views default="view1" >
+        <perspective id="perspeCentro" near="0.1" far="1000" angle="45">
+            <from x="0" y="41" z="0.01" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+    <perspective id="perspeSetVermelho" near="0.1" far="1000" angle="45">
+            <from x="17" y="41" z="0.01" />
+            <to x="17" y="0" z="0" />
+        </perspective>
+
+
+    <perspective id="perspeCentro" near="0.1" far="1000" angle="45">
+            <from x="0" y="41" z="0.01" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+
+    <perspective id="perspeSetAzul" near="0.1" far="1000" angle="45">
+            <from x="-17" y="41" z="0.01" />
+            <to x="-17" y="0" z="0" />
+        </perspective>
+
+    </views>
+
+
+
+    <illumination doublesided="1" local="1" >
+		<ambient r="0.4" g="0.4" b="0.4" a="0.8" />
+        <background r="0.1" g="0.1" b="0.1" a="0.95" />
+    </illumination>
+
+
+    <lights>
+        <omni id="luzPrincipal" enabled="1" >
+            <location x="0" y="40" z="0" w="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
+        </omni>
+
+        <omni id="luzSetVermelho" enabled="1" >
+            <location x="17" y="10" z="0" w="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
+        </omni>
+
+        <omni id="luzSetAzul" enabled="1" >
+            <location x="-17" y="10" z="0" w="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
+        </omni>
+
+
+        <omni id="luzFrente" enabled="1" >
+            <location x="0" y="20" z="25" w="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="0.9" />
+            <specular r="0.9" g="0.9" b="0.9" a="0.9" />
+        </omni>
+
+    </lights>
+
+
+    <textures>
+		<texture id="tabuleiroTex1" file="textures\\bambo1.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex2" file="textures\\bambo2.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex3" file="textures\\bambo3.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex4" file="textures\\bambo4.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex5" file="textures\\bambo5.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex6" file="textures\\bambo6.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex7" file="textures\\bambo7.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex8" file="textures\\bambo8.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex9" file="textures\\bambo9.jpeg" length_s="1" length_t="1" />
+		<texture id="lado" file="textures\\blackwood.jpg" length_s="1" length_t="1" />
+		<texture id="chao" file="textures\\chao2.jpg" length_s="1" length_t="1" />
+		<texture id="azulTex" file="textures\\azul.png" length_s="1" length_t="1" />
+		<texture id="laranjaTex" file="textures\\vermelho.png" length_s="1" length_t="1" />
+	</textures>
+
+
+    <materials>
+
+		<material id="materialTabuleiro" >
+          <emission r="0" g="0" b="0" a="0" />
+          <ambient r="0.2" g="0.2" b="0.2" a="1" />
+          <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
+          <specular r="0.7" g="0.7" b="0.7" a="1" />
+          <shininess value="100" />
+        </material>
+
+
+		<material id="materialPecaAzul" >
+          <emission r="0" g="0" b="0" a="0" />
+          <ambient r="0.1" g="0.1" b="0.1" a="1" />
+          <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+          <specular r="0.4" g="0.4" b="0.4" a="1" />
+          <shininess value="1" />
+        </material>
+
+
+		<material id="materialPecaVermelha" >
+      <emission r="0" g="0" b="0" a="0" />
+      <ambient r="0.1" g="0.1" b="0.1" a="1" />
+      <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+      <specular r="0.4" g="0.4" b="0.4" a="0.4" />
+      <shininess value="1" />
+        </material>
+
+        <material id="selected" >
+          <emission r="0" g="1" b="0" a="1" />
+          <ambient r="0" g="0" b="0" a="1" />
+          <diffuse r="0" g="0" b="0" a="1" />
+          <specular r="0" g="0" b="0" a="1" />
+          <shininess value="1" />
+        </material>
+
+
+    </materials>
+
+
+    <transformations>
+
+    </transformations>
+
+
+	<animations>
+   		<animation id="anim1" span="2" type="linear">
+        	<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="5" yy="0" zz="0" />
+        </animation>
+	</animations>
+
+
+
+
+    <primitives>
+        <primitive id="rectangle">
+            <rectangle x1="0" y1="0" x2="1" y2="1" />
+		</primitive>
+
+        <primitive id="triangle">
+			<triangle x1="2" y1="2" z1="0" x2="1" y2="1" z2="0" x3="2" y3="0" z3="0" />
+		</primitive>
+
+        <primitive id="cylinder">
+			<cylinder base="0.5" top="0.5" height="1" slices="20" stacks="20" />
+		</primitive>
+
+        <primitive id="sphere">
+			<sphere radius="0.5" slices="20" stacks="20" />
+		</primitive>
+
+        <primitive id="torus">
+			<torus inner="0.1" outer="3" slices="50" loops="25" />
+		</primitive>
+
+		<primitive id="cone">
+            <cylinder base="0" top="0.5" height="1" slices="50" stacks="10" />
+        </primitive>
+
+        <primitive id="tabuleiropos">
+            <plane dimX="8" dimY="8" partsX="50" partsY="50"/>
+        </primitive>
+
+         <primitive id="cubicPiece">
+            <piece />
+        </primitive>
+
+		<primitive id="cubo">
+            <cube/>
+        </primitive>
+
+
+    </primitives>
+
+
+
+    <components>
+
+        <component id="root">
+
+            <transformation>
+                 <translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaAzul" />
+            </materials>
+
+            <texture id="none" />
+
+
+            <children>
+				<componentref id="tabuleiro"/>
+				<componentref id="setAzul"/>
+				<componentref id="setVermelho"/>
+				<componentref id="cerca"/>
+
+
+
+            </children>
+
+        </component>
+
+
+		<component id="cerca">
+
+            <transformation>
+                 <translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaAzul" />
+            </materials>
+
+            <texture id="none" />
+
+
+            <children>
+				<componentref id="cubo1"/>
+				<componentref id="cubo2"/>
+				<componentref id="cubo3"/>
+				<componentref id="cubo4"/>
+				<componentref id="cubo5"/>
+				<componentref id="cubo6"/>
+				<componentref id="pano"/>
+
+            </children>
+
+        </component>
+
+	   <component id="pano">
+
+            <transformation>
+           			 <translate x="0" y="-0.01" z="0" />
+                 	<scale x="5.8" y="1" z="3" />
+                  <rotate axis="x" angle="-90" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="chao" />
+
+
+            <children>
+				<primitiveref id="tabuleiropos"/>
+            </children>
+
+        </component>
+
+        <component id="cubo1">
+
+            <transformation>
+                 <translate x="12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo4">
+
+            <transformation>
+                 <translate x="0" y="0.5" z="-12.5" />
+                 <rotate axis="y" angle="-90" />
+                 <scale x="1" y="1" z="46" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo2">
+
+            <transformation>
+                 <translate x="-12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+
+    	<component id="cubo5">
+
+            <transformation>
+                 <translate x="-22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+        <component id="cubo6">
+
+            <transformation>
+                 <translate x="22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+
+		<component id="tabuleiro">
+            <transformation>
+				<rotate axis="x" angle="-90" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex" />
+
+            <children>
+                <componentref id="tabuleiropos1"/>
+				<componentref id="tabuleiropos2"/>
+				<componentref id="tabuleiropos3"/>
+				<componentref id="tabuleiropos4"/>
+				<componentref id="tabuleiropos5"/>
+				<componentref id="tabuleiropos6"/>
+				<componentref id="tabuleiropos7"/>
+				<componentref id="tabuleiropos8"/>
+				<componentref id="tabuleiropos9"/>
+            </children>
+
+        </component>
+
+
+
+
+		<component id="setAzul">
+            <transformation>
+				<translate x="-17" y="0.5" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaAzul" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="bloco1"/>
+				<componentref id="bloco2"/>
+				<componentref id="bloco3"/>
+            </children>
+
+        </component>
+		<component id="setVermelho">
+            <transformation>
+				<translate x="17" y="0.5" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaVermelha" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="bloco4"/>
+				<componentref id="bloco5"/>
+				<componentref id="bloco6"/>
+            </children>
+
+        </component>
+
+
+
+
+
+		<component id="bloco1">
+            <transformation>
+				<translate x="0" y="0" z="-7.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande1"/>
+				<componentref id="pecaMedia1"/>
+				<componentref id="pecaPequena1"/>
+            </children>
+
+        </component>
+		<component id="bloco2">
+            <transformation>
+				<translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande2"/>
+				<componentref id="pecaMedia2"/>
+				<componentref id="pecaPequena2"/>
+            </children>
+
+        </component>
+		<component id="bloco3">
+            <transformation>
+				<translate x="0" y="0" z="7.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande3"/>
+				<componentref id="pecaMedia3"/>
+				<componentref id="pecaPequena3"/>
+            </children>
+
+        </component>
+
+		<component id="bloco4">
+            <transformation>
+				<translate x="0" y="0" z="-7.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande4"/>
+				<componentref id="pecaMedia4"/>
+				<componentref id="pecaPequena4"/>
+            </children>
+
+        </component>
+		<component id="bloco5">
+            <transformation>
+				<translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande5"/>
+				<componentref id="pecaMedia5"/>
+				<componentref id="pecaPequena5"/>
+            </children>
+
+        </component>
+		<component id="bloco6">
+            <transformation>
+				<translate x="0" y="0" z="7.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <componentref id="pecaGrande6"/>
+				<componentref id="pecaMedia6"/>
+				<componentref id="pecaPequena6"/>
+            </children>
+
+        </component>
+
+
+
+
+
+		<component id="pecaGrande1">
+            <transformation>
+           		 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="azulTex" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia1">
+            <transformation>
+            	<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena1">
+            <transformation>
+           		 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+			<component id="pecaGrande2">
+            <transformation>
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia2">
+            <transformation>
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena2">
+            <transformation>
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande3">
+            <transformation>
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia3">
+            <transformation>
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena3">
+            <transformation>
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande4">
+            <transformation>
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="laranjaTex" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia4">
+            <transformation>
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena4">
+            <transformation>
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande5">
+            <transformation>
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia5">
+            <transformation>
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena5">
+            <transformation>
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+        	<component id="pecaGrande6">
+            <transformation>
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaMedia6">
+            <transformation>
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+		<component id="pecaPequena6">
+            <transformation>
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
+            </transformation>
+
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="none" />
+
+            <children>
+                <primitiveref id="cubicPiece" />
+            </children>
+
+        </component>
+
+
+
+		<component id="tabuleiropos1">
+            <transformation>
+				<translate x="-8" y="8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex7" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos2">
+            <transformation>
+				<translate x="0" y="8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex8" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos3">
+            <transformation>
+				<translate x="8" y="8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex9" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos4">
+            <transformation>
+				<translate x="-8" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex4" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos5">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex5" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos6">
+            <transformation>
+				<translate x="8" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex6" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos7">
+            <transformation>
+				<translate x="-8" y="-8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex1" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos8">
+            <transformation>
+				<translate x="0" y="-8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex2" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+		<component id="tabuleiropos9">
+            <transformation>
+				          <translate x="8" y="-8" z="0" />
+            </transformation>
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="tabuleiroTex3" />
+
+            <children>
+                <primitiveref id="tabuleiropos"/>
+            </children>
+        </component>
+
+
+
+
+
+    </components>
+
+
+
+
+</dsx>

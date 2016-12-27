@@ -21,7 +21,7 @@ function MySceneGraph(filename, scene) {
 	this.changed=1;
 	this.fileActual=filename;
 	this.filename1=filename;
-	this.filename2="specs2.xml";
+	this.filename2="otrioCube.xml";
 	//graus para radianos
 	this.degToRad = Math.PI / 180.0;
 
@@ -840,7 +840,7 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 			}
 			else if(child.nodeName == "cube")
 			{
-				
+
 				cube_primitive= new MyUCube(this.scene);
 				this.primitives_info.primitives_list[i].realPrimitive=cube_primitive;
 			}

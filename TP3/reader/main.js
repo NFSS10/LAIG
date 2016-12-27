@@ -36,7 +36,7 @@ main=function()
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
   //Colocar aqui ficheiro a carregar
-	var filename=getUrlVars()['file'] || "specs.xml";
+	var filename=getUrlVars()['file'] || "tron.xml";
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors

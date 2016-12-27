@@ -487,9 +487,7 @@ XMLscene.prototype.update = function(currTime) {
   {
 
     if(this.currReplays.length == 0 || this.currReplays == null)
-      {
         this.replay = false;
-      }
 
     for(var i =0; i< this.graph.components_info.components_list.length; i++)
     {
@@ -497,8 +495,10 @@ XMLscene.prototype.update = function(currTime) {
       {
          for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
           {
-              if(!this.replay)
+          //Replay, jogadas ao mesmo tempo
+    /*Comentar*/if(!this.replay)
                 this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+              /*Comentar daqui...*/
               else
               {
                 if(this.graph.components_info.components_list[i].fullAnimation.animations[v].acabou == 0 && this.currReplays != null && this.graph.components_info.components_list[i].fullAnimation.animations[v].idReplay != null)
@@ -510,6 +510,7 @@ XMLscene.prototype.update = function(currTime) {
                       this.currReplays.shift();
                     }
               }
+              /*... ate aqui*/
 
 
           }
