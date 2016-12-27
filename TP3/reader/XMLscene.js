@@ -91,7 +91,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
   this.gl.clearColor(this.graph.illumination_info.background.r,this.graph.illumination_info.background.g,this.graph.illumination_info.background.b,this.graph.illumination_info.background.a);
   this.setGlobalAmbientLight(this.graph.illumination_info.ambient.r,this.graph.illumination_info.ambient.g,this.graph.illumination_info.ambient.b,this.graph.illumination_info.ambient.a);
-  this.lights[0].setVisible(true);
+  //this.lights[0].setVisible(true);
   this.lights[0].enable();
 
   //Liga as luzes que carregou
@@ -131,7 +131,7 @@ XMLscene.prototype.init_All_Lights = function ()
     this.interface.addLightInterface(light.id,this.luzesEstado[indice],indice); //Adiciona à gui
 
 
-    this.lights[indice].setVisible(true);
+   // this.lights[indice].setVisible(true);
     this.lights[indice].update();
 
   }

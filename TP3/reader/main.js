@@ -15,7 +15,8 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
 './misc/Views.js', './misc/Illumination.js', './misc/Textures.js', './misc/Materials.js', './misc/Transformations.js', './misc/Primitives.js', './misc/Components.js', './misc/Lights.js', './misc/Scene.js',
 './primitives/MyCylinder.js' , './primitives/MyCylinderBase.js' , './primitives/MyCylinderSurface.js' , './primitives/MyRectangle.js' , './primitives/MySphere.js' , './primitives/MyTorus.js' , './primitives/MyTriangle.js' ,
 './misc/Stack.js','./misc/Ponto3.js', './misc/Animation.js','./misc/LinearAnimation.js','./misc/CircularAnimation.js','./misc/FullAnimation.js','./primitives/Plane.js','./primitives/Patch.js','./primitives/Vehicle.js','./primitives/Chessboard.js','./misc/Rgba.js',
-'./primitives/MyParaquedista.js',
+'./primitives/MyParaquedista.js','./primitives/MyUCube.js','./primitives/MyCubicPiece.js',
+
 main=function()
 {
 	// Standard application, scene and interface setup

@@ -9,23 +9,23 @@
 
     <views default="view1" >
         <perspective id="perspeCentro" near="0.1" far="1000" angle="45">
-            <from x="0" y="31" z="0.01" />
+            <from x="0" y="41" z="0.01" />
             <to x="0" y="0" z="0" />
         </perspective>
 
 		<perspective id="perspeSetVermelho" near="0.1" far="1000" angle="45">
-            <from x="17" y="31" z="0.01" />
+            <from x="17" y="41" z="0.01" />
             <to x="17" y="0" z="0" />
         </perspective>
 
 
 		<perspective id="perspeCentro" near="0.1" far="1000" angle="45">
-            <from x="0" y="31" z="0.01" />
+            <from x="0" y="41" z="0.01" />
             <to x="0" y="0" z="0" />
         </perspective>
 
 		<perspective id="perspeSetAzul" near="0.1" far="1000" angle="45">
-            <from x="-17" y="31" z="0.01" />
+            <from x="-17" y="41" z="0.01" />
             <to x="-17" y="0" z="0" />
         </perspective>
 
@@ -59,7 +59,8 @@
 		<texture id="tabuleiroTex7" file="textures\\tron7.jpeg" length_s="1" length_t="1" />
 		<texture id="tabuleiroTex8" file="textures\\tron8.jpeg" length_s="1" length_t="1" />
 		<texture id="tabuleiroTex9" file="textures\\tron9.jpeg" length_s="1" length_t="1" />
-		<texture id="risca" file="textures\\risca.png" length_s="1" length_t="1" />
+		<texture id="lado" file="textures\\lado.png" length_s="1" length_t="1" />
+		<texture id="chao" file="textures\\chao.png" length_s="1" length_t="1" />
 		<texture id="azulTex" file="textures\\textazul1.png" length_s="1" length_t="1" />
 		<texture id="laranjaTex" file="textures\\textLaranja1.png" length_s="1" length_t="1" />
 	</textures>
@@ -149,6 +150,14 @@
             <plane dimX="8" dimY="8" partsX="50" partsY="50"/>
         </primitive>
 
+        <primitive id="tabuleiropano">
+            <plane dimX="20" dimY="20" partsX="50" partsY="50"/>
+        </primitive>
+
+		<primitive id="cubo">
+            <cube/>
+        </primitive>
+
 
 
     </primitives>
@@ -175,14 +184,204 @@
 				<componentref id="tabuleiro"/>
 				<componentref id="setAzul"/>
 				<componentref id="setVermelho"/>
-			
+				<componentref id="cerca"/>
+            </children>
 
+        </component>
+
+		<component id="cerca">
+
+            <transformation>
+                 <translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaAzul" />
+            </materials>
+
+            <texture id="none" />
+
+
+            <children>
+				<componentref id="cubo1"/>
+				<componentref id="cubo2"/>
+				<componentref id="cubo3"/>
+				<componentref id="cubo4"/>
+				<componentref id="cubo5"/>
+				<componentref id="cubo6"/>
+				<componentref id="pano"/>
 
             </children>
 
         </component>
 
+	   <component id="pano">
 
+            <transformation>
+           			 <translate x="0" y="-0.01" z="0" />
+                 	<scale x="5.8" y="1" z="3" />
+                  <rotate axis="x" angle="-90" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="chao" />
+
+
+            <children>
+				<primitiveref id="tabuleiropos"/>
+            </children>
+
+        </component>
+
+        <component id="cubo1">
+
+            <transformation>
+                 <translate x="12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />    
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />    
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo4">
+
+            <transformation>
+                 <translate x="0" y="0.5" z="-12.5" />    
+                 <rotate axis="y" angle="-90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo2">
+
+            <transformation>
+                 <translate x="-12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+		
+    	<component id="cubo5">
+
+            <transformation>
+                 <translate x="-22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+        <component id="cubo6">
+
+            <transformation>
+                 <translate x="22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
 		<component id="tabuleiro">
             <transformation>
 				<rotate axis="x" angle="-90" />
@@ -388,7 +587,7 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" />
+            <texture id="azulTex" />
 
             <children>
                 <primitiveref id="torus" />

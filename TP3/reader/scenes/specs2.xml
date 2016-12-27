@@ -54,18 +54,19 @@
 
 
     <textures>
-		<texture id="tabuleiroTex1" file="textures\\tron1.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex2" file="textures\\tron2.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex3" file="textures\\tron3.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex4" file="textures\\tron4.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex5" file="textures\\tron5.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex6" file="textures\\tron6.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex7" file="textures\\tron7.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex8" file="textures\\tron8.jpeg" length_s="1" length_t="1" />
-		<texture id="tabuleiroTex9" file="textures\\tron9.jpeg" length_s="1" length_t="1" />
-		<texture id="risca" file="textures\\risca.png" length_s="1" length_t="1" />
-		<texture id="azulTex" file="textures\\textazul1.png" length_s="1" length_t="1" />
-		<texture id="laranjaTex" file="textures\\textLaranja1.png" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex1" file="textures\\bambo1.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex2" file="textures\\bambo2.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex3" file="textures\\bambo3.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex4" file="textures\\bambo4.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex5" file="textures\\bambo5.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex6" file="textures\\bambo6.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex7" file="textures\\bambo7.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex8" file="textures\\bambo8.jpeg" length_s="1" length_t="1" />
+		<texture id="tabuleiroTex9" file="textures\\bambo9.jpeg" length_s="1" length_t="1" />
+		<texture id="lado" file="textures\\blackwood.jpg" length_s="1" length_t="1" />
+		<texture id="chao" file="textures\\chao2.jpg" length_s="1" length_t="1" />
+		<texture id="azulTex" file="textures\\veludoA.jpg" length_s="1" length_t="1" />
+		<texture id="laranjaTex" file="textures\\veludoV.jpg" length_s="1" length_t="1" />
 	</textures>
 
 
@@ -153,6 +154,13 @@
             <plane dimX="8" dimY="8" partsX="50" partsY="50"/>
         </primitive>
 
+         <primitive id="cubicPiece">
+            <piece />
+        </primitive>
+
+		<primitive id="cubo">
+            <cube/>
+        </primitive>
 
 
     </primitives>
@@ -179,13 +187,208 @@
 				<componentref id="tabuleiro"/>
 				<componentref id="setAzul"/>
 				<componentref id="setVermelho"/>
+				<componentref id="cerca"/>
 			
 
 
             </children>
 
         </component>
+	
+		
+		<component id="cerca">
 
+            <transformation>
+                 <translate x="0" y="0" z="0" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialPecaAzul" />
+            </materials>
+
+            <texture id="none" />
+
+
+            <children>
+				<componentref id="cubo1"/>
+				<componentref id="cubo2"/>
+				<componentref id="cubo3"/>
+				<componentref id="cubo4"/>
+				<componentref id="cubo5"/>
+				<componentref id="cubo6"/>
+				<componentref id="pano"/>
+
+            </children>
+
+        </component>
+
+	   <component id="pano">
+
+            <transformation>
+           			 <translate x="0" y="-0.01" z="0" />
+                 	<scale x="5.8" y="1" z="3" />
+                  <rotate axis="x" angle="-90" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="chao" />
+
+
+            <children>
+				<primitiveref id="tabuleiropos"/>
+            </children>
+
+        </component>
+
+        <component id="cubo1">
+
+            <transformation>
+                 <translate x="12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />    
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo3">
+
+            <transformation>
+            	 <translate x="0" y="0.5" z="12.5" />    
+                 <rotate axis="y" angle="90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo4">
+
+            <transformation>
+                 <translate x="0" y="0.5" z="-12.5" />    
+                 <rotate axis="y" angle="-90" />
+                 <scale x="1" y="1" z="46" />    
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+         <component id="cubo2">
+
+            <transformation>
+                 <translate x="-12.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="25.5" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+		
+    	<component id="cubo5">
+
+            <transformation>
+                 <translate x="-22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
+        <component id="cubo6">
+
+            <transformation>
+                 <translate x="22.5" y="0.5" z="0" />
+                 <scale x="1" y="1" z="26" />
+            </transformation>
+
+
+            <materials>
+                <material id="materialTabuleiro" />
+            </materials>
+
+            <texture id="lado" />
+
+
+            <children>
+				<primitiveref id="cubo"/>
+            </children>
+
+        </component>
 
 		<component id="tabuleiro">
             <transformation>
@@ -218,8 +421,7 @@
 
 		<component id="setAzul">
             <transformation>
-				<translate x="-17" y="0" z="-7.5" />
-				<rotate axis="x" angle="-90" />
+				<translate x="-17" y="0.5" z="0" />
             </transformation>
 
 
@@ -238,8 +440,7 @@
         </component>
 		<component id="setVermelho">
             <transformation>
-				<translate x="17" y="0" z="-7.5" />
-				<rotate axis="x" angle="-90" />
+				<translate x="17" y="0.5" z="0" />
             </transformation>
 
 
@@ -263,7 +464,7 @@
 
 		<component id="bloco1">
             <transformation>
-				<translate x="0" y="0" z="0" />
+				<translate x="0" y="0" z="-7.5" />
             </transformation>
 
 
@@ -282,7 +483,7 @@
         </component>
 		<component id="bloco2">
             <transformation>
-				<translate x="0" y="-7.5" z="0" />
+				<translate x="0" y="0" z="0" />
             </transformation>
 
 
@@ -301,7 +502,7 @@
         </component>
 		<component id="bloco3">
             <transformation>
-				<translate x="0" y="-15" z="0" />
+				<translate x="0" y="0" z="7.5" />
             </transformation>
 
 
@@ -321,7 +522,7 @@
 
 		<component id="bloco4">
             <transformation>
-				<translate x="0" y="0" z="0" />
+				<translate x="0" y="0" z="-7.5" />
             </transformation>
 
 
@@ -340,7 +541,7 @@
         </component>
 		<component id="bloco5">
             <transformation>
-				<translate x="0" y="-7.5" z="0" />
+				<translate x="0" y="0" z="0" />
             </transformation>
 
 
@@ -359,7 +560,7 @@
         </component>
 		<component id="bloco6">
             <transformation>
-				<translate x="0" y="-15" z="0" />
+				<translate x="0" y="0" z="7.5" />
             </transformation>
 
 
@@ -383,8 +584,8 @@
 
 		<component id="pecaGrande1">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+           		 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 
@@ -392,17 +593,18 @@
                 <material id="inherit" />
             </materials>
 
-            <texture id="none" />
+            <texture id="azulTex" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia1">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+            	<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
+			
             </transformation>
 
 
@@ -413,14 +615,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena1">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+           		 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -431,15 +633,15 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 
 			<component id="pecaGrande2">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 
@@ -450,14 +652,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia2">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
             </transformation>
 
 
@@ -468,14 +670,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena2">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -486,15 +688,15 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 
         	<component id="pecaGrande3">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 
@@ -505,14 +707,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia3">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
             </transformation>
 
 
@@ -523,14 +725,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena3">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -541,15 +743,15 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 
         	<component id="pecaGrande4">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 
@@ -560,14 +762,14 @@
             <texture id="laranjaTex" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia4">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
             </transformation>
 
 
@@ -578,14 +780,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena4">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -596,15 +798,15 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 
         	<component id="pecaGrande5">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 
@@ -615,14 +817,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia5">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
             </transformation>
 
 
@@ -633,14 +835,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena5">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -651,15 +853,15 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 
         	<component id="pecaGrande6">
             <transformation>
-				<translate x="0" y="0" z="1.5" />
-				<scale x="1" y="1" z="15" />
+				 <translate x="0" y="1" z="0" />
+				<scale x="2" y="3" z="2" />
             </transformation>
 
 			
@@ -670,14 +872,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaMedia6">
             <transformation>
-				<translate x="0" y="0" z="2" />
-				<scale x="0.666" y="0.666" z="20" />
+				<translate x="0" y="1.5" z="0" />
+				<scale x="0.9" y="4" z="0.9" />
             </transformation>
 
 
@@ -688,14 +890,14 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>
 		<component id="pecaPequena6">
             <transformation>
-				<translate x="0" y="0" z="2.5" />
-				<scale x="0.333" y="0.333" z="25" />
+				 <translate x="0" y="2" z="0" />
+				<scale x="0.4" y="5" z="0.4" />
             </transformation>
 
 
@@ -706,7 +908,7 @@
             <texture id="none" />
 
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cubicPiece" />
             </children>
 
         </component>

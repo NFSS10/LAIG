@@ -838,6 +838,17 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				vehicle_primitive= new Vehicle(this.scene);
 				this.primitives_info.primitives_list[i].realPrimitive=vehicle_primitive;
 			}
+			else if(child.nodeName == "cube")
+			{
+				
+				cube_primitive= new MyUCube(this.scene);
+				this.primitives_info.primitives_list[i].realPrimitive=cube_primitive;
+			}
+			else if(child.nodeName == "piece")
+			{
+					piece_primitive= new MyCubicPiece(this.scene);
+				this.primitives_info.primitives_list[i].realPrimitive=piece_primitive;
+			}
 			else if(child.nodeName == "chessboard")
 			{
 				chessboard = prim.children[j];
