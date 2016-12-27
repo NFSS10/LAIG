@@ -354,6 +354,7 @@ Otrio.prototype.quit = function()
 	this.scene.clockseconds1=0;
 	this.scene.clockseconds2=0;
 	this.scene.clockMinutes=0;
+	this.scene.clockTrueSeconds=0;
 	this.gameStates = [];
 	this.piecesThatMoved =[];
 	for(var i=0; i<this.scene.graph.components_info.components_list.length;i++)
@@ -509,6 +510,7 @@ Otrio.prototype.changePlayer = function()
     this.scene.clockAux=0;
 	this.scene.clockseconds1=0;
 	this.scene.clockseconds2=0;
+	this.scene.clockTrueSeconds=0;
 	this.scene.clockMinutes=0;
 }
 

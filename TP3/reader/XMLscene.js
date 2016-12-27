@@ -20,6 +20,7 @@ XMLscene.prototype.init = function (application) {
   this.clockMinutes=0;
   this.clockseconds1=0;
   this.clockseconds2=0;
+  this.clockTrueSeconds=0;
   this.clockAux=0;
   this.message = "Prima startGame ";
   this.setUpdatePeriod(30);
@@ -34,7 +35,7 @@ XMLscene.prototype.init = function (application) {
   this.gl.depthFunc(this.gl.LEQUAL);
 
   this.axis=new CGFaxis(this);
-
+  this.maxJogada=30;
 
 
   this.luzesEstado;
@@ -131,7 +132,7 @@ XMLscene.prototype.init_All_Lights = function ()
     this.interface.addLightInterface(light.id,this.luzesEstado[indice],indice); //Adiciona à gui
 
 
-   // this.lights[indice].setVisible(true);
+    //this.lights[indice].setVisible(true);
     this.lights[indice].update();
 
   }
@@ -285,6 +286,7 @@ XMLscene.prototype.updateClock = function(currTime)
 		if(this.clockAux>=1)
 		{
 			this.clockseconds1++;
+			this.clockTrueSeconds++;
 			this.clockAux=0;
 		}
 		if(this.clockseconds1>=10)
@@ -297,12 +299,13 @@ XMLscene.prototype.updateClock = function(currTime)
 			this.clockMinutes++;
 			this.clockseconds2=0;
 		}
-		if(this.clockMinutes>=1)
+		if(this.clockTrueSeconds>=this.maxJogada)
 		{
 			this.clockAux=0;
 			this.clockseconds1=0;
 			this.clockseconds2=0;
 			this.clockMinutes=0;
+			this.clockTrueSeconds=0;
 			this.jogo.reset_Seleccoes();
 			this.jogo.changePlayer();
 		}
