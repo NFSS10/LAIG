@@ -496,7 +496,7 @@ XMLscene.prototype.update = function(currTime) {
          for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
           {
           //Replay, jogadas ao mesmo tempo
-    /*Comentar*/if(!this.replay)
+    /*Comentar->*/if(!this.replay)
                 this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
               /*Comentar daqui...*/
               else
