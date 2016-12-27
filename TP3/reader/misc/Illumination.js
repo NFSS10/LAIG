@@ -1,5 +1,5 @@
 
-function rgba()
+function Rgba()
 {
 	r = null;
 	g = null;
@@ -20,7 +20,7 @@ function Illumination()
 
 Illumination.prototype.add_Ambient = function(r, g, b, a)
 {
-	ambient = new rgba();
+	ambient = new Rgba();
 	ambient.r=r;
 	ambient.g=g;
 	ambient.b=b;
@@ -31,7 +31,7 @@ Illumination.prototype.add_Ambient = function(r, g, b, a)
 
 Illumination.prototype.add_Background = function(r, g, b, a)
 {
-	background= new rgba();
+	background= new Rgba();
 	background.r=r;
 	background.g=g;
 	background.b=b;

@@ -18,12 +18,15 @@ function MySceneGraph(filename, scene) {
 	this.primitives_info = new Primitives();
 	this.components_info = new Components();
 	this.animation_info= []; //contem as animaçoes;
-
+	this.changed=1;
+	this.fileActual=filename;
+	this.filename1=filename;
+	this.filename2="otrioCube.xml";
 	//graus para radianos
 	this.degToRad = Math.PI / 180.0;
 
 	this.pickID = -1;
-	
+
 	// File reading
 	this.reader = new CGFXMLreader();
 
@@ -835,6 +838,17 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement)
 				vehicle_primitive= new Vehicle(this.scene);
 				this.primitives_info.primitives_list[i].realPrimitive=vehicle_primitive;
 			}
+			else if(child.nodeName == "cube")
+			{
+
+				cube_primitive= new MyUCube(this.scene);
+				this.primitives_info.primitives_list[i].realPrimitive=cube_primitive;
+			}
+			else if(child.nodeName == "piece")
+			{
+					piece_primitive= new MyCubicPiece(this.scene);
+				this.primitives_info.primitives_list[i].realPrimitive=piece_primitive;
+			}
 			else if(child.nodeName == "chessboard")
 			{
 				chessboard = prim.children[j];
@@ -1142,7 +1156,7 @@ MySceneGraph.prototype.parseComponents = function(rootElement)
 							if(this.idP==this.primitives_info.primitives_list[z].id)
 								childsref.realPrimitive=this.primitives_info.primitives_list[z].realPrimitive;
 						}
-						
+
 					}
 					childrens_obj.children_list.push(childsref);
 				}
@@ -1169,13 +1183,59 @@ MySceneGraph.prototype.displayScene = function()
 	var root = this.components_info.components_list[0].id;
 	transformations_infoack.push(mat4.create());
 	this.displayComponents(root,transformations_infoack,materialStack,textureStack);
+	if(this.changed==0)
+  	{
+  		var r = confirm("This will reset your game. Ok to continue");
+		if (r == true)
+  		{
+			this.loadedOk=null;
+			this.scene_info=new Scene();
+			this.views_info = new Views();
+			this.illumination_info = new Illumination();
+			this.lights_info= new Lights();
+			this.textures_info = new Textures();
+			this.materials_info= new Materials();
+			this.transformations_info = new Transformations();
+			this.primitives_info = new Primitives();
+			this.components_info = new Components();
+			this.animation_info= []; //contem as animaçoes;
+			console.log("aquiiiiii: "+ this.scene.lights.length);
+			for(var z=0; z<this.scene.lightsGUI.length;z++)
+			{
+				this.scene.interface.group.remove(this.scene.lightsGUI[z]);
+
+			}
+			this.scene.lightsGUI =[];
+			this.degToRad = Math.PI / 180.0;
+
+			this.pickID = -1;
+
+			if(this.fileActual==this.filename1)
+			{
+				this.scene.jogo.quit();
+				this.fileActual=this.filename2;
+				this.reader = new CGFXMLreader();
+				this.reader.open('scenes/'+this.filename2, this);
+
+			}
+			else
+			{
+				this.scene.jogo.quit();
+				this.fileActual=this.filename1;
+				this.reader = new CGFXMLreader();
+				this.reader.open('scenes/'+this.filename1, this);
+			}
+  		}
+
+  		this.changed=1;
+  	}
 }
 
 MySceneGraph.prototype.displayComponents = function(rootElement, transformations_infoack, materialStack, textureStack)
 {
 
 
-	
+
 	var node;
 	for(var i=0 ; i<this.components_info.components_list.length; i++)
 	{
@@ -1184,7 +1244,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 	}
 	if (node.children.children_list[0].idP!=null)// se a children for primitiva desenha;
 	{
-		
+
 		//Transformaçao
 		transformation = mat4.create();
 		mat4.multiply(transformation,transformations_infoack.top(),node.transformations.realMatrix);
@@ -1209,9 +1269,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 
 		if(textureStack.top() != "none")
 			materialStack.top().setTexture(textureStack.top());
-		
+
 		this.scene.pushMatrix();
-		
+
 		if(node.fullAnimation!=null)
 		{
 		if(node.fullAnimation.animations.length>0)
@@ -1225,8 +1285,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		materialStack.top().apply();
 		this.pickID++;
 		this.scene.registerForPick(this.pickID, node.children.children_list[0].realPrimitive);
+		node.replayID = this.pickID;
 		//console.log(node.children.children_list[0].realPrimitive);
-		
+
 		if(this.scene.jogo.undidpiece ==this.pickID)
 		{
 				node.animations.pop();
@@ -1245,9 +1306,9 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 				{
 					if(this.materials_info.materials[z].id=="selected")
 					{
-						
-						this.materials_info.materials[z].realMaterial.apply();	
-						
+
+						this.materials_info.materials[z].realMaterial.apply();
+
 					}
 				}
 				if(this.scene.jogo.selectedPiece != null && this.scene.jogo.posTomove !=null && node.fullAnimation==null && this.scene.jogo.jogada==1)
@@ -1262,21 +1323,22 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 					pontosControlo.push(ponto2);
 					pontosControlo.push(ponto3);
 					pontosControlo.push(ponto4);
-					
+
 					animation= new LinearAnimation("Lanimation",2,pontosControlo);
-					
+
 					node.animations.push(animation);
 					node.fullAnimation= new FullAnimation(node.animations);
-					
+
 
 				}
-				
-		}	
-			
+
+		}
+
+
 		node.children.children_list[0].realPrimitive.display();
-		
+
 		this.scene.popMatrix();
-		
+
 
 		transformations_infoack.pop();
 		materialStack.pop()
@@ -1321,7 +1383,7 @@ MySceneGraph.prototype.displayComponents = function(rootElement, transformations
 		if(node.animations.length>0)
  			this.scene.popMatrix();
 
-		
+
 		transformations_infoack.pop();
 		materialStack.pop();
 		textureStack.pop();

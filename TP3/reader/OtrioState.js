@@ -6,7 +6,7 @@ this.modoJogo;
 this.player1Wins;
 this.player2Wins;
 
-this.movedPiece=selectedPiece; 
+this.movedPiece=selectedPiece;
 this.movedPlace=posTomove;
 
 }

@@ -16,11 +16,18 @@ XMLscene.prototype.init = function (application) {
 
   this.initLights();
 
+  this.clock="              0:00";
+  this.clockMinutes=0;
+  this.clockseconds1=0;
+  this.clockseconds2=0;
+  this.clockTrueSeconds=0;
+  this.clockAux=0;
+  this.message = "Prima startGame ";
   this.setUpdatePeriod(30);
-
+  this.lightsGUI = [];
   this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-
+  this.score="SCORE";
 
   this.gl.clearDepth(100.0);
   this.gl.enable(this.gl.DEPTH_TEST);
@@ -28,6 +35,8 @@ XMLscene.prototype.init = function (application) {
   this.gl.depthFunc(this.gl.LEQUAL);
 
   this.axis=new CGFaxis(this);
+  this.maxJogada=30;
+
 
   this.luzesEstado;
   this.indice_View1 = 0;
@@ -42,8 +51,10 @@ XMLscene.prototype.init = function (application) {
   this.distanciaFromTotal = 0;
   this.distanciaToTotal = 0;
 
-  //Texturas
+  this.replay = false;
+  this.currReplays = [];
   this.ModoJogo = 1;
+
 
   this.jogo = new Otrio(this);
 
@@ -81,7 +92,7 @@ XMLscene.prototype.onGraphLoaded = function ()
 {
   this.gl.clearColor(this.graph.illumination_info.background.r,this.graph.illumination_info.background.g,this.graph.illumination_info.background.b,this.graph.illumination_info.background.a);
   this.setGlobalAmbientLight(this.graph.illumination_info.ambient.r,this.graph.illumination_info.ambient.g,this.graph.illumination_info.ambient.b,this.graph.illumination_info.ambient.a);
-  this.lights[0].setVisible(true);
+  //this.lights[0].setVisible(true);
   this.lights[0].enable();
 
   //Liga as luzes que carregou
@@ -121,7 +132,7 @@ XMLscene.prototype.init_All_Lights = function ()
     this.interface.addLightInterface(light.id,this.luzesEstado[indice],indice); //Adiciona à gui
 
 
-    this.lights[indice].setVisible(true);
+    //this.lights[indice].setVisible(true);
     this.lights[indice].update();
 
   }
@@ -264,6 +275,48 @@ XMLscene.prototype.updateMaterial = function () {
 
 };
 
+
+XMLscene.prototype.updateClock = function(currTime)
+{
+	if(this.jogo.modoJogo==1 && this.jogo.start==1)
+	{
+		this.clockAux+=1/30;
+
+
+		if(this.clockAux>=1)
+		{
+			this.clockseconds1++;
+			this.clockTrueSeconds++;
+			this.clockAux=0;
+		}
+		if(this.clockseconds1>=10)
+		{
+			this.clockseconds2++;
+			this.clockseconds1=0;
+		}
+		if(this.clockseconds2>=6)
+		{
+			this.clockMinutes++;
+			this.clockseconds2=0;
+		}
+		if(this.clockTrueSeconds>=this.maxJogada)
+		{
+			this.clockAux=0;
+			this.clockseconds1=0;
+			this.clockseconds2=0;
+			this.clockMinutes=0;
+			this.clockTrueSeconds=0;
+			this.jogo.reset_Seleccoes();
+			this.jogo.changePlayer();
+		}
+		this.clock= "              "+this.clockMinutes+":"+this.clockseconds2+this.clockseconds1;
+	}
+	else
+	{
+		this.clock="              0:00";
+	}
+}
+
 XMLscene.prototype.display = function () {
   // ---- BEGIN Background, camera and axis setup
 
@@ -279,7 +332,7 @@ XMLscene.prototype.display = function () {
   this.applyViewMatrix();
 
   // Draw axis
-  this.axis.display();
+ // this.axis.display();
 
   this.setDefaultAppearance();
 
@@ -290,27 +343,36 @@ XMLscene.prototype.display = function () {
   // This is one possible way to do it
   if (this.graph.loadedOk)
   {
-	this.logPicking();
-	this.clearPickRegistration();
-	this.graph.pickID=-1;
+  	this.logPicking();
+  	this.clearPickRegistration();
+  	this.graph.pickID=-1;
 
-	if(this.indice_View1 > this.graph.views_info.perspectives_list.length-1)
-	{
-		this.indice_View1=0;
-	}
+  	if(this.indice_View1 > this.graph.views_info.perspectives_list.length-1)
+  	{
+  		this.indice_View1=0;
+  	}
 
-	prevPerspective = this.graph.views_info.perspectives_list[this.indice_View1];
+  	prevPerspective = this.graph.views_info.perspectives_list[this.indice_View1];
 
-	if(this.indice_View2>this.graph.views_info.perspectives_list.length-1)
-	{
-		this.indice_View2=0;
-	}
-    nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
-    this.changeSmoothViews(prevPerspective, nextPerspective);
+  	if(this.indice_View2>this.graph.views_info.perspectives_list.length-1)
+  	{
+  		this.indice_View2=0;
+  	}
+      nextPerspective = this.graph.views_info.perspectives_list[this.indice_View2];
+      this.changeSmoothViews(prevPerspective, nextPerspective);
+      if(this.jogo.start==1)
+      {
+      	if(this.jogo.playerTurn==1)
+      	this.message= "Player 1 a jogar."
+      	else
+      	this.message= "Player 2 a jogar."
+      }
+  	this.score="        P1: "+this.jogo.player1Wins+" - "+this.jogo.player2Wins+" :P2";
 
 
-	this.updateLuzes();
-    this.graph.displayScene();
+
+  	this.updateLuzes();
+      this.graph.displayScene();
   }
 
   //this.plane.display();
@@ -345,8 +407,8 @@ XMLscene.prototype.logPicking = function ()
 XMLscene.prototype.playerAction = function (selObjId)
 {
   var changecambool = this.jogo.select_Obj(selObjId);
-  if(changecambool)
-    this.changeViews();
+  //if(changecambool)
+    //this.changeViews();
 
   this.jogo.fazJogada();
 
@@ -354,24 +416,65 @@ XMLscene.prototype.playerAction = function (selObjId)
 }
 
 
+
+XMLscene.prototype.replayMoves = function()
+{
+    this.replay = true;
+    //Limpa
+    for(var i=0; i<this.graph.components_info.components_list.length; i++)
+      this.graph.components_info.components_list[i].fullAnimation=null;
+
+
+      //Passar por todos os components que foram jogados e meter a animacao de novo
+      for (var k = 0; k < this.jogo.gameStates.length; k++)
+      {
+        this.currReplays.push(this.jogo.gameStates[k].movedPiece);
+
+        for(var j=0; j<this.graph.components_info.components_list.length; j++)
+        {
+          if(this.jogo.gameStates[k].movedPiece == this.graph.components_info.components_list[j].replayID)
+          {
+            var pontosControlo= [];
+            ponto1= new Ponto3(0,0,0);
+            ponto2= new Ponto3(0,5,0);
+            ponto3= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],5,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+            ponto4= new Ponto3(this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][0]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][0],0,this.jogo.posIniciais[this.jogo.gameStates[k].movedPlace][2]-this.jogo.posIniciais[this.jogo.gameStates[k].movedPiece][2]);
+
+            pontosControlo.push(ponto1);
+            pontosControlo.push(ponto2);
+            pontosControlo.push(ponto3);
+            pontosControlo.push(ponto4);
+
+            animation= new LinearAnimation("Lanimation",2,pontosControlo, this.jogo.gameStates[k].movedPiece);
+
+            this.graph.components_info.components_list[j].animations.push(animation);
+            this.graph.components_info.components_list[j].fullAnimation= new FullAnimation(this.graph.components_info.components_list[j].animations);
+          }
+        }
+      }
+}
+
+
 XMLscene.prototype.undoMove = function()
 {
-  //TODO chamar this.jogo.undo();
   console.log("\n\n\n\n\n\n UNDO");
 	this.jogo.undoMove();
 }
 
 XMLscene.prototype.quit = function()
 {
-  //chamar jogo reset, e por startGame=o;
   console.log("\n\n\n\n\n QUIT");
   this.jogo.quit();
+}
+
+XMLscene.prototype.changeVisual = function()
+{
+  this.graph.changed=0;
 }
 
 
 XMLscene.prototype.startGame = function()
 {
-  //TODO dar reset a tudo e começar com o modo de jogo selecionado
   console.log("\n\n\n\n\n\n startGame");
   this.jogo.startGame();
 
@@ -383,19 +486,40 @@ XMLscene.prototype.update = function(currTime) {
   if (this.graph.loadedOk)
   {
 
+    if(this.currReplays.length == 0 || this.currReplays == null)
+        this.replay = false;
+
     for(var i =0; i< this.graph.components_info.components_list.length; i++)
     {
       if(this.graph.components_info.components_list[i].fullAnimation!=null)
       {
          for( var v=0; v < this.graph.components_info.components_list[i].fullAnimation.animations.length; v++)
           {
-          	//console.log("updateeeee");
-           this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+          //Replay, jogadas ao mesmo tempo
+    /*Comentar->*/if(!this.replay)
+                this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+              /*Comentar daqui...*/
+              else
+              {
+                if(this.graph.components_info.components_list[i].fullAnimation.animations[v].acabou == 0 && this.currReplays != null && this.graph.components_info.components_list[i].fullAnimation.animations[v].idReplay != null)
+                   if(this.graph.components_info.components_list[i].fullAnimation.animations[v].idReplay == this.currReplays[0])
+                   {
+                     this.graph.components_info.components_list[i].fullAnimation.animations[v].update(currTime);
+
+                     if(this.graph.components_info.components_list[i].fullAnimation.animations[v].acabou == 1)
+                      this.currReplays.shift();
+                    }
+              }
+              /*... ate aqui*/
+
+
           }
 
       }
     }
   }
 
+
+	this.updateClock(currTime);
 
 }
