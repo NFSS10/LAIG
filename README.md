@@ -1,4 +1,3 @@
-# LAIG
+# LAIG - Graphical Applications Laboratory
 
-Trabalho 1
 LAIG
