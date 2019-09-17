@@ -1,3 +1,7 @@
 # LAIG - Graphical Applications Laboratory
 
-LAIG
+Projects made in Graphical Applications Laboratory class - MIEIC 3y1s 
+
+## Shaders
+
+## Integration with Prolog game
